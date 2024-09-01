@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.example.common.JwtTokenUtils;
 import com.example.entity.Admin;
 import com.example.entity.Params;
@@ -22,6 +23,7 @@ public class AdminServiceImpl implements AdminService {
     public List<Admin> findAll() {
         return adminMapper.selectAll();
     }
+
     @Override
     public PageInfo<Admin> findBySearch(Params params) {
         // 开启分页查询
@@ -46,7 +48,16 @@ public class AdminServiceImpl implements AdminService {
         // 初始化一个密码
         if (admin.getPassword() == null || admin.getPassword().equals("")) {
             admin.setPassword("123456");
+
         }
+        //若没有角色，则默认为歌曲管理员
+        if (admin.getRole() == null || admin.getRole().equals("")) {
+            admin.setRole("1");
+        }
+        String time = DateUtil.now();
+
+        admin.setCreateTime(time);
+        admin.setStatus("0");
         adminMapper.insertSelective(admin);
     }
 
@@ -76,6 +87,11 @@ public class AdminServiceImpl implements AdminService {
             // 如果查出来没有，那说明输入的用户名或者密码有误，提示用户，不允许登录
             throw new CustomException("用户名或密码输入错误");
         }
+        if(user.getStatus().equals("1")){
+            throw new CustomException("该用户已被禁用");
+        }
+        user.setLoginTime(DateUtil.now());
+        adminMapper.updateByPrimaryKeySelective(user);
         // 如果查出来了有，那说明确实有这个管理员，而且输入的用户名和密码都对；
         // 生成jwt token给前端
         String token = JwtTokenUtils.genToken(user.getId().toString(), user.getPassword());
