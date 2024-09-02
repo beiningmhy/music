@@ -57,7 +57,7 @@ public class AdminServiceImpl implements AdminService {
         String time = DateUtil.now();
 
         admin.setCreateTime(time);
-        admin.setStatus("0");
+        admin.setStatus("1");//注册先置为禁用，登录后才为启用
         adminMapper.insertSelective(admin);
     }
 
@@ -87,7 +87,11 @@ public class AdminServiceImpl implements AdminService {
             // 如果查出来没有，那说明输入的用户名或者密码有误，提示用户，不允许登录
             throw new CustomException("用户名或密码输入错误");
         }
-        if(user.getStatus().equals("1")){
+        //判断是否有登录时间，如果没有登录时间且账号状态为禁用表示从未登录那就将状态改为可用，否则提示账号被禁用
+
+        if(user.getStatus().equals("1")&&user.getLoginTime()==null){
+            user.setStatus("0");
+        }else if(user.getStatus().equals("1")){
             throw new CustomException("该用户已被禁用");
         }
         user.setLoginTime(DateUtil.now());

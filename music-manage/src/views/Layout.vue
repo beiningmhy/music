@@ -101,7 +101,7 @@ export default {
                         <span slot="title">系统首页</span>
                     </el-menu-item>
 
-                    <el-submenu index="2" v-if="user.role === 'ROLE_ADMIN'">
+                    <el-submenu index="2" v-if="user.role === '0'">
                         <template slot="title">
                             <i class="el-icon-location"></i><span>用户管理</span>
                         </template>
@@ -121,7 +121,7 @@ export default {
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
                             <el-menu-item index="/reserve">预定信息</el-menu-item>
                             <el-menu-item index="/log">日志管理</el-menu-item>
-                            <el-menu-item index="/notice" v-if="user.role === 'ROLE_ADMIN'">系统公告</el-menu-item>
+                            <el-menu-item index="/notice" v-if="user.role === '0'">系统公告</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -143,7 +143,7 @@ export default {
                             <div style="display: flex; align-items: center; cursor: default">
                                 <img src="@/assets/images/logo1.png" alt=""
                                     style="width: 40px; height: 40px; margin: 0 5px">
-                                <span>管理员</span>
+                                <span>管理员{{user.name}}</span>
                             </div>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item>个人信息</el-dropdown-item>
@@ -159,26 +159,7 @@ export default {
 
                 <!--        主体区域-->
                 <el-main>
-                    <!-- <div
-                        style="box-shadow: 0 0 10px rgba(0,0,0,.1); padding: 10px 20px; border-radius: 5px; margin-bottom: 10px">
-                        早安，骚年，祝你开心每一天！
-                    </div>
-                    <el-card style="width: 500px">
-                        <div slot="header" class="clearfix">
-                            <span>青哥哥带你做毕设2024</span>
-                        </div>
-                        <div>
-                            2024毕设正式开始了！青哥哥带你手把手敲出来！
-                            <div style="margin-top: 20px">
-                                <div style="margin: 10px 0"><strong>主题色</strong></div>
-                                <el-button type="primary">按钮</el-button>
-                                <el-button type="success">按钮</el-button>
-                                <el-button type="warning">按钮</el-button>
-                                <el-button type="danger">按钮</el-button>
-                                <el-button type="info">按钮</el-button>
-                            </div>
-                        </div>
-                    </el-card> -->
+
                     <router-view />
                 </el-main>
 
@@ -214,6 +195,10 @@ export default {
             localStorage.removeItem("user");
             this.$router.push("/login");
         }
+    },
+    created() {
+        console.log(1111);
+        
     }
 }
 </script>

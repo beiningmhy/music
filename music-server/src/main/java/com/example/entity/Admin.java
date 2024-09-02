@@ -31,5 +31,7 @@ public class Admin {
     private String token;
     @Transient
     private String verCode;
+    @Transient
+    private boolean sts;
 
 }

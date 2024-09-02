@@ -57,7 +57,7 @@ export default {
             request.post("/admin/register", this.admin).then(res => {
                 if (res.code === '0') {
                     this.$message({
-                        message: '注册成功',
+                        message: '注册成功！请及时登录，否则无法登录！',
                         type: 'success'
                     });
 

@@ -1,3 +1,4 @@
+import Admin from '@/views/Admin.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
@@ -12,28 +13,33 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component:Login,
+    component: Login,
   },
   {
     path: '/register',
     name: 'register',
-    component:Register,
+    component: Register,
 
   },
   {
     path: '/',
     name: 'layout',
-    component:Layout,
-    children:[
+    component: Layout,
+    children: [
       {
-        path:'/',
-        name:'index',
-        component:Index,
+        path: '/',
+        name: 'index',
+        component: Index,
       },
+      {
+        path:'/admin',
+        name:'admin',
+        component:Admin,
+      }
 
     ]
   }
-  
+
 
 
 ]
@@ -44,4 +50,16 @@ const router = new VueRouter({
   routes
 })
 
+// 路由守卫
+router.beforeEach((to ,from, next) => {
+  if (to.path ==='/login' || to.path === '/register') {
+    next();
+    return;
+  }
+  const user = localStorage.getItem("user");
+  if (!user && to.path !== '/login') {
+    return next("/login");
+  }
+  next();
+})
 export default router
