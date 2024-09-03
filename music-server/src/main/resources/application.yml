@@ -22,3 +22,22 @@ pagehelper:
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
+
+knife4j:
+  enable: true
+  openapi:
+    title: API接口文档
+    description: API接口文档
+    email: 3132367415@qq.com
+    concat: bnmhy
+    url: https://docs.xiaominfo.com
+    version: v4.0
+#    license: Apache 2.0
+#    license-url: https://stackoverflow.com/
+#    terms-of-service-url: https://stackoverflow.com/
+#    group:
+#      test1:
+#        group-name: 分组名称
+#        api-rule: package
+#        api-rule-resources:
+#          - com.knife4j.demo.new3

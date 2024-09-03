@@ -6,6 +6,7 @@ import com.wf.captcha.ArithmeticCaptcha;
 import com.wf.captcha.SpecCaptcha;
 import com.wf.captcha.base.Captcha;
 import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.Api;
 import org.apache.ibatis.annotations.Case;
 import org.springframework.web.bind.annotation.*;
 

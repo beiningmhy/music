@@ -107,7 +107,7 @@ export default {
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/admin">管理员信息</el-menu-item>
-                            <el-menu-item index="/user">用户信息</el-menu-item>
+                            <el-menu-item index="/consumer">用户信息</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="3">
@@ -197,7 +197,7 @@ export default {
         }
     },
     created() {
-        console.log(1111);
+        
         
     }
 }

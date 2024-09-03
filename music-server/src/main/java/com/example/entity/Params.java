@@ -9,5 +9,8 @@ public class Params {
     private String status;
     private Integer pageNum;
     private Integer pageSize;
+    private String username;
+    private String singerType;
+    private String other;
 
 }

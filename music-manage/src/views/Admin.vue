@@ -41,7 +41,8 @@
                 </el-table-column> -->
                 <el-table-column prop="sts" label="账号状态">
                     <template slot-scope="scope">
-                        <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949" @change="updateStatus(scope.row)"	>
+                        <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
+                            @change="updateStatus(scope.row)">
                         </el-switch>
                     </template>
                 </el-table-column>
@@ -51,7 +52,7 @@
                         <el-button type="primary" @click="edit(scope.row)">编辑</el-button>
                         <template>
 
-                            <el-popconfirm title="这是一段内容确定删除吗？" @confirm="del(scope.row.id)">
+                            <el-popconfirm title="确定删除吗？" @confirm="del(scope.row.id)">
                                 <el-button type="danger" slot="reference" style="margin-left: 5px">删除</el-button>
                             </el-popconfirm>
                         </template>
@@ -191,12 +192,23 @@ export default {
                 }
             })
         },
-        updateStatus(row){
-            row.status = row.status === '0'?'1':'0';
-            this.form=row;
-            this.submit();
+        updateStatus(row) {
+            // console.log(this.tableData);
             
-            
+            if (row.name === this.user.name) {
+                this.$message({
+                    message: '不能操作自己',
+                    type: 'error'
+                });
+                row.sts = !row.sts;
+            } else {
+                row.status = row.status === '0' ? '1' : '0';
+                this.form = row;
+                this.submit();
+            }
+
+
+
         },
     }
     ,
@@ -216,6 +228,7 @@ export default {
             tableData: [],
             dialogFormVisible: false,
             form: {},
+            user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
         }
     },
     computed: {

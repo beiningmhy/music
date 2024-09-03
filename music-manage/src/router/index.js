@@ -1,4 +1,5 @@
 import Admin from '@/views/Admin.vue'
+import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
@@ -35,6 +36,11 @@ const routes = [
         path:'/admin',
         name:'admin',
         component:Admin,
+      },
+      {
+        path:'/consumer',
+        name:'consumer',
+        component:Consumer,
       }
 
     ]
