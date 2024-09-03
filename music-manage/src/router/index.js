@@ -4,6 +4,8 @@ import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
+import Singer from '@/views/Singer.vue'
+import Song from '@/views/Song.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -41,6 +43,17 @@ const routes = [
         path:'/consumer',
         name:'consumer',
         component:Consumer,
+      },
+      {
+        path:'/singer',
+        name:'singer',
+        component:Singer,
+
+      },
+      {
+        path:'/song',
+        name:'song',
+        component:Song,
       }
 
     ]

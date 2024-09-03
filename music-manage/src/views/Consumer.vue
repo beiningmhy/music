@@ -33,8 +33,8 @@
                 </el-table-column>
                 <el-table-column prop="sex" label="性别" width="50">
                     <template slot-scope="scope">
-                        <el-tag v-if="scope.row.sex === '0'" type="success">男</el-tag>
-                        <el-tag v-else-if="scope.row.sex === '1'" type="danger">女</el-tag>
+                        <el-tag v-if="scope.row.sex === '0'" type="danger">女</el-tag>
+                        <el-tag v-else-if="scope.row.sex === '1'" type="success">男</el-tag>
                         <el-tag v-else type="danger">未知</el-tag>
                     </template>
                 </el-table-column>
@@ -108,8 +108,8 @@
                     </el-form-item>
                     <el-form-item label="性别" label-width="20%">
                         <el-select v-model="form.sex" placeholder="请选择" style="width: 90%" clearable>
-                            <el-option label="男" value="0"></el-option>
-                            <el-option label="女" value="1"></el-option>
+                            <el-option label="男" value="1"></el-option>
+                            <el-option label="女" value="0"></el-option>
                         </el-select>
                     </el-form-item>
                     <el-form-item label="手机号" label-width="20%" aria-required="true">
@@ -184,10 +184,12 @@ export default {
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0',
+                        
+                        introduction:item.introduction!=null&&item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction
+                        // introduction: item.introduction.substring(0, 10),
                         // birth: new Date(item.birth), 
                     }));
                     console.log(this.tableData);
-
                     this.total = res.data.total;
                 } else {
                     this.$message({
@@ -338,7 +340,7 @@ export default {
 /* CSS */
 .cell {
     overflow: hidden;
-    text-overflow: ellipsis;
     white-space: nowrap;
+    text-overflow: ellipsis;
 }
 </style>

@@ -35,22 +35,12 @@
             </if>
             <if test="params != null and params.other != null and params.other != ''">
                 or username like concat('%', #{ params.other }, '%')
-            </if>
-
-            <if test="params != null and params.other != null and params.other != ''">
                 or phone like concat('%', #{ params.other }, '%')
-            </if>
-            <if test="params != null and params.other != null and params.other != ''">
                 or email like concat('%', #{ params.other }, '%')
-            </if>
-            <if test="params != null and params.other != null and params.other != ''">
                 or introduction like concat('%', #{ params.other }, '%')
-            </if>
-            <if test="params != null and params.other != null and params.other != ''">
                 or address like concat('%', #{ params.other }, '%')
-            </if>
-            <if test="params != null and params.other != null and params.other != ''">
                 or point like concat('%', #{ params.other }, '%')
+                or birth like concat('%', #{ params.other}, '%')
             </if>
         </where>
     </select>

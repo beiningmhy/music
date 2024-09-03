@@ -103,7 +103,7 @@ export default {
 
                     <el-submenu index="2" v-if="user.role === '0'">
                         <template slot="title">
-                            <i class="el-icon-location"></i><span>用户管理</span>
+                            <i class="el-icon-user-solid"></i><span>用户管理</span>
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/admin">管理员信息</el-menu-item>
@@ -111,8 +111,18 @@ export default {
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="3">
+
                         <template slot="title">
-                            <i class="el-icon-location"></i><span>信息管理</span>
+                            <i class="el-icon-headset"></i><span slot="title">music管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="/singer">歌手信息</el-menu-item>
+                            <el-menu-item index="/song">歌曲信息</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="4">
+                        <template slot="title">
+                            <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/book">图书信息</el-menu-item>
@@ -143,7 +153,7 @@ export default {
                             <div style="display: flex; align-items: center; cursor: default">
                                 <img src="@/assets/images/logo1.png" alt=""
                                     style="width: 40px; height: 40px; margin: 0 5px">
-                                <span>管理员{{user.name}}</span>
+                                <span>管理员{{ user.name }}</span>
                             </div>
                             <el-dropdown-menu slot="dropdown">
                                 <el-dropdown-item>个人信息</el-dropdown-item>
@@ -197,8 +207,8 @@ export default {
         }
     },
     created() {
-        
-        
+
+
     }
 }
 </script>
