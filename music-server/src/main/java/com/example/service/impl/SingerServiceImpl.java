@@ -66,4 +66,9 @@ public class SingerServiceImpl implements SingerService {
     public Singer findByById(Integer id) {
         return singerMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public Singer findByName(String name) {
+        return singerMapper.findByName(name);
+    }
 }

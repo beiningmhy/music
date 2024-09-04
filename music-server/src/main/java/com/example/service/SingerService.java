@@ -20,4 +20,5 @@ public interface SingerService {
 
 
     Singer findByById(Integer id);
+    Singer findByName(String name);
 }

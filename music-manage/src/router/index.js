@@ -1,3 +1,4 @@
+import request from '@/utils/request'
 import Admin from '@/views/Admin.vue'
 import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
@@ -71,11 +72,24 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to ,from, next) => {
+  const user = localStorage.getItem("user");
+  request.get("/web/").then(res => {
+    // console.log(res);
+    
+    if (res.code === '0') {
+
+      return;
+    } else {
+      localStorage.removeItem("user");
+      next("/login");
+    }
+  })
   if (to.path ==='/login' || to.path === '/register') {
     next();
     return;
   }
-  const user = localStorage.getItem("user");
+  
+
   if (!user && to.path !== '/login') {
     return next("/login");
   }

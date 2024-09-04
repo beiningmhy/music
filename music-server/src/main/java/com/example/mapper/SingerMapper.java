@@ -14,7 +14,7 @@ import java.util.List;
 @Repository
 public interface SingerMapper extends Mapper<Singer> {
     List<Singer> findBySearch(@Param("params") Params params);
-    @Select("select * from music_singer where name = #{name} limit 1")
+    @Select("select * from music_singer where name like concat('%', #{ name }, '%') limit 1")
     @ResultMap("SingerRM")
     Singer findByName(@Param("name") String name);
 

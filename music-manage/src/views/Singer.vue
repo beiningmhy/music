@@ -82,8 +82,8 @@
                         </el-select>
                     </el-form-item>
                     <el-form-item label="头像" label-width="20%" aria-required="true">
-                        <el-upload action="http://localhost:8080/api/files/upload" :on-success="successUpload"
-                            list-type="picture-card" :file-list="fileList">
+                        <el-upload action="http://localhost:8080/api/files/upload?fileDir=singerPic"
+                            :on-success="successUpload" list-type="picture-card" :file-list="fileList">
                             <i slot="default" class="el-icon-plus"></i>
                             <!-- <el-button size="small" type="primary">点击上传</el-button> -->
                         </el-upload>
@@ -124,25 +124,25 @@ export default {
         load() {
             request.get("/singer").then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
 
                     this.tableData = res.data;
                 }
             })
         },
-        findBySearch() {
-            request.get("/singer/search", {
+        async findBySearch() {
+            await request.get("/singer/search", {
                 params: this.params
 
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0',
                         // birth: new Date(item.birth), 
                     }));
-                    console.log(this.tableData);
+                    // console.log(this.tableData);
 
                     this.total = res.data.total;
                 } else {

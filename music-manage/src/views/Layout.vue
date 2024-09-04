@@ -119,7 +119,7 @@ export default {
                             <el-menu-item index="/singer">歌手信息</el-menu-item>
                             <el-menu-item index="/song">歌曲信息</el-menu-item>
                         </el-menu-item-group>
-                    </el-submenu>
+                    </el-submenu> 
                     <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-message-solid"></i><span>信息管理</span>

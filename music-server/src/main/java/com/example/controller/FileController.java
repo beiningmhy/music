@@ -31,7 +31,8 @@ public class FileController {
      */
     @PostMapping("/upload")
 //    @AutoLog("文件上传")
-    public Result upload(MultipartFile file) {
+    public Result upload(MultipartFile file,String fileDir) {
+
         synchronized (FileController.class) {
 //            获取当前年月
             String yearMonth = YearMonth.now().toString();
@@ -39,19 +40,28 @@ public class FileController {
             String flag = System.currentTimeMillis() + "";
 //            获取原始文件名
             String fileName = file.getOriginalFilename();
+
             try {
 //                判断有没有文件夹，没有则创建
                 if (!FileUtil.isDirectory(filePath)) {
                     FileUtil.mkdir(filePath);
                 }
+                if(fileDir != null&& !fileDir.equals("")){
+                    FileUtil.writeBytes(file.getBytes(), filePath + fileDir + "/" + flag + "-" + fileName);
+                    System.out.println(fileName + "--上传成功");
+                    Thread.sleep(1L);
+                }else{
+                    fileDir=yearMonth;
+                    FileUtil.writeBytes(file.getBytes(), filePath + yearMonth + "/" + flag + "-" + fileName);
+                    System.out.println(fileName + "--上传成功");
+                    Thread.sleep(1L);
+                }
                 // 文件存储形式：时间戳-文件名
-                FileUtil.writeBytes(file.getBytes(), filePath + yearMonth + "/" + flag + "-" + fileName);
-                System.out.println(fileName + "--上传成功");
-                Thread.sleep(1L);
+
             } catch (Exception e) {
                 System.err.println(fileName + "--文件上传失败");
             }
-            return Result.success(yearMonth + "|" + flag + "-" + fileName);
+            return Result.success(fileDir + "|" + flag + "-" + fileName);
         }
     }
 
@@ -90,7 +100,7 @@ public class FileController {
                 os.close();
             }
         } catch (Exception e) {
-            System.out.println("文件下载失败");
+//            System.out.println("文件下载失败");
         }
     }
 

@@ -24,9 +24,9 @@ public class WebConfig implements  WebMvcConfigurer {
     public MultipartConfigElement multipartConfigElement() {
         MultipartConfigFactory factory = new MultipartConfigFactory();
         // 单个文件最大10MB
-        factory.setMaxFileSize(DataSize.parse("10MB"));
+        factory.setMaxFileSize(DataSize.parse("100MB"));
         // 整个请求最大10MB
-        factory.setMaxRequestSize(DataSize.parse("10MB"));
+        factory.setMaxRequestSize(DataSize.parse("100MB"));
         return factory.createMultipartConfig();
     }
 
@@ -40,7 +40,7 @@ public class WebConfig implements  WebMvcConfigurer {
                 .excludePathPatterns("/api/admin/login")
                 .excludePathPatterns("/api/admin/register")
                 .excludePathPatterns("/api/files/**")
-                .excludePathPatterns("/api/captcha");
-//                .excludePathPatterns("/api/type/upload");
+                .excludePathPatterns("/api/captcha")
+                .excludePathPatterns("/api/song/upload");
     }
 }

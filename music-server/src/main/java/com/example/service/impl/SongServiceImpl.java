@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import cn.hutool.core.date.DateUtil;
 import com.example.entity.Params;
 import com.example.entity.Song;
 import com.example.exception.CustomException;
@@ -32,25 +33,32 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void add(Song song) {
+    public void add(Song song,Integer cont) {
         // 1. 用户名一定要有，否则不让新增（后面需要用户名登录）
         if (song.getName() == null || "".equals(song.getName())) {
             throw new CustomException("用户名不能为空");
         }
+        if(song.getSingerId() == null||song.getSingerId()==0){
+             throw new CustomException("歌手不能为空");
+        }
         // 2. 进行重复性判断，同一名字的管理员不允许重复新增：只要根据用户名去数据库查询一下就可以了
-        Song user = songMapper.findByName(song.getName());
-        if (user != null) {
-            // 说明已经有了，这里我们就要提示前台不允许新增了
-            throw new CustomException("该歌手已存在，请勿重复添加");
+        if(cont==0){
+            Song user = songMapper.findByName(song.getName());
+            if (user != null) {
+                // 说明已经有了，这里我们就要提示前台不允许新增了
+                throw new CustomException("该歌曲已存在，请勿重复添加");
+            }
         }
 
-
-
+        String time = DateUtil.now();
+        song.setCreateTime(time);
+        song.setUpdateTime(time);
         songMapper.insertSelective(song);
     }
 
     @Override
     public void update(Song song) {
+        song.setUpdateTime(DateUtil.now());
         songMapper.updateByPrimaryKeySelective(song);
     }
 
@@ -64,6 +72,6 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public Song findByById(Integer id) {
-        return songMapper.selectByPrimaryKey(id);
+        return songMapper.findById(id);
     }
 }

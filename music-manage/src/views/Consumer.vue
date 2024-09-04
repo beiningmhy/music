@@ -168,7 +168,7 @@ export default {
         load() {
             request.get("/consumer").then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
 
                     this.tableData = res.data;
                 }
@@ -180,16 +180,16 @@ export default {
 
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0',
                         
-                        introduction:item.introduction!=null&&item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction
+                        introduction:item.introduction!=null&&item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                         // introduction: item.introduction.substring(0, 10),
                         // birth: new Date(item.birth), 
                     }));
-                    console.log(this.tableData);
+                    // console.log(this.tableData);
                     this.total = res.data.total;
                 } else {
                     this.$message({

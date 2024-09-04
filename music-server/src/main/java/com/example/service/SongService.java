@@ -11,7 +11,9 @@ public interface SongService {
 
     PageInfo<Song> findBySearch(Params params);
 
-    void add(Song song);
+
+
+    void add(Song song, Integer cont);
 
     void update(Song song);
 
@@ -20,4 +22,5 @@ public interface SongService {
 
 
     Song findByById(Integer id);
+
 }
