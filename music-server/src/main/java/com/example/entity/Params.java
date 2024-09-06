@@ -13,5 +13,5 @@ public class Params {
     private String singerType;
     private String other;
     private String singerId;
-
+    private Integer parentId;
 }

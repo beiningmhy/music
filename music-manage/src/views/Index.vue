@@ -42,8 +42,14 @@ export default {
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             activeName: '1',
             tableData: [],
+            // provinces :require('province-city-china/dist/data.json'),
+            
 
         }
+    },
+    created() {
+        // console.log(this.provinces);
+        
     },
     mounted() {
         // this.findNotice();

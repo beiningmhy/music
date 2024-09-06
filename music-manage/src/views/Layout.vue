@@ -125,7 +125,7 @@ export default {
                             <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/book">图书信息</el-menu-item>
+                            <el-menu-item index="/address">地址信息</el-menu-item>
                             <el-menu-item index="/type">图书分类</el-menu-item>
                             <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>

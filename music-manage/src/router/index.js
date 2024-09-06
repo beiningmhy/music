@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import Address from '@/views/Address.vue'
 import Admin from '@/views/Admin.vue'
 import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
@@ -55,6 +56,11 @@ const routes = [
         path:'/song',
         name:'song',
         component:Song,
+      },
+      {
+        path:'/address',
+        name:'address',
+        component:Address,
       }
 
     ]
