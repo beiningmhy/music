@@ -127,7 +127,9 @@
                             style="width: 90%"></el-input>
                     </el-form-item>
                     <el-form-item label="地址" label-width="20%" aria-required="true">
-                        <el-input v-model="form.address" autocomplete="off" style="width: 90%"></el-input>
+                        <el-tag  autocomplete="off" style="width: 90%" size="medium">{{ form.address }}</el-tag>
+                        <el-cascader v-model="value" :options="cascaderData" :props="{ expandTrigger: 'hover' }"
+                            @change="handleChange" style="width: 90%;margin-top: 5px;"></el-cascader>
                     </el-form-item>
                     <el-form-item label="头像" label-width="20%" aria-required="true">
                         <el-upload action="http://localhost:8080/api/files/upload" :on-success="successUpload"
@@ -165,6 +167,14 @@ import request from "@/utils/request";
 export default {
     // 定义一些页面上控件触的事件调用的方法
     methods: {
+        initCascader() {
+            request.get("/address/map").then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data);
+                    this.cascaderData = res.data;
+                }
+            })
+        },
         load() {
             request.get("/consumer").then(res => {
                 if (res.code === '0') {
@@ -184,8 +194,8 @@ export default {
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0',
-                        
-                        introduction:item.introduction!=null&&item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
+
+                        introduction: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                         // introduction: item.introduction.substring(0, 10),
                         // birth: new Date(item.birth), 
                     }));
@@ -242,6 +252,7 @@ export default {
 
         },
         submit() {
+            
             request.post("/consumer", this.form).then(res => {
                 if (res.code === '0') {
                     this.$message({
@@ -283,11 +294,30 @@ export default {
             if (avatar.includes('|')) {
                 location.href = 'http://localhost:8080/api/files/' + avatar;
 
-            }else{
+            } else {
                 this.$message({
                     message: '下载失败',
                     type: 'error'
                 });
+            }
+
+        },
+        async handleChange(value) {
+            let address = '';
+            // console.log(value);
+            if (value != null) {
+                for (let i = 0; i < value.length; i++) {
+                    const element = value[i];
+                    // console.log(element);
+                    await request.get('/address/' + element).then(res => {
+                        if (res.code === '0') {
+                            // console.log(res.data);
+                            address = address + res.data + '/'
+                        }
+                    })
+                }
+                // console.log(address);
+                this.form.address = address;
             }
 
         },
@@ -296,6 +326,7 @@ export default {
     // 页面加载的时候做一些事情
     created() {
         this.findBySearch();
+        this.initCascader();
     },
     data() {
         return {
@@ -308,9 +339,13 @@ export default {
             total: 0,
             tableData: [],
             dialogFormVisible: false,
-            form: {},
+            form: {
+                address:''
+            },
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             fileList: [],
+            cascaderData: [],
+            value:[],
         }
     },
     computed: {
@@ -323,6 +358,7 @@ export default {
             if (newValue == false) {
                 this.fileList = [];
                 this.form = {};
+                this.value=[]; 
             }
         },
     },

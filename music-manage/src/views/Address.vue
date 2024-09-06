@@ -99,6 +99,14 @@ import request from "@/utils/request";
 export default {
     // 定义一些页面上控件触的事件调用的方法
     methods: {
+        initCascader() {
+            request.get("/address/map").then(res => {
+                if (res.code === '0') {
+                    console.log(res.data);
+                    this.cascaderData = res.data;
+                }
+            })
+        },
         load() {
             request.get("/address").then(res => {
                 if (res.code === '0') {
@@ -120,8 +128,8 @@ export default {
                         this.tableData = res.data.list;
                         this.params.parentId = res.data.list[0].parentId;
                         this.total = res.data.total;
-                    }else{
-                        this.params.parentId=parentId;
+                    } else {
+                        this.params.parentId = parentId;
                         this.findBySearch2();
                     }
 
@@ -222,7 +230,7 @@ export default {
         },
         go(row) {
             // console.log(id);
-            this.params.name='';
+            this.params.name = '';
             this.params.parentId = row.id;
             this.params.status = '1';
             request.get("/address/search", {
@@ -289,6 +297,7 @@ export default {
     // 页面加载的时候做一些事情
     created() {
         this.findBySearch();
+        this.initCascader();
     },
     data() {
         return {
@@ -308,6 +317,7 @@ export default {
             },
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             radio: '1',
+            cascaderData:[],
         }
     },
     computed: {

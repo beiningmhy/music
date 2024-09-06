@@ -117,12 +117,12 @@ export default {
 
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0'
                     }));
-                    console.log(this.tableData);
+                    // console.log(this.tableData);
 
                     this.total = res.data.total;
                 } else {

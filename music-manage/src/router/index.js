@@ -17,49 +17,49 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/login',
-    name: 'login',
+    name: '登录页面',
     component: Login,
   },
   {
     path: '/register',
-    name: 'register',
+    name: '注册页面',
     component: Register,
 
   },
   {
     path: '/',
-    name: 'layout',
+    name: '布局',
     component: Layout,
     children: [
       {
         path: '/',
-        name: 'index',
+        name: '首页',
         component: Index,
       },
       {
         path:'/admin',
-        name:'admin',
+        name:'管理员信息',
         component:Admin,
       },
       {
         path:'/consumer',
-        name:'consumer',
+        name:'用户信息',
         component:Consumer,
       },
       {
         path:'/singer',
-        name:'singer',
+        name:'歌手信息',
         component:Singer,
 
       },
       {
         path:'/song',
-        name:'song',
+        name:'歌曲信息',
         component:Song,
       },
       {
         path:'/address',
-        name:'address',
+        name:'地址管理',
         component:Address,
       }
 

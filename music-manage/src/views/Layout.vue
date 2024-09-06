@@ -96,7 +96,7 @@ export default {
                 <el-menu :collapse="isCollapse" :collapse-transition="false" router background-color="#001529"
                     text-color="rgba(255, 255, 255, 0.65)" active-text-color="#fff" style="border: none"
                     :default-active="$route.path">
-                    <el-menu-item index="/">
+                    <el-menu-item index="/" @click="handleClick($route)">
                         <i class="el-icon-menu"></i>
                         <span slot="title">系统首页</span>
                     </el-menu-item>
@@ -106,8 +106,8 @@ export default {
                             <i class="el-icon-user-solid"></i><span>用户管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/admin">管理员信息</el-menu-item>
-                            <el-menu-item index="/consumer">用户信息</el-menu-item>
+                            <el-menu-item index="/admin" @click="handleClick($route)">管理员信息</el-menu-item>
+                            <el-menu-item index="/consumer" @click="handleClick($route)">用户信息</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="3">
@@ -116,16 +116,16 @@ export default {
                             <i class="el-icon-headset"></i><span slot="title">music管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/singer">歌手信息</el-menu-item>
-                            <el-menu-item index="/song">歌曲信息</el-menu-item>
+                            <el-menu-item index="/singer" @click="handleClick($route)">歌手信息</el-menu-item>
+                            <el-menu-item index="/song" @click="handleClick($route)">歌曲信息</el-menu-item>
                         </el-menu-item-group>
-                    </el-submenu> 
+                    </el-submenu>
                     <el-submenu index="4">
                         <template slot="title">
                             <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
                         <el-menu-item-group>
-                            <el-menu-item index="/address">地址信息</el-menu-item>
+                            <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
                             <el-menu-item index="/type">图书分类</el-menu-item>
                             <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
@@ -143,9 +143,19 @@ export default {
                 <el-header>
 
                     <i :class="collapseIcon" style="font-size: 26px" @click="handleCollapse"></i>
-                    <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-left: 20px">
-                        <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-                    </el-breadcrumb>
+                    <!-- <el-breadcrumb separator-class="el-icon-arrow-right" style="margin-left: 20px">
+                        <el-breadcrumb-item :to="{ path: '/' }">首页
+
+                        </el-breadcrumb-item>
+                        <el-breadcrumb-item v-for="item in this.$route.matched" :key="item.path" :to="item">{{ item.name
+                            }}</el-breadcrumb-item>
+                    </el-breadcrumb> -->
+
+                    <el-tag v-for="tag in tagList" :key="tag.name" closable type="success" @close="removeTag(tag)"
+                        @click="tagClick(tag)" size="medium" hit style="margin-left: 10px">
+                        {{ tag.name }}
+                    </el-tag>
+
 
                     <div style="flex: 1; width: 0; display: flex; align-items: center; justify-content: flex-end">
                         <i class="el-icon-quanping" style="font-size: 26px" @click="handleFull"></i>
@@ -186,10 +196,12 @@ export default {
     name: 'HomeView',
     data() {
         return {
+            // router: this.$router.currentRoute.name,
             isCollapse: false,  // 不收缩
             asideWidth: '200px',
             collapseIcon: 'el-icon-s-fold',
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
+            tagList: [],
         }
     },
     methods: {
@@ -204,10 +216,59 @@ export default {
         logout() {
             localStorage.removeItem("user");
             this.$router.push("/login");
-        }
+        },
+        handleClick(router) {
+            // console.log(router);
+            // console.log(this.tagList);
+
+            const exists = this.tagList.some(item => item.path === router.path);
+
+            if (!exists) { // 如果不存在，则添加新的路由项
+                this.tagList.push({
+                    name: router.name,
+                    title: router.name,
+                    content: router.name,
+                    path: router.path,
+                });
+            }
+            // 当 tagList 数量超过5时，删除第一个元素
+            if (this.tagList.length > 5) {
+                this.tagList.shift(); // 删除数组的第一个元素
+            }
+        },
+        removeTag(tag) {
+            // console.log(tag);
+            if (this.$route.path === tag.path) {
+                this.$message({ message: '不能关闭当前页', type: 'error', duration: '500' });
+                return
+            }
+            this.tagList = this.tagList.filter(item => item.path !== tag.path);
+        },
+        tagClick(tag) {
+            if (tag.path === this.$route.path) {
+                return;
+            } else {
+                this.$router.push(tag.path);
+            }
+
+        },
+        initializeTagList() {
+            // 获取当前路由信息
+            const currentRoute = this.$route;
+            // 检查当前路由信息是否有效
+            if (currentRoute) {
+                // 构建 tag 对象并加入到 tagList 中
+                this.tagList.push({
+                    name: currentRoute.name || '未命名',
+                    title: currentRoute.meta.title || '未命名',
+                    content: currentRoute.name || '未命名',
+                    path: currentRoute.path
+                });
+            }
+        },
     },
     created() {
-
+        this.initializeTagList();
 
     }
 }

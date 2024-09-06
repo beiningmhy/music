@@ -71,5 +71,10 @@ public class AddressServiceImpl implements AddressService {
         addressMapper.deleteByPrimaryKey(id);
     }
 
+    @Override
+    public Address findById(Integer id) {
+        return addressMapper.selectByPrimaryKey(id);
+    }
+
 
 }
