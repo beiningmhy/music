@@ -13,6 +13,8 @@ public class Consumer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Column(name="uid")
+    private String uid;
 
     @Column(name="username")
     private String username;

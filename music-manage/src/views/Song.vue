@@ -47,6 +47,7 @@
                                 :src="'http://localhost:8080/api/files/' + scope.row.url" controls="controls">
                             </audio>
                             <audio v-else :src="scope.row.url" controls="controls">
+                                <source :src="scope.row.url">
                                 您的浏览器不支持 audio 标签。
                             </audio>
                         </div>
@@ -240,7 +241,7 @@ export default {
         edit(obj) {
             this.fileList = obj.pic ? [{ name: obj.pic, url: "http://localhost:8080/api/files/" + obj.pic }] : [];
             this.songList = obj.url ? [{ name: obj.url, url: "http://localhost:8080/api/files/" + obj.url }] : [];
-            this.form = obj;
+            this.form = JSON.parse(JSON.stringify(obj));
             this.dialogFormVisible = true;
         },
         del(id) {

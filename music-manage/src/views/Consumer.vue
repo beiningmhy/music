@@ -24,6 +24,13 @@
                 highlight-current-row>
                 <el-table-column prop="id" label="序号" fixed width="50"></el-table-column>
                 <el-table-column prop="username" label="姓名" fixed width="150"></el-table-column>
+                <el-table-column prop="uid" label="UID" width="150">
+                    <template slot-scope="scope">
+                        <el-tag>
+                            {{ scope.row.uid }}
+                        </el-tag>
+                    </template>
+                </el-table-column>
                 <el-table-column prop="singerType" label="角色" width="100">
                     <template slot-scope="scope">
                         <el-tag v-if="scope.row.singerType === '0'" type="success">普通用户</el-tag>
@@ -97,6 +104,9 @@
         <div>
             <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" top="1vh">
                 <el-form :model="form">
+                    <el-form-item label="UID" label-width="20%" aria-required="true">
+                        <el-tag>{{ form.uid }}</el-tag>
+                    </el-form-item>
                     <el-form-item label="用户名" label-width="20%" aria-required="true">
                         <el-input v-model="form.username" autocomplete="off" style="width: 90%"></el-input>
                     </el-form-item>
@@ -231,7 +241,7 @@ export default {
         },
         edit(obj) {
             this.fileList = [{ name: obj.avatar, url: "http://localhost:8080/api/files/" + obj.avatar }] ? [{ name: obj.avatar, url: "http://localhost:8080/api/files/" + obj.avatar }] : [];
-            this.form = obj;
+            this.form = JSON.parse(JSON.stringify(obj));
             this.dialogFormVisible = true;
         },
         del(id) {

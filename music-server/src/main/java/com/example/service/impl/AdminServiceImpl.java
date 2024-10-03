@@ -63,6 +63,25 @@ public class AdminServiceImpl implements AdminService {
 
     @Override
     public void update(Admin admin) {
+        // 1. 用户名一定要有，否则不让新增（后面需要用户名登录）
+        if (admin.getName() == null || "".equals(admin.getName())) {
+            throw new CustomException("用户名不能为空");
+        }
+        // 2. 进行重复性判断，同一名字的管理员不允许重复新增：只要根据用户名去数据库查询一下就可以了
+        Admin user = adminMapper.findByName(admin.getName());
+        if (user != null) {
+            // 说明已经有了，这里我们就要提示前台不允许新增了
+            throw new CustomException("该用户名已存在，请更换用户名");
+        }
+        // 初始化一个密码
+        if (admin.getPassword() == null || admin.getPassword().equals("")) {
+            admin.setPassword("123456");
+
+        }
+        //若没有角色，则默认为歌曲管理员
+        if (admin.getRole() == null || admin.getRole().equals("")) {
+            admin.setRole("1");
+        }
         adminMapper.updateByPrimaryKeySelective(admin);
     }
 

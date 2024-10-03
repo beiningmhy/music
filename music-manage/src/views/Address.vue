@@ -186,7 +186,7 @@ export default {
             this.dialogFormVisible = true;
         },
         edit(obj) {
-            this.form = obj;
+            this.form = JSON.parse(JSON.stringify(obj));
             this.dialogFormVisible = true;
         },
         del(row) {

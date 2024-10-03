@@ -175,7 +175,7 @@ export default {
         },
         edit(obj) {
             this.fileList = [{ name: obj.pic, url: "http://localhost:8080/api/files/" + obj.pic }] ? [{ name: obj.pic, url: "http://localhost:8080/api/files/" + obj.pic }] : [];
-            this.form = obj;
+            this.form = JSON.parse(JSON.stringify(obj));
             this.dialogFormVisible = true;
         },
         del(id) {

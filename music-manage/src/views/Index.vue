@@ -3,7 +3,7 @@
         <div>
             这是首页
             <span>欢迎用户{{ user.name }}</span>
-
+            <iframe width="90%" height="90%" class="embed-show" src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3Da2d2CbtYDFp8bw2nsF7opqWHbcxsmQSCi3786YKV42IyUROZ-wdjONTZG-eig99Ny_w%26name%3D%2F%25E6%2584%25BF%25E4%25B8%258E%25E6%2584%2581-%25E6%259E%2597%25E4%25BF%258A%25E6%259D%25B0.flac%26_etag%3D7f7f1%26size%3D22363583" allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>        
         </div>
         <!-- <div>
             <div style="display: flex;height: 40vh;">

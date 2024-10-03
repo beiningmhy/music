@@ -1,5 +1,6 @@
 package com.example.service.impl;
 
+import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.example.common.JwtTokenUtils;
 import com.example.entity.Consumer;
@@ -12,7 +13,9 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class ConsumerServiceImpl implements ConsumerService {
@@ -55,6 +58,13 @@ public class ConsumerServiceImpl implements ConsumerService {
             consumer.setSingerType("0");
         }
         String time = DateUtil.now();
+
+        System.out.println(DateUtil.format(DateUtil.parse(time), "yyyyMMdd"));
+        consumer.setUid(DateUtil.format(DateUtil.parse(time), "yyyyMMdd").substring(2) + String.format("%05d",new Random().nextInt(1000)));
+
+
+
+
 
         consumer.setCreateTime(time);
         consumer.setUpdateTime(time);
