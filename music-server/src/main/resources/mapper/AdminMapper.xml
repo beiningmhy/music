@@ -26,5 +26,16 @@
             </if>
         </where>
     </select>
+    <select id="findByName" resultMap="AdminRM">
+        select * from music_admin
+        <where>
+            name =#{admin.name}
+            <if test="admin.id!=null and admin.id!=''">
+                and id!=#{admin.id}
+            </if>
+        </where>
+        limit 1
+
+    </select>
 
 </mapper>

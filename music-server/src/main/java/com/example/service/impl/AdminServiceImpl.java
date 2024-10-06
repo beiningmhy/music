@@ -40,7 +40,7 @@ public class AdminServiceImpl implements AdminService {
             throw new CustomException("用户名不能为空");
         }
         // 2. 进行重复性判断，同一名字的管理员不允许重复新增：只要根据用户名去数据库查询一下就可以了
-        Admin user = adminMapper.findByName(admin.getName());
+        Admin user = adminMapper.findByName(admin);
         if (user != null) {
             // 说明已经有了，这里我们就要提示前台不允许新增了
             throw new CustomException("该用户名已存在，请更换用户名");
@@ -57,7 +57,10 @@ public class AdminServiceImpl implements AdminService {
         String time = DateUtil.now();
 
         admin.setCreateTime(time);
-        admin.setStatus("1");//注册先置为禁用，登录后才为启用
+        if (admin.getStatus()==null){
+            admin.setStatus("1");//注册先置为禁用，登录后才为启用
+        }
+
         adminMapper.insertSelective(admin);
     }
 
@@ -68,7 +71,7 @@ public class AdminServiceImpl implements AdminService {
             throw new CustomException("用户名不能为空");
         }
         // 2. 进行重复性判断，同一名字的管理员不允许重复新增：只要根据用户名去数据库查询一下就可以了
-        Admin user = adminMapper.findByName(admin.getName());
+        Admin user = adminMapper.findByName(admin);
         if (user != null) {
             // 说明已经有了，这里我们就要提示前台不允许新增了
             throw new CustomException("该用户名已存在，请更换用户名");

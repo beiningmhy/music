@@ -12,9 +12,10 @@ import java.util.List;
 @Repository
 public interface AdminMapper extends Mapper<Admin> {
     List<Admin> findBySearch(@Param("params") Params params);
-    @Select("select * from music_admin where name = #{name} limit 1")
-    @ResultMap("AdminRM")
-    Admin findByName(@Param("name") String name);
+
+//    @Select("select * from music_admin where name =#{admin.name} and id!=#{admin.id} limit 1")
+//    @ResultMap("AdminRM")
+    Admin findByName(@Param("admin") Admin admin);
 
     @Select("select * from music_admin where name = #{name} and password = #{password} limit 1")
     @ResultMap("AdminRM")
