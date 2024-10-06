@@ -1,6 +1,65 @@
-<html>
-    <body>
-        <h1>hello word!!!</h1>
-        <p>this is a html page</p>
-    </body>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>访问提示页</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body, html {
+            height: 100%;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 36px; /* 增大字体大小 */
+            margin-bottom: 30px;
+            color: #333;
+            line-height: 1.5; /* 调整行间距 */
+            word-break: break-all; /* 确保在逗号处换行 */
+        }
+
+        .buttons button {
+            margin: 5px;
+            padding: 15px 30px;
+            font-size: 16px;
+            color: white;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            outline: none;
+        }
+
+        .buttons button:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>当前访问的为后端接口<br>想访问此网站请点击下方链接</h1>
+    <div class="buttons">
+        <button onclick="location.href='http://127.0.0.1:8080/doc.html#/home';">API 文档</button>
+        <button onclick="location.href='http://localhost:8081/';">网站首页</button>
+        <button onclick="location.href='http://localhost:8082/';">后台管理</button>
+    </div>
+</div>
+<script src="script.js"></script>
+</body>
 </html>

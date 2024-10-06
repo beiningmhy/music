@@ -30,6 +30,13 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+        String requestUrl = request.getRequestURL().toString();
+        String requestUri = request.getRequestURI();
+
+        // 检查请求是否来自 http://127.0.0.1:8080/
+        if (requestUrl.startsWith("http://127.0.0.1:8080/")) {
+            return true; // 不进行拦截
+        }
         // 1. 从http请求的header中获取token
         String token = request.getHeader("token");
         if (StrUtil.isBlank(token)) {

@@ -186,7 +186,7 @@
                         </div>
                         <div v-else>
                             <el-tag v-for="item in songListForm.songListNames" :key="item.id" :label="item.title"
-                                closable @close="removeSongList(item, songListForm)">{{
+                                closable @close="removeSongList(item, songListForm)" @click="tagClick(item)">{{
                                     item.title }}</el-tag>
                         </div>
 
@@ -559,6 +559,14 @@ export default {
 
 
 
+        },
+        tagClick(item){
+            this.$router.push({
+                path: '/songList2Song',
+                query: {
+                    songListId: item.id,
+                }
+            })
         },
 
     }

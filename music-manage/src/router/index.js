@@ -92,29 +92,34 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
 	const user = localStorage.getItem("user");
-	request.get("/web/").then(res => {
-		// console.log(res);
 
-		if (res.code === '0') {
-
-			return;
-		} else {
-			localStorage.removeItem("user");
-			next("/login");
-		}
-	})
 	if (to.path === '/login' || to.path === '/register') {
 		next();
-		console.log(111);
+
 
 		return;
 	}
 
 
 	if (!user && (to.path !== '/login' || to.path !== '/register')) {
-		console.log(222);
+
 
 		return next("/login");
+	}
+	if (user && (to.path !== '/login' || to.path !== '/register')) {
+
+		request.get("/web/").then(res => {
+			// console.log(res);
+
+			if (res.code === '0') {
+
+				return;
+			} else {
+				localStorage.removeItem("user");
+				next("/login");
+			}
+		})
+
 	}
 	next();
 })

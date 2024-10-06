@@ -1,5 +1,11 @@
 <template>
     <div>
+        <div style="width: 100%;">
+                
+                <el-tag style="margin: 0 40% 10px;" size="medium" type="success" effect="dark">当前歌单：{{ songListInfo.title }}</el-tag>
+            
+            
+        </div>
         <div>
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
                 @change="findBySearch()" clearable></el-input>
@@ -213,6 +219,12 @@ export default {
             if (this.songListId == '') {
                 this.$message.error("请先选择歌单");
                 this.$router.push({ path: '/songList' });
+            }else{
+                request.post("/songList/"+this.songListId).then(res=>{
+                    if (res.code === '0') {
+                        this.songListInfo=res.data;
+                    }
+                })
             }
         },
         async findBySearch() {
@@ -550,6 +562,7 @@ export default {
             songListId: this.$route.query.songListId ? this.$route.query.songListId : '',
             dialogSongs: false,
             songsForm:{songsData:[],},
+            songListInfo:{},
 
         }
     },

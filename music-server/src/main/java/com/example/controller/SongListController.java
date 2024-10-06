@@ -45,10 +45,16 @@ public class SongListController {
         return Result.success(list);
     }
     @PostMapping("/songList/{id}")
-    public Result findById(@PathVariable Integer id) {
+    public Result findBySongId(@PathVariable Integer id) {
         List<SongList> songLists = songListService.findBySongId(id);
         return Result.success(songLists);
     }
+    @PostMapping("/{id}")
+    public Result findByById(@PathVariable Integer id) {
+        SongList songList = songListService.findByById(id);
+        return Result.success(songList);
+    }
+
 
     @GetMapping("/search")
 //    @AutoLog("搜索用户")
