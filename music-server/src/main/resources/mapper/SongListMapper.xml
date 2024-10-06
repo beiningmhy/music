@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.SongListMapper">
+    <resultMap id="SongListRM" type="com.example.entity.SongList">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="title" jdbcType="VARCHAR" property="title"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+        <result column="introduction" jdbcType="VARCHAR" property="introduction"/>
+        <result column="style" jdbcType="VARCHAR" property="style"/>
+    </resultMap>
+
+    <select id="findBySearch" resultMap="SongListRM">
+        select * from music_song_list
+        <where>
+            <if test="params != null and params.title != null and params.title != ''">
+                and title like concat('%', #{ params.title }, '%')
+            </if>
+            <if test="params != null and params.style != null and params.style != ''">
+                and style like #{ params.style }
+            </if>
+
+            <if test="params != null and params.other != null and params.other != ''">
+
+                or introduction like concat('%', #{params.other}, '%')
+            </if>
+
+        </where>
+    </select>
+
+</mapper>

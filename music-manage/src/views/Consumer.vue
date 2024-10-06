@@ -2,7 +2,7 @@
     <div>
         <div>
             <el-input v-model="params.username" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
-                @change="findBySearch()"></el-input>
+                @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerType" placeholder="角色" style="width: 100px; margin-right: 10px"
                 @change="findBySearch()" clearable>
                 <el-option label="普通用户" value="0"></el-option>
@@ -14,7 +14,7 @@
                 <el-option label="封禁" value="1"></el-option>
             </el-select>
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
-                @change="findBySearch()"></el-input>
+                @change="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">新增</el-button>
@@ -48,7 +48,7 @@
                 <el-table-column prop="phone" label="手机号" width="150"></el-table-column>
                 <el-table-column prop="email" label="邮箱" width="150"></el-table-column>
                 <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
-                <el-table-column prop="introduction" label="介绍" width="150"></el-table-column>
+                <el-table-column prop="introductions" label="介绍" width="150"></el-table-column>
                 <el-table-column prop="address" label="地址" width="150"></el-table-column>
                 <el-table-column prop="avatar" label="头像" width="150">
                     <template v-slot="scope">
@@ -205,7 +205,7 @@ export default {
                         ...item,
                         sts: item.status === '0',
 
-                        introduction: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
+                        introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                         // introduction: item.introduction.substring(0, 10),
                         // birth: new Date(item.birth), 
                     }));

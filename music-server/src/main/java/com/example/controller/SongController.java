@@ -51,8 +51,8 @@ public class SongController {
     }
 
     @GetMapping
-    public Result findAll() {
-        List<Song> list = songService.findAll();
+    public Result findAll(Params params) {
+        List<Song> list = songService.findAll(params);
         return Result.success(list);
     }
 

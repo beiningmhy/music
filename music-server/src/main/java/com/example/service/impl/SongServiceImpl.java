@@ -1,9 +1,11 @@
 package com.example.service.impl;
 
 import cn.hutool.core.date.DateUtil;
+import com.example.entity.ListSong;
 import com.example.entity.Params;
 import com.example.entity.Song;
 import com.example.exception.CustomException;
+import com.example.mapper.ListSongMapper;
 import com.example.mapper.SongMapper;
 import com.example.service.SongService;
 import com.github.pagehelper.PageHelper;
@@ -17,10 +19,12 @@ import java.util.List;
 public class SongServiceImpl implements SongService {
     @Resource
     private SongMapper songMapper;
+    @Resource
+    private ListSongMapper listSongMapper;
 
     @Override
-    public List<Song> findAll() {
-        return songMapper.selectAll();
+    public List<Song> findAll(Params params) {
+        return songMapper.findAll(params);
     }
 
     @Override
@@ -36,7 +40,7 @@ public class SongServiceImpl implements SongService {
     public void add(Song song,Integer cont) {
         // 1. 用户名一定要有，否则不让新增（后面需要用户名登录）
         if (song.getName() == null || "".equals(song.getName())) {
-            throw new CustomException("用户名不能为空");
+            throw new CustomException("歌曲名不能为空");
         }
         if(song.getSingerId() == null||song.getSingerId()==0){
              throw new CustomException("歌手不能为空");
@@ -64,6 +68,10 @@ public class SongServiceImpl implements SongService {
 
     @Override
     public void delete(Integer id) {
+        ListSong listSong = listSongMapper.findBySongId(id);
+        if (listSong!=null){
+            throw new CustomException("请先在歌单中移除该歌曲");
+        }
         songMapper.deleteByPrimaryKey(id);
     }
 

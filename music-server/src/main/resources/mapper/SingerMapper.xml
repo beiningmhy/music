@@ -19,9 +19,10 @@
                 and name like concat('%', #{ params.name }, '%')
             </if>
             <if test="params != null and params.other != null and params.other != ''">
-                or birth like concat('%', #{params.other}, '%')
+                 and( birth like concat('%', #{params.other}, '%')
                 or address like concat('%', #{params.other}, '%')
-                or introduction like concat('%', #{params.other}, '%')
+                or introduction like concat('%', #{params.other}, '%'))
+
             </if>
 
         </where>

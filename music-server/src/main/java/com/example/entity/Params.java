@@ -14,4 +14,7 @@ public class Params {
     private String other;
     private String singerId;
     private Integer parentId;
+    private String title;
+    private String style;
+    private Integer songListId;
 }

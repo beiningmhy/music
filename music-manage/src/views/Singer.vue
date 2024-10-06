@@ -2,10 +2,10 @@
     <div>
         <div>
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
-                @change="findBySearch()"></el-input>
+                @change="findBySearch()" clearable></el-input>
 
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
-                @change="findBySearch()"></el-input>
+                @change="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">新增</el-button>
@@ -14,7 +14,7 @@
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
                 highlight-current-row>
                 <el-table-column prop="id" label="序号" fixed width="50"></el-table-column>
-                <el-table-column prop="name" label="姓名" fixed width="80"></el-table-column>
+                <el-table-column prop="name" label="歌手" fixed width="80"></el-table-column>
 
                 <el-table-column prop="sex" label="性别" width="50">
                     <template slot-scope="scope">
@@ -34,7 +34,7 @@
                 </el-table-column>
                 <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
                 <el-table-column prop="address" label="地址" width="50"></el-table-column>
-                <el-table-column prop="introduction" label="介绍"></el-table-column>
+                <el-table-column prop="introductions" label="介绍"></el-table-column>
 
 
 
@@ -71,7 +71,7 @@
         <div>
             <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" top="1vh">
                 <el-form :model="form">
-                    <el-form-item label="用户名" label-width="20%" aria-required="true">
+                    <el-form-item label="歌手名" label-width="20%" aria-required="true">
                         <el-input v-model="form.name" autocomplete="off" style="width: 90%"></el-input>
                     </el-form-item>
 
@@ -140,6 +140,7 @@ export default {
                     this.tableData = res.data.list.map(item => ({
                         ...item,
                         sts: item.status === '0',
+                        introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 100) + '...' : item.introduction,
                         // birth: new Date(item.birth), 
                     }));
                     // console.log(this.tableData);

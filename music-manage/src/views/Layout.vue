@@ -118,6 +118,8 @@ export default {
                         <el-menu-item-group>
                             <el-menu-item index="/singer" @click="handleClick($route)">歌手信息</el-menu-item>
                             <el-menu-item index="/song" @click="handleClick($route)">歌曲信息</el-menu-item>
+                            <el-menu-item index="/songList" @click="handleClick($route)">歌单信息</el-menu-item>
+                            <!-- <el-menu-item index="/songList2Song" @click="handleClick($route)">歌单歌曲信息</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="4">

@@ -7,7 +7,7 @@ import com.github.pagehelper.PageInfo;
 import java.util.List;
 
 public interface SongService {
-    List<Song> findAll();
+    List<Song> findAll(Params params);
 
     PageInfo<Song> findBySearch(Params params);
 

@@ -35,7 +35,7 @@ public class SingerServiceImpl implements SingerService {
     public void add(Singer singer) {
         // 1. 用户名一定要有，否则不让新增（后面需要用户名登录）
         if (singer.getName() == null || "".equals(singer.getName())) {
-            throw new CustomException("用户名不能为空");
+            throw new CustomException("歌手名不能为空");
         }
         // 2. 进行重复性判断，同一名字的管理员不允许重复新增：只要根据用户名去数据库查询一下就可以了
         Singer user = singerMapper.findByName(singer.getName());

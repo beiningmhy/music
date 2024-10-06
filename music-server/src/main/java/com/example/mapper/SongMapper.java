@@ -24,4 +24,7 @@ public interface SongMapper extends Mapper<Song> {
     Song findById(@Param("id") Integer id);
 
 
+    List<Song> findAll(@Param("params") Params params);
+
+
 }

@@ -41,6 +41,9 @@ public class Song {
     @Transient
     @Alias("歌手名称")
     private String singerName;
+    @Transient
+    @Alias("所属歌单名称")
+    private String songListTitle;
 
 
 

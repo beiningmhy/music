@@ -2,7 +2,7 @@
     <div>
         <div>
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
-                @change="findBySearch()"></el-input>
+                @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.role" placeholder="请选择角色" style="width: 200px; margin-right: 10px"
                 @change="findBySearch()" clearable>
                 <el-option label="超级管理员" value="0"></el-option>
