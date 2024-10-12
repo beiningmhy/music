@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import Address from '@/views/Address.vue'
 import Admin from '@/views/Admin.vue'
+import Comment from '@/views/Comment.vue'
 import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
@@ -74,7 +75,11 @@ const routes = [
 				name: '地址管理',
 				component: Address,
 			},
-
+			{
+				path: '/comment',
+				name: '评论管理',
+				component: Comment,
+			},
 
 		]
 	}
@@ -109,15 +114,17 @@ router.beforeEach((to, from, next) => {
 	if (user && (to.path !== '/login' || to.path !== '/register')) {
 
 		request.get("/web/").then(res => {
-			// console.log(res);
 
 			if (res.code === '0') {
-
 				return;
 			} else {
 				localStorage.removeItem("user");
 				next("/login");
 			}
+		}).catch(err => {
+			// console.log(err);
+			localStorage.removeItem("user");
+			next("/login");
 		})
 
 	}

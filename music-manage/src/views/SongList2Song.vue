@@ -292,7 +292,7 @@ export default {
 
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.songsForm.songsData = res.data.map(item => ({
                         ...item,
                         lyrics: item.lyric != null && item.lyric != '' && item.lyric.length > 10 ? item.lyric.substring(0, 50) + '...' : item.lyric,
@@ -319,11 +319,13 @@ export default {
                     // this.dialogSongs = false;
                     this.findBySearch();
                 } else {
-                    this.$message({
-                        message: res.msg,
-                        type: 'error'
+                    // this.$message({
+                    //     message: res.msg,
+                    //     type: 'error'
                     
-                    })
+                    // })
+                    this.$message.error(res.msg);
+                    
                 }
             })
         },
@@ -474,7 +476,7 @@ export default {
             window.open('https://cn.bing.com/search?q=' + row.name, '_blank');
         },
         delBatch() {
-            console.log(this.multipleSelection);
+            // console.log(this.multipleSelection);
 
             if (this.multipleSelection.length === 0) {
                 this.$message.warning("请勾选您要删除的项")
@@ -492,7 +494,7 @@ export default {
             })
         },
         handleSelectionChange(val) {
-            console.log(val);
+            // console.log(val);
             this.multipleSelection = val;
         },
         getRowKeys(row) {
@@ -506,7 +508,7 @@ export default {
         exp() {
             let ids = [];
             ids = this.multipleSelection.map(item => item.id);
-            console.log(ids);
+            // console.log(ids);
             if (ids.length == 0) {
                 this.$message({
                     message: '请选择要导出的数据',

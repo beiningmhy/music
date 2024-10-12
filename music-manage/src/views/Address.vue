@@ -102,7 +102,7 @@ export default {
         initCascader() {
             request.get("/address/map").then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.cascaderData = res.data;
                 }
             })

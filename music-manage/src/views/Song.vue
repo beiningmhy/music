@@ -63,7 +63,7 @@
                 <el-table-column prop="createTime" label="创建日期" width="150"></el-table-column>
                 <el-table-column prop="updateTime" label="更新日期" width="150"></el-table-column>
 
-                <el-table-column label="操作" width="200" fixed="right">
+                <el-table-column label="操作" width="160" fixed="right">
                     <template slot-scope="scope">
                         <div>
                             <el-button type="primary" @click="edit(scope.row)">编辑</el-button>

@@ -127,8 +127,9 @@ export default {
                             <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
                         <el-menu-item-group>
+                            <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
-                            <el-menu-item index="/type">图书分类</el-menu-item>
+                            
                             <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
                             <el-menu-item index="/reserve">预定信息</el-menu-item>
@@ -153,8 +154,9 @@ export default {
                             }}</el-breadcrumb-item>
                     </el-breadcrumb> -->
 
-                    <el-tag v-for="tag in tagList" :key="tag.name" closable type="success" @close="removeTag(tag)"
-                        @click="tagClick(tag)" size="medium" hit style="margin-left: 10px">
+                    <el-tag v-for="tag in tagList" :key="tag.name" closable :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)"
+                        @click="tagClick(tag)" size="medium" hit style="margin-left: 10px"
+                        :effect="tag.path == $route.path ? 'dark' : 'light'">
                         {{ tag.name }}
                     </el-tag>
 
@@ -204,6 +206,7 @@ export default {
             collapseIcon: 'el-icon-s-fold',
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             tagList: [],
+            route1:this.$route.path?this.$route.path:'',
         }
     },
     methods: {

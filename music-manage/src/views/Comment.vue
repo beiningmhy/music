@@ -1,36 +1,49 @@
 <template>
     <div>
         <div>
-            <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
-                @change="findBySearch()" clearable></el-input>
-            <el-select v-model="params.role" placeholder="请选择角色" style="width: 200px; margin-right: 10px"
-                @change="findBySearch()" clearable>
-                <el-option label="超级管理员" value="0"></el-option>
-                <el-option label="歌曲管理员" value="1"></el-option>
-            </el-select>
-            <el-select v-model="params.status" placeholder="请选择用户状态" style="width: 200px; margin-right: 10px"
-                @change="findBySearch()" clearable>
-                <el-option label="正常" value="0"></el-option>
-                <el-option label="封禁" value="1"></el-option>
+            <el-input v-model="params.content" style="width: 200px; margin-right: 10px" placeholder="请输入评论内容" clearable
+                @input="findBySearch()"></el-input>
+
+            <el-select v-model="params.status" placeholder="请选择评论状态" style="width: 100px; margin-right: 10px"
+                @input="findBySearch()" clearable>
+                <el-option label="启用" value="0"></el-option>
+                <el-option label="禁用" value="1"></el-option>
             </el-select>
 
+            <el-radio-group v-model="params.radio" style=" margin-right: 10px" @input="params.radioId='',findBySearch()">
+                <el-radio-button label="歌曲" ></el-radio-button>
+                <el-radio-button label="歌手" ></el-radio-button>
+                <el-radio-button label="歌单" ></el-radio-button>
+            </el-radio-group>
+            <!-- <el-select v-model="params.songId" placeholder="歌曲" style="width: 100px; margin-right: 10px"
+                @input="findBySearch(), params.singerId = ''" clearable filterable default-first-option>
+                <el-option v-for="item in songObjs" :key="item.id" :label="item.option" :value="item.id"></el-option>
+            </el-select>
+            <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
+                @input="findBySearch()" clearable filterable default-first-option>
+                <el-option v-for="item in singerObjs" :key="item.id" :label="item.option" :value="item.id"></el-option>
+            </el-select>
+            <el-select v-model="params.songListId" placeholder="歌单" style="width: 100px; margin-right: 10px"
+                @input="findBySearch()" clearable filterable default-first-option>
+                <el-option v-for="item in songListObjs" :key="item.id" :label="item.option"
+                    :value="item.id"></el-option>
+            </el-select> -->
+            <el-select v-model="params.radioId" :placeholder="params.radio" style="width: 100px; margin-right: 10px"
+                @input="findBySearch()" clearable filterable default-first-option>
+                <el-option v-for="item in objs" :key="item.id" :label="item.option" :value="item.id"></el-option>
+            </el-select>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">新增</el-button>
         </div>
         <div style="max-height: 76vh;overflow: auto;">
-            <el-table :data="tableData" style="width: 100%; margin: 15px 0px">
-                <el-table-column prop="id" label="序号"></el-table-column>
-                <el-table-column prop="name" label="姓名"></el-table-column>
-                <el-table-column prop="role" label="角色">
-                    <template slot-scope="scope">
-                        <el-tag v-if="scope.row.role === '0'" type="success">超级管理员</el-tag>
-                        <el-tag v-else-if="scope.row.role === '1'" type="primary">歌曲管理员</el-tag>
-                        <el-tag v-else type="danger">角色未知</el-tag>
-                    </template>
-                </el-table-column>
-                <el-table-column prop="loginTime" label="登录时间"></el-table-column>
-                <el-table-column prop="createTime" label="创建时间"></el-table-column>
+            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh">
+                <el-table-column prop="id" label="序号" fixed="left" width="50"></el-table-column>
+                <el-table-column prop="username" label="评论人" fixed="left" width="80"></el-table-column>
+                <el-table-column prop="content" label="评论内容"></el-table-column>
+                <el-table-column prop="object" label="评论对象" width="300"></el-table-column>
+
+                <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
                 <!-- <el-table-column prop="status" label="账号状态">
                     <template slot-scope="scope">
 
@@ -38,8 +51,8 @@
                         <el-tag v-else-if="scope.row.status === '1'" type="danger">封禁</el-tag>
                         <el-tag v-else type="danger">状态未知</el-tag>
                     </template>
-                </el-table-column> -->
-                <el-table-column prop="sts" label="账号状态">
+</el-table-column> -->
+                <el-table-column prop="sts" label="评论状态" width="100">
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
                             @change="updateStatus(scope.row)">
@@ -66,7 +79,7 @@
         </div>
         <div class="block">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="params.pageNum" :page-sizes="[1, 2, 5, 10]" :page-size="params.pageSize"
+                :current-page="params.pageNum" :page-sizes="[10, 15, 20, 50]" :page-size="params.pageSize"
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
@@ -105,7 +118,7 @@ export default {
     // 定义一些页面上控件触的事件调用的方法
     methods: {
         load() {
-            request.get("/admin").then(res => {
+            request.get("/comment").then(res => {
                 if (res.code === '0') {
                     console.log(res.data);
 
@@ -114,7 +127,7 @@ export default {
             })
         },
         findBySearch() {
-            request.get("/admin/search", {
+            request.get("/comment/search", {
                 params: this.params
 
             }).then(res => {
@@ -122,7 +135,10 @@ export default {
                     // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
-                        sts: item.status === '0'
+                        sts: item.status === '0',
+                        object: item.songName != null && item.songName != '' ? item.songName
+                            : item.singerName != null && item.singerName != '' ? item.singerName
+                                : item.songListTitle != null && item.songListTitle != '' ? item.songListTitle : '未知'
                     }));
                     // console.log(this.tableData);
 
@@ -140,9 +156,10 @@ export default {
                 name: '',
                 phone: '',
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 15,
             }
             this.findBySearch();
+            this.objs= [];
         },
         handleSizeChange(pageSize) {
             this.params.pageSize = pageSize;
@@ -161,7 +178,7 @@ export default {
             this.dialogFormVisible = true;
         },
         del(id) {
-            request.delete("/admin/" + id).then(res => {
+            request.delete("/comment/" + id).then(res => {
                 if (res.code === '0') {
                     this.$message({
                         message: '操作成功',
@@ -178,7 +195,7 @@ export default {
 
         },
         submit() {
-            request.post("/admin", this.form).then(res => {
+            request.post("/comment", this.form).then(res => {
                 if (res.code === '0') {
                     this.$message({
                         message: '操作成功',
@@ -208,29 +225,87 @@ export default {
                 this.form = row;
                 this.submit();
             }
-
-
-
+        },
+        initSong() {
+            request.get("/comment/song").then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data);
+                    this.songObjs = res.data.map(item => ({
+                        ...item,
+                        option: item.songName != null && item.songName != '' && item.songName.length > 10 ? item.songName.substring(0, 50) + '...' : item.songName,
+                    }));
+                    this.objs=this.songObjs;
+                    // this.songObjs = res.data;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
+        initSinger() {
+            request.get("/comment/singer").then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data);
+                    // this.singerObjs = res.data;
+                    this.singerObjs = res.data.map(item => ({
+                        ...item,
+                        option: item.singerName != null && item.singerName != '' && item.singerName.length > 10 ? item.singerName.substring(0, 50) + '...' : item.singerName,
+                    }));
+                    this.objs=this.singerObjs;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
+        initSongList() {
+            request.get("/comment/songList").then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data);
+                    // this.songListObjs = res.data;
+                    this.songListObjs = res.data.map(item => ({
+                        ...item,
+                        option: item.songListTitle != null && item.songListTitle != '' && item.songListTitle.length > 10 ? item.songListTitle.substring(0, 50) + '...' : item.songListTitle,
+                    }));
+                    this.objs=this.songListObjs;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
         },
     }
     ,
     // 页面加载的时候做一些事情
     created() {
         this.findBySearch();
+        // this.initSong();
+        // this.initSinger();
+        // this.initSongList();
+
     },
     data() {
         return {
             params: {
-                name: '',
-                phone: '',
+                content: '',
                 pageNum: 1,
-                pageSize: 5,
+                pageSize: 15,
             },
             total: 0,
             tableData: [],
             dialogFormVisible: false,
             form: {},
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
+            songObjs: [],
+            singerObjs: [],
+            songListObjs: [],
+            objs:[],
         }
     },
     computed: {
@@ -243,6 +318,18 @@ export default {
 
 
         // }
+    },
+    watch: {
+        'params.radio':function(newValue, oldValue){
+            this.params.radioId='';
+            if(newValue==='歌曲'){
+                this.initSong();
+            }else if(newValue==='歌手'){
+                this.initSinger();
+            }else if(newValue==='歌单'){
+                this.initSongList();
+            }
+        }
     },
 }
 </script>

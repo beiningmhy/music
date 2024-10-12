@@ -33,7 +33,9 @@
 
                     </el-form-item>
                 </el-form>
-
+                <!-- <a-button type="primary">
+                    Primary
+                </a-button> -->
             </div>
         </div>
     </div>
@@ -66,7 +68,7 @@ export default {
                         message: '登录成功',
                         type: 'success'
                     });
-                    console.log(res.data);
+                    // console.log(res.data);
                     localStorage.setItem("user", JSON.stringify(res.data));
                     this.$router.push('/');
                 } else {
