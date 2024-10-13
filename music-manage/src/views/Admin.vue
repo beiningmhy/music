@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
                 @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.role" placeholder="请选择角色" style="width: 200px; margin-right: 10px"

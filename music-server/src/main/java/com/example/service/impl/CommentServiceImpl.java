@@ -80,5 +80,10 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.findBySingerId();
     }
 
+    @Override
+    public Comment findById(Integer id) {
+        return commentMapper.selectByPrimaryKey(id);
+    }
+
 
 }

@@ -87,7 +87,7 @@ export default {
     <div>
         <el-container>
             <!--    侧边栏  -->
-            <el-aside :width="asideWidth" style="min-height: 100vh; background-color: #001529">
+            <el-aside :width="asideWidth" style="min-height: 100vh; background-color: #001529;">
                 <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center">
                     <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px">
                     <span class="logo-title" v-show="!isCollapse">music</span>
@@ -129,7 +129,7 @@ export default {
                         <el-menu-item-group>
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
-                            
+
                             <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
                             <el-menu-item index="/reserve">预定信息</el-menu-item>
@@ -154,7 +154,8 @@ export default {
                             }}</el-breadcrumb-item>
                     </el-breadcrumb> -->
 
-                    <el-tag v-for="tag in tagList" :key="tag.name" closable :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)"
+                    <el-tag v-for="tag in tagList" :key="tag.name" closable
+                        :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)"
                         @click="tagClick(tag)" size="medium" hit style="margin-left: 10px"
                         :effect="tag.path == $route.path ? 'dark' : 'light'">
                         {{ tag.name }}
@@ -202,11 +203,12 @@ export default {
         return {
             // router: this.$router.currentRoute.name,
             isCollapse: false,  // 不收缩
-            asideWidth: '200px',
+            asideWidth: '150px',
             collapseIcon: 'el-icon-s-fold',
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             tagList: [],
-            route1:this.$route.path?this.$route.path:'',
+            route1: this.$route.path ? this.$route.path : '',
+            windowWidth: window.innerWidth, // 初始化窗口宽度
         }
     },
     methods: {
@@ -215,7 +217,7 @@ export default {
         },
         handleCollapse() {
             this.isCollapse = !this.isCollapse
-            this.asideWidth = this.isCollapse ? '64px' : '200px'
+            this.asideWidth = this.isCollapse ? '64px' : '150px'
             this.collapseIcon = this.isCollapse ? 'el-icon-s-unfold' : 'el-icon-s-fold'
         },
         logout() {
@@ -271,11 +273,26 @@ export default {
                 });
             }
         },
+        handleResize() {
+            this.windowWidth = window.innerWidth;
+            // console.log(this.windowWidth);
+            if (this.windowWidth * 0.15 < 120 && this.isCollapse == false) {
+                this.handleCollapse();
+            } else if (this.windowWidth * 0.15 >= 120 && this.isCollapse == true) {
+                this.handleCollapse();
+            }
+
+        },
     },
     created() {
         this.initializeTagList();
+        this.handleResize();
 
-    }
+    },
+
+    mounted() {
+        window.addEventListener('resize', this.handleResize);
+    },
 }
 </script>
 
@@ -306,6 +323,7 @@ export default {
     background-color: #1890ff !important;
     border-radius: 5px !important;
     width: calc(100% - 8px);
+    /* width: calc(100%); */
     margin-left: 4px;
 }
 
@@ -352,5 +370,20 @@ export default {
     box-shadow: 2px 0 6px rgba(0, 21, 41, .35);
     display: flex;
     align-items: center;
+}
+
+.el-menu--popup {
+    min-width: 100px !important;
+}
+
+.el-menu {
+    max-height: 90vh;
+    overflow: auto;
+    scrollbar-width: none;
+    /* 隐藏滚动条 */
+    -ms-overflow-style: none;
+    /* 隐藏 IE 和 Edge 的滚动条 */
+    overflow: -moz-scrollbars-none;
+    /* 隐藏 Firefox 的滚动条 */
 }
 </style>

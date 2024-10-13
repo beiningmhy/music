@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
                 @change="findBySearch()" clearable></el-input>
 
@@ -34,7 +34,7 @@
                 </el-table-column>
                 <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
                 <el-table-column prop="address" label="地址" width="50"></el-table-column>
-                <el-table-column prop="introductions" label="介绍"></el-table-column>
+                <el-table-column prop="introductions" label="介绍" width="600"></el-table-column>
 
 
 

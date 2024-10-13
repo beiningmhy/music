@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.username" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
                 @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerType" placeholder="角色" style="width: 100px; margin-right: 10px"
@@ -45,11 +45,7 @@
                         <el-tag v-else type="danger">未知</el-tag>
                     </template>
                 </el-table-column>
-                <el-table-column prop="phone" label="手机号" width="150"></el-table-column>
-                <el-table-column prop="email" label="邮箱" width="150"></el-table-column>
-                <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
-                <el-table-column prop="introductions" label="介绍" width="150"></el-table-column>
-                <el-table-column prop="address" label="地址" width="150"></el-table-column>
+
                 <el-table-column prop="avatar" label="头像" width="150">
                     <template v-slot="scope">
                         <el-image style="width: 70px; height: 70px; border-radius: 50%"
@@ -59,6 +55,12 @@
                         <!-- <span>{{ scope.row.img }}</span> -->
                     </template>
                 </el-table-column>
+                <el-table-column prop="phone" label="手机号" width="150"></el-table-column>
+                <el-table-column prop="email" label="邮箱" width="150"></el-table-column>
+                <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
+                <el-table-column prop="introductions" label="介绍" width="150"></el-table-column>
+                <el-table-column prop="address" label="地址" width="150"></el-table-column>
+
                 <el-table-column prop="point" label="积分" width="150"></el-table-column>
                 <el-table-column prop="loginTime" label="登录时间" width="150"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
@@ -70,7 +72,7 @@
                         <el-tag v-else type="danger">状态未知</el-tag>
                     </template>
                 </el-table-column> -->
-                <el-table-column prop="sts" label="账号状态" width="150">
+                <el-table-column prop="sts" label="账号状态" width="100" fixed="right">
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
                             @change="updateStatus(scope.row)">
@@ -137,7 +139,7 @@
                             style="width: 90%"></el-input>
                     </el-form-item>
                     <el-form-item label="地址" label-width="20%" aria-required="true">
-                        <el-tag  autocomplete="off" style="width: 90%" size="medium">{{ form.address }}</el-tag>
+                        <el-tag autocomplete="off" style="width: 90%" size="medium">{{ form.address }}</el-tag>
                         <el-cascader v-model="value" :options="cascaderData" :props="{ expandTrigger: 'hover' }"
                             @change="handleChange" style="width: 90%;margin-top: 5px;"></el-cascader>
                     </el-form-item>
@@ -262,7 +264,7 @@ export default {
 
         },
         submit() {
-            
+
             request.post("/consumer", this.form).then(res => {
                 if (res.code === '0') {
                     this.$message({
@@ -350,12 +352,12 @@ export default {
             tableData: [],
             dialogFormVisible: false,
             form: {
-                address:''
+                address: ''
             },
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             fileList: [],
             cascaderData: [],
-            value:[],
+            value: [],
         }
     },
     computed: {
@@ -368,7 +370,7 @@ export default {
             if (newValue == false) {
                 this.fileList = [];
                 this.form = {};
-                this.value=[]; 
+                this.value = [];
             }
         },
     },

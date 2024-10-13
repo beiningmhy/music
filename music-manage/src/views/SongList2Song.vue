@@ -6,7 +6,7 @@
             
             
         </div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
                 @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"

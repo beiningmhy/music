@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
                 @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
@@ -512,12 +512,13 @@ export default {
                 if (res.code === '0') {
                     this.$message.success("添加歌曲到歌单成功")
                     // this.dialogSongList = false;
-                    let row={id:this.songListForm.songId,
-                                name:this.songListForm.songName
-                        }
-                        // console.log(row);
-                        
-                        this.editSongList(row);
+                    let row = {
+                        id: this.songListForm.songId,
+                        name: this.songListForm.songName
+                    }
+                    // console.log(row);
+
+                    this.editSongList(row);
                 } else {
                     this.$message.error(res.msg)
                 }
@@ -536,11 +537,12 @@ export default {
                             type: 'success'
                         });
                         this.findBySearch();
-                        let row={id:songListForm.songId,
-                                name:songListForm.songName
+                        let row = {
+                            id: songListForm.songId,
+                            name: songListForm.songName
                         }
                         // console.log(row);
-                        
+
                         this.editSongList(row);
                     } else {
                         this.$message({
@@ -560,7 +562,7 @@ export default {
 
 
         },
-        tagClick(item){
+        tagClick(item) {
             this.$router.push({
                 path: '/songList2Song',
                 query: {
@@ -568,6 +570,8 @@ export default {
                 }
             })
         },
+
+
 
     }
     ,

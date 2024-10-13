@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div>
+        <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.title" style="width: 200px; margin-right: 10px" placeholder="请输入歌单名"
                 @change="findBySearch()" clearable></el-input>
             <el-select v-model="params.style" placeholder="曲风" style="width: 100px; margin-right: 10px"
@@ -30,7 +30,7 @@
                     </template>
                 </el-table-column>
 
-                <el-table-column prop="introductions" label="介绍"></el-table-column>
+                <el-table-column prop="introductions" label="介绍" width="400"></el-table-column>
                 <el-table-column prop="style" label="曲风" width="150"></el-table-column>
                 <el-table-column prop="createTime" label="创建时间" width="150">
                     <template v-slot="scope">

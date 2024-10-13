@@ -37,6 +37,20 @@ public class CommentController {
         }
         return Result.success();
     }
+    @PostMapping("/up")
+    public Result up(@RequestBody Comment comment) {
+        Comment comment1 = commentService.findById(comment.getId());
+        comment1.setUp(String.valueOf(Integer.parseInt(comment1.getUp())+1));
+        commentService.update(comment1);
+        return Result.success();
+    }
+    @PostMapping("/down")
+    public Result down(@RequestBody Comment comment) {
+        Comment comment1 = commentService.findById(comment.getId());
+        comment1.setDown(String.valueOf(Integer.parseInt(comment1.getDown())+1));
+        commentService.update(comment1);
+        return Result.success();
+    }
 
     @GetMapping
     public Result findAll() {
