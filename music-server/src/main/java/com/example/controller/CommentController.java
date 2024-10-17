@@ -79,13 +79,18 @@ public class CommentController {
         return Result.success(list);
     }
     @GetMapping("/songList")
-    public Result findBySongListId(Integer id) {
+    public Result findBySongListId() {
         List<Comment> list = commentService.findBySongListId();
         return Result.success(list);
     }
     @GetMapping("/singer")
-    public Result findBySingerId(Integer id) {
+    public Result findBySingerId() {
         List<Comment> list = commentService.findBySingerId();
+        return Result.success(list);
+    }
+    @GetMapping("/consumer")
+    public Result findByConsumerId() {
+        List<Comment> list = commentService.findByConsumerId();
         return Result.success(list);
     }
 }

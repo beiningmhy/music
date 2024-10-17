@@ -1,10 +1,11 @@
 <template>
     <div>
         <div style="width: 100%;">
-                
-                <el-tag style="margin: 0 40% 10px;" size="medium" type="success" effect="dark">当前歌单：{{ songListInfo.title }}</el-tag>
-            
-            
+
+            <el-tag style="margin: 0 40% 10px;" size="medium" type="success" effect="dark">当前歌单：{{ songListInfo.title
+                }}</el-tag>
+
+
         </div>
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
@@ -32,7 +33,7 @@
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe highlight-current-row
                 lazy @selection-change="handleSelectionChange" :row-key="getRowKeys" ref="multipleTable">
                 <el-table-column type="selection" :reserve-selection="true" v-if="user.role === '0'"></el-table-column>
-                <el-table-column prop="id" label="序号" fixed width="50"></el-table-column>
+                <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="singerName" label="歌手" fixed width="80"></el-table-column>
                 <el-table-column prop="name" label="歌曲名" fixed width="80"></el-table-column>
 
@@ -181,28 +182,29 @@
                     <el-form-item label="搜索歌曲" label-width="20%" aria-required="true">
                         <el-input v-model="params2.name" style="width: 80%; margin-right: 10px;" placeholder="请输入歌曲名"
                             @change="findBySearch2()" clearable></el-input>
-                        <el-select v-model="params2.singerId" placeholder="歌手" style="width: 80%; margin-right: 10px;margin-top: 20px;"
-                            @change="findBySearch2()" clearable filterable default-first-option>
+                        <el-select v-model="params2.singerId" placeholder="歌手"
+                            style="width: 80%; margin-right: 10px;margin-top: 20px;" @change="findBySearch2()" clearable
+                            filterable default-first-option>
                             <el-option v-for="item in typeObjs" :key="item.id" :label="item.name"
                                 :value="item.id"></el-option>
                         </el-select>
-                        <el-input v-model="params2.other" style="width:80%; margin-right: 10px;margin-top: 20px;" placeholder="模糊查询"
-                            @change="findBySearch2()" clearable></el-input>
+                        <el-input v-model="params2.other" style="width:80%; margin-right: 10px;margin-top: 20px;"
+                            placeholder="模糊查询" @change="findBySearch2()" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="歌曲" label-width="20%">
-                        <el-select v-model="songsForm.songId" placeholder="请选择" style="width: 80%" clearable
-                            filterable>
+                        <el-select v-model="songsForm.songId" placeholder="请选择" style="width: 50%" clearable filterable>
 
                             <el-option v-for="item in songsForm.songsData" :key="item.id" :label="item.name"
                                 :value="item.id"></el-option>
                         </el-select>
+                        <span style="margin-left: 10px;width: 30%;text-align: center;">
+                            检索到： {{ songsForm.songsData.length }}首歌曲</span>
                     </el-form-item>
 
                 </el-form>
                 <span slot="footer" class="dialog-footer">
                     <el-button @click=" dialogSongs = false">取 消</el-button>
-                    <el-button type="primary"
-                        @click="songsSubmit()">确定</el-button>
+                    <el-button type="primary" @click="songsSubmit()">确定</el-button>
                 </span>
             </el-dialog>
         </div>
@@ -219,10 +221,10 @@ export default {
             if (this.songListId == '') {
                 this.$message.error("请先选择歌单");
                 this.$router.push({ path: '/songList' });
-            }else{
-                request.post("/songList/"+this.songListId).then(res=>{
+            } else {
+                request.post("/songList/" + this.songListId).then(res => {
                     if (res.code === '0') {
-                        this.songListInfo=res.data;
+                        this.songListInfo = res.data;
                     }
                 })
             }
@@ -298,7 +300,7 @@ export default {
                         lyrics: item.lyric != null && item.lyric != '' && item.lyric.length > 10 ? item.lyric.substring(0, 50) + '...' : item.lyric,
                         introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                     }));
-                    
+
 
                 } else {
                     this.$message({
@@ -308,8 +310,8 @@ export default {
                 }
             })
         },
-        songsSubmit(){
-            request.post("/listSong",this.songsForm).then(res => {
+        songsSubmit() {
+            request.post("/listSong", this.songsForm).then(res => {
                 if (res.code === '0') {
                     this.$message({
                         message: '操作成功',
@@ -322,10 +324,10 @@ export default {
                     // this.$message({
                     //     message: res.msg,
                     //     type: 'error'
-                    
+
                     // })
                     this.$message.error(res.msg);
-                    
+
                 }
             })
         },
@@ -544,7 +546,7 @@ export default {
                 phone: '',
                 pageNum: 1,
                 pageSize: 20,
-            },params2: {
+            }, params2: {
                 name: '',
                 phone: ''
             },
@@ -563,8 +565,8 @@ export default {
             token: JSON.parse(localStorage.getItem("user")).token,
             songListId: this.$route.query.songListId ? this.$route.query.songListId : '',
             dialogSongs: false,
-            songsForm:{songsData:[],},
-            songListInfo:{},
+            songsForm: { songsData: [], },
+            songListInfo: {},
 
         }
     },
@@ -584,8 +586,8 @@ export default {
         },
         dialogSongs(newValue, oldValue) {
             if (newValue == false) {
-                this.songsForm={songsData:[]};
-                this.params2={};
+                this.songsForm = { songsData: [] };
+                this.params2 = {};
             }
         }
     },

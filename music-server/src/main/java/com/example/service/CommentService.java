@@ -23,6 +23,7 @@ public interface CommentService {
 
     List<Comment> findBySingerId();
     Comment findById(Integer id);
+    List<Comment> findByConsumerId();
 
 
 

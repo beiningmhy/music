@@ -3,6 +3,10 @@
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.content" style="width: 200px; margin-right: 10px" placeholder="请输入评论内容" clearable
                 @input="findBySearch()"></el-input>
+            <el-select v-model="params.userId" placeholder="请选择用户" style="width: 200px; margin-right: 10px"
+                @input="findBySearch()" clearable filterable default-first-option>
+                <el-option v-for="item in userObjs" :key="item.id" :label="item.username" :value="item.id"></el-option>
+            </el-select>
 
             <el-select v-model="params.status" placeholder="请选择评论状态" style="width: 100px; margin-right: 10px"
                 @input="findBySearch()" clearable>
@@ -10,7 +14,7 @@
                 <el-option label="禁用" value="1"></el-option>
             </el-select>
 
-            <el-radio-group v-model="params.radio" style=" margin-right: 10px"
+            <el-radio-group v-model="params.radio" style=" margin-right: 10px;"
                 @input="params.radioId = '', findBySearch()">
                 <el-radio-button label="歌曲"></el-radio-button>
                 <el-radio-button label="歌手"></el-radio-button>
@@ -35,10 +39,11 @@
             </el-select>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
-            <el-button type="primary" @click="add()">新增</el-button>
+            <!-- <el-button type="primary" @click="add()">新增</el-button> -->
         </div>
         <div style="max-height: 76vh;overflow: auto;">
-            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh">
+            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
+            highlight-current-row>
                 <el-table-column prop="id" label="序号" fixed="left" width="70" sortable></el-table-column>
                 <el-table-column prop="username" label="评论人" fixed="left" width="80"></el-table-column>
                 <el-table-column prop="content" label="评论内容" width="500"></el-table-column>
@@ -174,6 +179,16 @@ export default {
                     // console.log(this.tableData);
 
                     this.total = res.data.total;
+                    request.get("/comment/consumer").then(res => {
+                        if (res.code === '0') {
+                            this.userObjs = res.data;
+                        } else {
+                            this.$message({
+                                message: res.msg,
+                                type: 'error'
+                            });
+                        }
+                    })
                 } else {
                     this.$message({
                         message: res.msg,
@@ -374,6 +389,7 @@ export default {
             singerObjs: [],
             songListObjs: [],
             objs: [],
+            userObjs: [],
         }
     },
     computed: {

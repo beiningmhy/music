@@ -23,4 +23,7 @@ public interface CommentMapper extends Mapper<Comment> {
     @Select("select music_song_list.title as songListTitle,music_song_list.id from music_song_list where id in (SELECT DISTINCT song_list_id FROM music_comment WHERE song_list_id IS NOT NULL ORDER BY song_list_id ASC)")
     List<Comment> findBySongListId();
 
+    @Select("select music_consumer.username as username,music_consumer.id from music_consumer where id in (SELECT DISTINCT user_id FROM music_comment WHERE user_id IS NOT NULL ORDER BY user_id ASC)")
+    List<Comment> findByConsumerId();
+
 }

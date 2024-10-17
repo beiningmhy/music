@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.RankListMapper">
+    <resultMap id="RankListRM" type="com.example.entity.RankList">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="up" jdbcType="VARCHAR" property="up"/>
+        <result column="down" jdbcType="VARCHAR" property="down"/>
+
+
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+
+    </resultMap>
+
+    <select id="findBySearch" resultMap="RankListRM">
+        select   mrl.*,
+        m.username AS username,
+        msl.title AS songListTitle
+        FROM
+        music_rank_list AS mrl
+        LEFT JOIN music_consumer AS m ON mrl.consumer_id = m.id
+        LEFT JOIN music_song_list AS msl ON mrl.song_list_id = msl.id
+        <where>
+            <if test="params != null and params.consumerId != null and params.consumerId != ''">
+                and mrl.consumer_id = #{ params.consumerId }
+            </if>
+            <if test="params != null and params.songListId != null and params.songListId != ''">
+                and mrl.song_list_id = #{ params.songListId }
+            </if>
+
+            <if test="params != null and params.status != null and params.status != ''">
+                and mc.status like concat('%', #{ params.status }, '%')
+            </if>
+
+        </where>
+    </select>
+
+
+</mapper>

@@ -26,7 +26,7 @@
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe highlight-current-row
                 lazy @selection-change="handleSelectionChange" :row-key="getRowKeys" ref="multipleTable">
                 <el-table-column type="selection" :reserve-selection="true" v-if="user.role === '0'"></el-table-column>
-                <el-table-column prop="id" label="序号" fixed width="50"></el-table-column>
+                <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="singerName" label="歌手" fixed width="80"></el-table-column>
                 <el-table-column prop="name" label="歌曲名" fixed width="80"></el-table-column>
 

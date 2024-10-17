@@ -1,7 +1,7 @@
 <template>
-    <div>
+    <div class="register" @contextmenu.prevent>
         <div
-            style="width: 400px; height: 400px; margin: 150px auto; background-color:rgba(165,190,234,0.5); border-radius: 10px">
+            style="width: 400px; height: 400px; margin: 10% auto; margin-right: 15%;background-color:rgba(165,190,234,0.5); border-radius: 10px;box-shadow: 20px 20px 20px #cfcfcf;">
             <div
                 style="width: 100%; height: 100px; font-size: 30px; line-height: 100px; text-align: center; color: #4a5ed0">
                 欢迎注册</div>
@@ -73,3 +73,14 @@ export default {
     }
 }
 </script>
+<style scoped>
+.register {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-image: url('../assets/images/back.jpg');
+    position: absolute;
+    top: 0px;
+}
+</style>

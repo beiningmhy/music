@@ -85,5 +85,10 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public List<Comment> findByConsumerId() {
+        return commentMapper.findByConsumerId();
+    }
+
 
 }

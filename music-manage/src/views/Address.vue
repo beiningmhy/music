@@ -12,7 +12,7 @@
         <div style="max-height: 76vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
                 highlight-current-row>
-                <el-table-column prop="id" label="序号"></el-table-column>
+                <el-table-column prop="id" label="序号" sortable></el-table-column>
                 <el-table-column prop="name" label="地区名"></el-table-column>
                 <!-- 
                 <el-table-column prop="loginTime" label="登录时间"></el-table-column>

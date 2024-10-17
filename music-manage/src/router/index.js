@@ -1,6 +1,7 @@
 import request from '@/utils/request'
 import Address from '@/views/Address.vue'
 import Admin from '@/views/Admin.vue'
+import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
@@ -79,6 +80,11 @@ const routes = [
 				path: '/comment',
 				name: '评论管理',
 				component: Comment,
+			},
+			{
+				path: '/collect',
+				name: '收藏管理',
+				component: Collect,
 			},
 
 		]

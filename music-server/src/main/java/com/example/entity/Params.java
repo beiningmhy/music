@@ -20,6 +20,7 @@ public class Params {
     private Integer songId;
     private String content;
     private Integer userId;
+    private Integer consumerId;
 //  前端单选框选择的内容
     private String radio;
 //    前端单选框选择的id

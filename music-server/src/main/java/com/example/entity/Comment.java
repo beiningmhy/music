@@ -16,11 +16,13 @@ public class Comment {
     private Integer id;
 
     @Column(name = "user_id")
-    private String userId;
+    private Integer userId;
     @Column(name = "song_id")
-    private String songId;
+    private Integer songId;
+    @Column(name = "singer_id")
+    private Integer singerId;
     @Column(name = "song_list_id")
-    private String songListId;
+    private Integer songListId;
     @Column(name = "content")
     private String content;
     @Column(name = "create_time")

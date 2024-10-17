@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.CollectMapper">
+    <resultMap id="CollectRM" type="com.example.entity.Collect">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="up" jdbcType="VARCHAR" property="up"/>
+        <result column="down" jdbcType="VARCHAR" property="down"/>
+
+
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+
+    </resultMap>
+
+    <select id="findBySearch" resultMap="CollectRM">
+        select   mc.*,
+        m.username AS username,
+        ms.name AS songName,
+        msl.title AS songListTitle
+        FROM
+        music_collect AS mc
+        LEFT JOIN music_consumer AS m ON mc.user_id = m.id
+        LEFT JOIN music_song AS ms ON mc.song_id = ms.id
+        LEFT JOIN music_song_list AS msl ON mc.song_list_id = msl.id
+        <where>
+
+            <if test="params != null and params.userId != null and params.userId != ''">
+                and mc.user_id = #{ params.userId }
+            </if>
+
+
+            <if test="params != null and params.status != null and params.status != ''">
+                and mc.status like concat('%', #{ params.status }, '%')
+            </if>
+            <if test="params != null and params.radio != null and params.radio != '' and params.radio=='歌曲'">
+                and mc.song_id IS NOT NULL
+                <if test="params != null and params.radioId != null and params.radioId != ''">
+                    and mc.song_id = #{ params.radioId }
+                </if>
+            </if>
+            <if test="params != null and params.radio != null and params.radio != '' and params.radio=='歌手'">
+                and mc.singer_id IS NOT NULL
+                <if test="params != null and params.radioId != null and params.radioId != ''">
+                    and mc.singer_id = #{ params.radioId }
+                </if>
+            </if>
+            <if test="params != null and params.radio != null and params.radio != '' and params.radio=='歌单'">
+                and mc.song_list_id IS NOT NULL
+                <if test="params != null and params.radioId != null and params.radioId != ''">
+                    and mc.song_list_id = #{ params.radioId }
+                </if>
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

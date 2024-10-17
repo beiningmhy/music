@@ -88,7 +88,7 @@ export default {
         <el-container>
             <!--    侧边栏  -->
             <el-aside :width="asideWidth" style="min-height: 100vh; background-color: #001529;">
-                <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center">
+                <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center" @click="$route.path=='/'?'':$router.push('/')">
                     <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px">
                     <span class="logo-title" v-show="!isCollapse">music</span>
                 </div>
@@ -128,6 +128,7 @@ export default {
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
+                            <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
 
                             <el-menu-item index="/audit">请假审核</el-menu-item>
