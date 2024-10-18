@@ -7,6 +7,7 @@ import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
+import RankList from '@/views/RankList.vue'
 import Register from '@/views/Register.vue'
 import Singer from '@/views/Singer.vue'
 import Song from '@/views/Song.vue'
@@ -84,9 +85,13 @@ const routes = [
 			{
 				path: '/collect',
 				name: '收藏管理',
-				component: Collect,
+				component: Comment,
 			},
-
+			{
+				path: '/rankList',
+				name: '评分管理',
+				component: RankList,
+			},
 		]
 	}
 

@@ -70,5 +70,10 @@ public class RankListServiceImpl implements RankListService {
         return rankListMapper.findByConsumerId();
     }
 
+    @Override
+    public List<RankList> avgForRankList(Params params) {
+        return rankListMapper.findBySearch(params);
+    }
+
 
 }

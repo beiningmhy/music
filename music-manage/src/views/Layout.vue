@@ -129,13 +129,14 @@ export default {
                         <el-menu-item-group>
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
+                            <el-menu-item index="/rankList" @click="handleClick($route)">评分信息</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
 
-                            <el-menu-item index="/audit">请假审核</el-menu-item>
+                            <!-- <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
                             <el-menu-item index="/reserve">预定信息</el-menu-item>
                             <el-menu-item index="/log">日志管理</el-menu-item>
-                            <el-menu-item index="/notice" v-if="user.role === '0'">系统公告</el-menu-item>
+                            <el-menu-item index="/notice" v-if="user.role === '0'">系统公告</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>

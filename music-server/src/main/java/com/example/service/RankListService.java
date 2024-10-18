@@ -23,6 +23,7 @@ public interface RankListService {
 
     RankList findById(Integer id);
     List<RankList> findByConsumerId();
+    List<RankList> avgForRankList(Params params);
 
 
 

@@ -33,7 +33,7 @@
             </if>
 
             <if test="params != null and params.status != null and params.status != ''">
-                and mc.status like concat('%', #{ params.status }, '%')
+                and mrl.status like concat('%', #{ params.status }, '%')
             </if>
 
         </where>

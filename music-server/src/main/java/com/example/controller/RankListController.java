@@ -11,11 +11,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 import java.util.List;
+import java.util.OptionalDouble;
 
 @CrossOrigin
 @RestController
-@RequestMapping("/RankList")
+@RequestMapping("/rankList")
 @Api(tags = "评分管理")
 public class RankListController {
     private static final Logger log = LoggerFactory.getLogger(RankListController.class);
@@ -66,5 +68,17 @@ public class RankListController {
     public Result findByConsumerId() {
         List<RankList> list = rankListService.findByConsumerId();
         return Result.success(list);
+    }
+    @GetMapping("/avg")
+    public Result avgForRankList(Params params) {
+//        params.setStatus("0");
+        if (params.getStatus()==null||params.getStatus().equals("")){
+            params.setStatus("0");
+        }
+        List<RankList> list = rankListService.avgForRankList(params);
+        OptionalDouble averageScore = list.stream()
+                .mapToDouble(RankList::getScore)
+                .average();
+        return Result.success(averageScore);
     }
 }
