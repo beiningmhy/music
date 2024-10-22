@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
 import com.example.common.Result;
 import com.example.entity.Admin;
@@ -28,7 +29,7 @@ public class AdminController {
     private AdminService adminService;
 
     @PostMapping("/login")
-//    @AutoLog("用户登录系统")
+    @AutoLog("管理员登录系统")
     public Result login(@RequestBody Admin admin, @RequestParam String key, HttpServletRequest request) {
         if(admin.getVerCode()==null||admin.getVerCode().equals("")){
             throw new CustomException("验证码不能为空");
@@ -46,13 +47,13 @@ public class AdminController {
     }
 
     @PostMapping("/register")
-//    @AutoLog("用户注册系统")
+    @AutoLog("管理员注册系统")
     public Result register(@RequestBody Admin admin) {
         adminService.add(admin);
         return Result.success();
     }
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改管理员")
     public Result save(@RequestBody Admin admin) {
         if (admin.getId() == null) {
             adminService.add(admin);
@@ -69,7 +70,7 @@ public class AdminController {
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索管理员")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<Admin> info = adminService.findBySearch(params);
@@ -78,7 +79,7 @@ public class AdminController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除管理员")
     public Result delete(@PathVariable Integer id) {
         adminService.delete(id);
         return Result.success();

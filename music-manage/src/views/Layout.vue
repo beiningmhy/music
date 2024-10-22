@@ -131,6 +131,7 @@ export default {
                             <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
                             <el-menu-item index="/rankList" @click="handleClick($route)">评分信息</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
+                            <el-menu-item index="/log" @click="handleClick($route)">日志信息</el-menu-item>
 
                             <!-- <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>

@@ -238,7 +238,7 @@ export default {
             this.findBySearch();
         },
         add() {
-            this.form = {};
+            this.form = {address:''};
             this.dialogFormVisible = true;
         },
         edit(obj) {
@@ -316,7 +316,7 @@ export default {
         },
         async handleChange(value) {
             let address = '';
-            // console.log(value);
+            console.log(value);
             if (value != null) {
                 for (let i = 0; i < value.length; i++) {
                     const element = value[i];
@@ -328,7 +328,7 @@ export default {
                         }
                     })
                 }
-                // console.log(address);
+                console.log(address);
                 this.form.address = address;
             }
 
@@ -352,7 +352,7 @@ export default {
             tableData: [],
             dialogFormVisible: false,
             form: {
-                address: ''
+                address: '',
             },
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             fileList: [],
@@ -369,7 +369,7 @@ export default {
             // console.log(newValue);
             if (newValue == false) {
                 this.fileList = [];
-                this.form = {};
+                this.form = {address:'1'};
                 this.value = [];
             }
         },

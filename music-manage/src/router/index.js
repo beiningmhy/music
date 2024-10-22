@@ -6,6 +6,7 @@ import Comment from '@/views/Comment.vue'
 import Consumer from '@/views/Consumer.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
+import Log from '@/views/Log.vue'
 import Login from '@/views/Login.vue'
 import RankList from '@/views/RankList.vue'
 import Register from '@/views/Register.vue'
@@ -85,12 +86,17 @@ const routes = [
 			{
 				path: '/collect',
 				name: '收藏管理',
-				component: Comment,
+				component: Collect,
 			},
 			{
 				path: '/rankList',
 				name: '评分管理',
 				component: RankList,
+			},
+			{
+				path: '/log',
+				name: '日志管理',
+				component: Log,
 			},
 		]
 	}
