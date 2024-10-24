@@ -38,4 +38,6 @@ public class Log {
     private String hostName;
     @Column(name = "hostAddress")
     private String hostAddress;
+    @Column(name = "error")
+    private String error;
 }

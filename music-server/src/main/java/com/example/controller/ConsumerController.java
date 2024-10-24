@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
 import com.example.common.Result;
 import com.example.entity.Consumer;
@@ -28,7 +29,7 @@ public class ConsumerController {
     private ConsumerService consumerService;
 
     @PostMapping("/login")
-//    @AutoLog("用户登录系统")
+    @AutoLog("用户登录系统")
     public Result login(@RequestBody Consumer consumer, @RequestParam String key, HttpServletRequest request) {
         if(consumer.getVerCode()==null||consumer.getVerCode().equals("")){
             throw new CustomException("验证码不能为空");
@@ -46,13 +47,13 @@ public class ConsumerController {
     }
 
     @PostMapping("/register")
-//    @AutoLog("用户注册系统")
+    @AutoLog("用户注册系统")
     public Result register(@RequestBody Consumer consumer) {
         consumerService.add(consumer);
         return Result.success();
     }
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改用户")
     public Result save(@RequestBody Consumer consumer) {
         if (consumer.getId() == null) {
             consumerService.add(consumer);
@@ -69,7 +70,7 @@ public class ConsumerController {
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索用户")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<Consumer> info = consumerService.findBySearch(params);
@@ -78,7 +79,7 @@ public class ConsumerController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除用户")
     public Result delete(@PathVariable Integer id) {
         consumerService.delete(id);
         return Result.success();

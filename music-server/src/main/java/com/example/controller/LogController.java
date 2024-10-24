@@ -35,5 +35,9 @@ public class LogController {
         logService.delete(id);
         return Result.success();
     }
+    @GetMapping("/user")
+    public Result findByUserId() {
+        return Result.success(logService.findByUserId());
+    }
 
 }

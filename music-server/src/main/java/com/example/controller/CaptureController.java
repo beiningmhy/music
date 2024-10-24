@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
 import com.sun.xml.bind.util.Which;
 import com.wf.captcha.ArithmeticCaptcha;
@@ -19,6 +20,7 @@ import javax.servlet.http.HttpServletResponse;
 public class CaptureController {
 
     @RequestMapping("/captcha")
+    @AutoLog("生成验证码")
     public void captcha(@RequestParam String key, HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 //        // 指定验证码的长宽以及字符的个数

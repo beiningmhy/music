@@ -1,8 +1,11 @@
 <template>
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
-            <el-input v-model="params.name" style="width: 200px" placeholder="请输入操作内容"></el-input>
-            <el-input v-model="params.username" style="width: 200px; margin-left: 5px" placeholder="请输入操作人"></el-input>
+            <el-input v-model="params.name" style="width: 200px;margin-right: 10px" placeholder="请输入操作内容"></el-input>
+            <el-select v-model="params.username" placeholder="请选择操作人" style="width: 200px; margin-right: 10px"
+                @input="findBySearch()" clearable filterable default-first-option>
+                <el-option v-for="item in usernameObjs" :key="item.username" :label="item.username" :value="item.username"></el-option>
+            </el-select>
             <el-button type="warning" style="margin-left: 10px" @click="findBySearch()">查询</el-button>
             <el-button type="warning" style="margin-left: 10px" @click="reset()">清空</el-button>
         </div>
@@ -227,7 +230,8 @@ export default {
             tableData: [],
             total: 0,
             dialogFormVisible: false,
-            form: {}
+            form: {},
+            usernameObjs: [],
         }
     },
     // 页面加载的时候，做一些事情，在created里面
@@ -243,6 +247,7 @@ export default {
                 if (res.code === '0') {
                     this.tableData = res.data.list;
                     this.total = res.data.total;
+                    this.initUsername();
                 } else {
                     this.$message({
                         message: res.msg,
@@ -304,6 +309,18 @@ export default {
         detail(row) {
             this.form = row;
             this.dialogFormVisible = true;
+        },
+        initUsername() {
+            request.get("/log/user").then(res => {
+                if (res.code === '0') {
+                    this.usernameObjs = res.data;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
         },
     }
 }

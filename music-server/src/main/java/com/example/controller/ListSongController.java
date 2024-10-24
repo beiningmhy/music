@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
 import com.example.common.Result;
 import com.example.entity.ListSong;
@@ -27,7 +28,7 @@ public class ListSongController {
 
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("将歌曲添加或修改到歌单中")
     public Result save(@RequestBody ListSong listSong) {
         if (listSong.getId() == null) {
             listSongService.add(listSong);
@@ -42,7 +43,7 @@ public class ListSongController {
 
 
     @DeleteMapping("/{songId}/{songListId}")
-//    @AutoLog("删除用户")
+    @AutoLog("将歌曲从歌单中移除")
     public Result delete(@PathVariable Integer songId,@PathVariable Integer songListId) {
         listSongService.delete(songId,songListId);
         return Result.success();

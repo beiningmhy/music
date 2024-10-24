@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.Params;
 import com.example.entity.SongList;
@@ -24,7 +25,7 @@ public class SongListController {
 
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改歌单")
     public Result save(@RequestBody SongList songList) {
         if (songList.getId() == null) {
             songListService.add(songList);
@@ -57,7 +58,7 @@ public class SongListController {
 
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索歌单")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<SongList> info = songListService.findBySearch(params);
@@ -66,7 +67,7 @@ public class SongListController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除歌单")
     public Result delete(@PathVariable Integer id) {
         songListService.delete(id);
         return Result.success();

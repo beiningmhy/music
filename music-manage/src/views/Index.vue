@@ -1,10 +1,28 @@
 <template>
-    <div style="overflow: auto;height: 90vh">
+    <div style="overflow: auto;height: 85vh">
         <div>
             这是首页
             <span>欢迎用户{{ user.name }}</span>
-            <iframe width="90%" height="90%" class="embed-show" src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3Da2d2CbtYDFp8bw2nsF7opqWHbcxsmQSCi3786YKV42IyUROZ-wdjONTZG-eig99Ny_w%26name%3D%2F%25E6%2584%25BF%25E4%25B8%258E%25E6%2584%2581-%25E6%259E%2597%25E4%25BF%258A%25E6%259D%25B0.flac%26_etag%3D7f7f1%26size%3D22363583" allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>        
-            <iframe width="90%" height="90%" class="embed-show" src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3D7172UJoYOBUe6hxpgNLf3MkpTArlBAukeRUid1egpcoz8eXOXV0fT_Mz4uH9GvXRQvc%26name%3D%2F%25E5%258F%25A5%25E5%258F%25B7-G.E.M.%25E9%2582%2593%25E7%25B4%25AB%25E6%25A3%258B.flac%26_etag%3D53aa2%26size%3D26775816" allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>
+            <iframe width="90%" height="90%" class="embed-show"
+                src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3Da2d2CbtYDFp8bw2nsF7opqWHbcxsmQSCi3786YKV42IyUROZ-wdjONTZG-eig99Ny_w%26name%3D%2F%25E6%2584%25BF%25E4%25B8%258E%25E6%2584%2581-%25E6%259E%2597%25E4%25BF%258A%25E6%259D%25B0.flac%26_etag%3D7f7f1%26size%3D22363583"
+                allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"
+                frameborder="0" scrolling="no"></iframe>
+            <iframe width="90%" height="90%" class="embed-show"
+                src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3D7172UJoYOBUe6hxpgNLf3MkpTArlBAukeRUid1egpcoz8eXOXV0fT_Mz4uH9GvXRQvc%26name%3D%2F%25E5%258F%25A5%25E5%258F%25B7-G.E.M.%25E9%2582%2593%25E7%25B4%25AB%25E6%25A3%258B.flac%26_etag%3D53aa2%26size%3D26775816"
+                allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true"
+                frameborder="0" scrolling="no"></iframe>
+        </div>
+        
+        <div>
+            <div style="width: 100%;height: 300px;">
+                <div style="display: flex; float: left;width: 50%;height: 100%;" id="div1">
+
+                </div>
+            </div>
+
+            <div style="background-color: blue;width: 100%;height: 300px;">
+
+            </div>
         </div>
         <!-- <div>
             <div style="display: flex;height: 40vh;">
@@ -35,6 +53,7 @@
 </template>
 <script>
 import request from "@/utils/request";
+import * as echarts from "echarts";
 // import * as echarts from "echarts";
 export default {
     name: "INDEX",
@@ -44,169 +63,54 @@ export default {
             activeName: '1',
             tableData: [],
             // provinces :require('province-city-china/dist/data.json'),
-            
+
 
         }
     },
     created() {
-        // console.log(this.provinces);
-        
     },
     mounted() {
-        // this.findNotice();
-        // this.initEcharts();
+        this.initEcharts();
     },
     methods: {
-        // findNotice() {
-        //     request.get("/notice").then(res => {
-        //         if (res.code === '0') {
-        //             // console.log(res.data);
+        initEcharts() {
+            let chartDom = document.getElementById('div1');
+            let myChart = echarts.init(chartDom);
+            let option;
+            option = {
+                legend: {
+                    top: 'bottom'
+                },
+                toolbox: {
+                    show: true,
+                    feature: {
+                        mark: { show: true },
+                        dataView: { show: true, readOnly: false },
+                        restore: { show: true },
+                        saveAsImage: { show: true }
+                    }
+                },
+                series: [
+                    {
+                        name: 'Nightingale Chart',
+                        type: 'pie',
+                        radius: [20, 100],
+                        center: ['50%', '50%'],
+                        roseType: 'area',
+                        itemStyle: {
+                            borderRadius: 8
+                        },
+                        data: [
+                            { value: 400, name: 'rose 1' },
+                            { value: 38, name: 'rose 2' },
+                            
+                        ]
+                    }
+                ]
+            };
+            option && myChart.setOption(option);
 
-        //             this.tableData = res.data;
-        //             this.activeName = res.data[0].id;
-        //         } else {
-        //             this.$message({
-        //                 message: res.msg,
-        //                 type: 'error'
-        //             });
-        //         }
-        //     })
-        // },
-        // initEcharts() {
-        //     request.get("/book/echarts/bie2").then(res => {
-        //         if (res.code === '0') {
-        //             // console.log(res.data);
-        //             this.initBie(res.data);
-        //         } else {
-        //             this.$message({
-        //                 message: res.msg,
-        //                 type: 'error'
-        //             });
-        //         }
-        //     })
-        //     request.get("/book/echarts/bar2").then(res => {
-        //         if (res.code === '0') {
-        //             // console.log(res.data);
-        //             this.initBar(res.data.xAxis, res.data.yAxis);
-        //             this.initLine(res.data.xAxis, res.data.yAxis)
-        //         } else {
-        //             this.$message({
-        //                 message: res.msg,
-        //                 type: 'error'
-        //             });
-        //         }
-        //     })
-        // },
-        // initBie(data) {
-        //     let chartDom = document.getElementById('bie');
-        //     let myChart = echarts.init(chartDom);
-        //     let option;
-
-        //     option = {
-        //         title: {
-        //             text: '图书统计（折线图）',
-        //             subtext: '统计维度：图书分类',
-        //             left: 'center'
-        //         },
-        //         tooltip: {
-        //             trigger: 'item'
-        //         },
-        //         legend: {
-        //             orient: 'vertical',
-        //             left: 'left'
-        //         },
-        //         series: [
-        //             {
-        //                 type: 'pie',
-        //                 radius: ['20%', '70%'],
-        //                 avoidLabelOverlap: false,
-        //                 itemStyle: {
-        //                     borderRadius: 10,
-        //                     borderColor: '#fff',
-        //                     borderWidth: 2
-        //                 },
-        //                 label: {
-        //                     show: false,
-        //                     position: 'center'
-        //                 },
-        //                 emphasis: {
-        //                     label: {
-        //                         show: true,
-        //                         fontSize: 10,
-        //                         fontWeight: 'bold'
-        //                     }
-        //                 },
-        //                 labelLine: {
-        //                     show: false
-        //                 },
-        //                 data: data,
-        //             }
-        //         ]
-        //     };
-
-        //     option && myChart.setOption(option);
-
-        // },
-        // initBar(xAxis, yAxis) {
-        //     let chartDom = document.getElementById('bar');
-        //     let myChart = echarts.init(chartDom);
-        //     let option;
-
-        //     option = {
-        //         title: {
-        //             text: '图书统计（柱状图）',
-        //             subtext: '统计维度：图书分类',
-        //             left: 'center'
-        //         },
-        //         xAxis: {
-        //             type: 'category',
-        //             data: xAxis
-        //         },
-        //         yAxis: {
-        //             type: 'value'
-        //         },
-        //         series: [
-        //             {
-        //                 data: yAxis,
-        //                 type: 'bar',
-        //                 showBackground: true,
-        //                 backgroundStyle: {
-        //                     color: 'rgba(180, 180, 180, 0.2)'
-        //                 }
-        //             }
-        //         ]
-        //     };
-
-        //     option && myChart.setOption(option);
-        // },
-        // initLine(xAxis, yAxis) {
-        //     let chartDom = document.getElementById('line');
-        //     let myChart = echarts.init(chartDom);
-        //     let option;
-
-        //     option = {
-        //         title: {
-        //             text: '图书统计（折线图）',
-        //             subtext: '统计维度：图书分类',
-        //             left: 'center'
-        //         },
-        //         xAxis: {
-        //             type: 'category',
-        //             data: xAxis
-        //         },
-        //         yAxis: {
-        //             type: 'value'
-        //         },
-        //         series: [
-        //             {
-        //                 data: yAxis,
-        //                 type: 'line'
-        //             }
-        //         ]
-        //     };
-
-        //     option && myChart.setOption(option);
-        // },
+        },
     }
 }
 </script>

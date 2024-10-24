@@ -5,6 +5,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.Params;
 import com.example.entity.Address;
@@ -37,7 +38,7 @@ public class AddressController {
 
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改地址")
     public Result save(@RequestBody Address address) {
         if (address.getId() == null) {
             addressService.add(address);
@@ -48,17 +49,19 @@ public class AddressController {
     }
 
     @GetMapping("/map")
+    @AutoLog("查询所有地址")
     public Result findAll() {
         List<Address> list = addressService.findAll();
         return Result.success(transformToOptions(list));
     }
     @GetMapping("/{id}")
+    @AutoLog("根据ID查找地址")
     public Result findById(@PathVariable Integer id) {
         return Result.success(addressService.findById(id).getName());
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索地址")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<Address> info = addressService.findBySearch(params);
@@ -67,7 +70,7 @@ public class AddressController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除地址")
     public Result delete(@PathVariable Integer id) {
         addressService.delete(id);
         return Result.success();

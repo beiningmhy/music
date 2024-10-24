@@ -5,6 +5,7 @@ import cn.hutool.core.io.IoUtil;
 import cn.hutool.json.JSONUtil;
 import cn.hutool.poi.excel.ExcelUtil;
 import cn.hutool.poi.excel.ExcelWriter;
+import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.Params;
 import com.example.entity.Song;
@@ -40,7 +41,7 @@ public class SongController {
 
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改歌曲")
     public Result save(@RequestBody Song song,  Integer cont) {
         if (song.getId() == null) {
             songService.add(song,cont);
@@ -57,7 +58,7 @@ public class SongController {
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索歌曲")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<Song> info = songService.findBySearch(params);
@@ -66,12 +67,13 @@ public class SongController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除歌曲")
     public Result delete(@PathVariable Integer id) {
         songService.delete(id);
         return Result.success();
     }
     @PutMapping("/delBatch")
+    @AutoLog("批量删除歌曲")
     public Result delBatch(@RequestBody List<Song> list) {
         for (Song song : list) {
             songService.delete(song.getId());
@@ -79,6 +81,7 @@ public class SongController {
         return Result.success();
     }
     @GetMapping("/export/{ids}")
+    @AutoLog("批量导出歌曲")
     public Result export(@PathVariable List<Integer> ids, HttpServletResponse response) throws IOException {
 //        System.out.println(ids);
         if (ids == null || ids.equals("")) {
@@ -141,6 +144,7 @@ public class SongController {
         return Result.success();
     }
     @PostMapping("/upload")
+    @AutoLog("批量导入歌曲")
     public Result upload(MultipartFile file) throws IOException {
         List<Song> infoList = ExcelUtil.getReader(file.getInputStream()).readAll(Song.class);
         if (!CollectionUtil.isEmpty(infoList)) {

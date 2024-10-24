@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
 import com.example.common.Result;
 import com.example.entity.Comment;
@@ -28,7 +29,7 @@ public class CommentController {
     private CommentService commentService;
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改评论")
     public Result save(@RequestBody Comment comment) {
         if (comment.getId() == null) {
             commentService.add(comment);
@@ -38,6 +39,7 @@ public class CommentController {
         return Result.success();
     }
     @PostMapping("/up")
+    @AutoLog("点赞评论")
     public Result up(@RequestBody Comment comment) {
         Comment comment1 = commentService.findById(comment.getId());
         comment1.setUp(String.valueOf(Integer.parseInt(comment1.getUp())+1));
@@ -45,6 +47,7 @@ public class CommentController {
         return Result.success();
     }
     @PostMapping("/down")
+    @AutoLog("反对评论")
     public Result down(@RequestBody Comment comment) {
         Comment comment1 = commentService.findById(comment.getId());
         comment1.setDown(String.valueOf(Integer.parseInt(comment1.getDown())+1));
@@ -59,7 +62,7 @@ public class CommentController {
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索评论")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<Comment> info = commentService.findBySearch(params);
@@ -68,7 +71,7 @@ public class CommentController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除评论")
     public Result delete(@PathVariable Integer id) {
         commentService.delete(id);
         return Result.success();

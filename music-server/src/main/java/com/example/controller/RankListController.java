@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.RankList;
 import com.example.entity.Params;
@@ -26,7 +27,7 @@ public class RankListController {
     private RankListService rankListService;
 
     @PostMapping
-//    @AutoLog("添加或修改用户")
+    @AutoLog("添加或修改评分")
     public Result save(@RequestBody RankList rankList) {
         if (rankList.getId() == null) {
             rankListService.add(rankList);
@@ -43,7 +44,7 @@ public class RankListController {
     }
 
     @GetMapping("/search")
-//    @AutoLog("搜索用户")
+    @AutoLog("搜索评分")
     public Result findBySearch(Params params) {
 //        log.info("拦截器已放行");
         PageInfo<RankList> info = rankListService.findBySearch(params);
@@ -52,7 +53,7 @@ public class RankListController {
     }
 
     @DeleteMapping("/{id}")
-//    @AutoLog("删除用户")
+    @AutoLog("删除评分")
     public Result delete(@PathVariable Integer id) {
         rankListService.delete(id);
         return Result.success();
@@ -70,6 +71,7 @@ public class RankListController {
         return Result.success(list);
     }
     @GetMapping("/avg")
+    @AutoLog("获取平均分")
     public Result avgForRankList(Params params) {
 //        params.setStatus("0");
         if (params.getStatus()==null||params.getStatus().equals("")){

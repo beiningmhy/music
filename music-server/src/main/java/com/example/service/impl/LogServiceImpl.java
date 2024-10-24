@@ -32,6 +32,11 @@ public class LogServiceImpl implements LogService {
         return PageInfo.of(list);
     }
 
+    @Override
+    public List<Log> findByUserId() {
+        return logMapper.findByUserId() ;
+    }
+
     public void delete(Integer id) {
         logMapper.deleteByPrimaryKey(id);
     }
