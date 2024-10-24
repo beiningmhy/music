@@ -8,11 +8,13 @@ import cn.hutool.poi.excel.ExcelWriter;
 import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.Params;
+import com.example.entity.Singer;
 import com.example.entity.Song;
 import com.example.exception.CustomException;
 import com.example.service.SingerService;
 import com.example.service.SongService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -22,14 +24,13 @@ import javax.annotation.Resource;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/song")
+@Api(tags = "歌曲管理")
 public class SongController {
     private static final Logger log = LoggerFactory.getLogger(SongController.class);
 
@@ -39,12 +40,11 @@ public class SongController {
     private SingerService singerService;
 
 
-
     @PostMapping
     @AutoLog("添加或修改歌曲")
-    public Result save(@RequestBody Song song,  Integer cont) {
+    public Result save(@RequestBody Song song, Integer cont) {
         if (song.getId() == null) {
-            songService.add(song,cont);
+            songService.add(song, cont);
         } else {
             songService.update(song);
         }
@@ -72,6 +72,7 @@ public class SongController {
         songService.delete(id);
         return Result.success();
     }
+
     @PutMapping("/delBatch")
     @AutoLog("批量删除歌曲")
     public Result delBatch(@RequestBody List<Song> list) {
@@ -80,6 +81,7 @@ public class SongController {
         }
         return Result.success();
     }
+
     @GetMapping("/export/{ids}")
     @AutoLog("批量导出歌曲")
     public Result export(@PathVariable List<Integer> ids, HttpServletResponse response) throws IOException {
@@ -89,8 +91,8 @@ public class SongController {
         }
 
         List<Integer> idsList = JSONUtil.toList(JSONUtil.parseArray(ids), Integer.class);
-        List<Song> all =new ArrayList<>();
-        for(Integer id : idsList){
+        List<Song> all = new ArrayList<>();
+        for (Integer id : idsList) {
 //            System.out.println(id);
             all.add(songService.findByById(id));
 //            System.out.println("id:"+id);
@@ -118,9 +120,9 @@ public class SongController {
             row.put("歌曲ID", song.getId());
             row.put("歌手名称", song.getSingerName());
             row.put("歌曲名称", song.getName());
-            row.put("歌曲介绍",song.getIntroduction());
-            row.put("歌曲创建时间",song.getCreateTime());
-            row.put("歌曲更新时间",song.getUpdateTime());
+            row.put("歌曲介绍", song.getIntroduction());
+            row.put("歌曲创建时间", song.getCreateTime());
+            row.put("歌曲更新时间", song.getUpdateTime());
             row.put("歌曲图片", song.getPic());
             row.put("歌曲歌词", song.getLyric());
             row.put("歌曲地址", song.getUrl());
@@ -143,6 +145,7 @@ public class SongController {
 
         return Result.success();
     }
+
     @PostMapping("/upload")
     @AutoLog("批量导入歌曲")
     public Result upload(MultipartFile file) throws IOException {
@@ -154,12 +157,30 @@ public class SongController {
                 song.setSingerId(id);
 //                System.out.println(song.toString());
                 try {
-                    songService.add(song,1);
+                    songService.add(song, 1);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
         }
         return Result.success();
+    }
+
+    @GetMapping("/songCount")
+    public Result songCount() {
+        List<Song> songs = songService.findAll(new Params());
+        Map<String, Long> collect = songs.stream().
+                collect(Collectors.groupingBy(
+                        song -> Optional.ofNullable(song.getSingerName()).orElse("未知"),
+                        // 使用counting()收集器来计算每个分组的数量
+                        Collectors.counting()));
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (String key : collect.keySet()){
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", key);
+            map.put("value", collect.get(key));
+            mapList.add(map);
+        }
+        return Result.success(mapList);
     }
 }

@@ -11,17 +11,23 @@ import com.github.pagehelper.PageInfo;
 import com.wf.captcha.utils.CaptchaUtil;
 
 
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
 @RequestMapping("/admin")
+@Api(tags = "管理员管理")
 public class AdminController {
     private static final Logger log = LoggerFactory.getLogger(AdminController.class);
 
@@ -83,5 +89,31 @@ public class AdminController {
     public Result delete(@PathVariable Integer id) {
         adminService.delete(id);
         return Result.success();
+    }
+    @GetMapping("/statusCount")
+    public Result statusCount() {
+        List<Admin> admins=adminService.findAll();
+        Map<String, Long> collect = admins.stream()
+                .collect(Collectors.groupingBy(
+                        admin -> {
+                            String sex=admin.getStatus();
+                            if ("0".equals(sex)) {
+                                return "正常";
+                            } else if ("1".equals(sex)) {
+                                return "封禁";
+                            } else {
+                                return "未知";
+                            }
+                        },
+                        Collectors.counting()
+                ));
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (String key : collect.keySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", key);
+            map.put("value", collect.get(key));
+            mapList.add(map);
+        }
+        return Result.success(mapList);
     }
 }

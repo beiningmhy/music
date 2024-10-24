@@ -13,6 +13,7 @@ import com.example.exception.CustomException;
 import com.example.service.SingerService;
 import com.example.service.AddressService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -28,6 +29,7 @@ import java.util.*;
 @CrossOrigin
 @RestController
 @RequestMapping("/address")
+@Api(tags = "地址管理")
 public class AddressController {
     private static final Logger log = LoggerFactory.getLogger(AddressController.class);
 

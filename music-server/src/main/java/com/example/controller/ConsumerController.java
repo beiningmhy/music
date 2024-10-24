@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @CrossOrigin
 @RestController
@@ -31,11 +35,11 @@ public class ConsumerController {
     @PostMapping("/login")
     @AutoLog("用户登录系统")
     public Result login(@RequestBody Consumer consumer, @RequestParam String key, HttpServletRequest request) {
-        if(consumer.getVerCode()==null||consumer.getVerCode().equals("")){
+        if (consumer.getVerCode() == null || consumer.getVerCode().equals("")) {
             throw new CustomException("验证码不能为空");
         }
 
-        if(!consumer.getVerCode().toLowerCase().equals(CaptureConfig.CAPTURE_MAP.get(key))){
+        if (!consumer.getVerCode().toLowerCase().equals(CaptureConfig.CAPTURE_MAP.get(key))) {
             // 如果不相等，说明验证不通过
             CaptchaUtil.clear(request);
             CaptureConfig.CAPTURE_MAP.remove(key);
@@ -52,6 +56,7 @@ public class ConsumerController {
         consumerService.add(consumer);
         return Result.success();
     }
+
     @PostMapping
     @AutoLog("添加或修改用户")
     public Result save(@RequestBody Consumer consumer) {
@@ -83,5 +88,60 @@ public class ConsumerController {
     public Result delete(@PathVariable Integer id) {
         consumerService.delete(id);
         return Result.success();
+    }
+
+    @GetMapping("/sexCount")
+    public Result sexCount() {
+        List<Consumer> consumers = consumerService.findAll();
+        Map<String, Long> collect = consumers.stream()
+                .collect(Collectors.groupingBy(
+                        // 定义一个函数来处理sex属性
+                        consumer -> {
+                            String sex = consumer.getSex();
+                            if ("1".equals(sex)) {
+                                return "男";
+                            } else if ("0".equals(sex)) {
+                                return "女";
+                            } else {
+                                return "未知"; // 如果sex为空或者不是"0"或"1"
+                            }
+                        },
+                        // 使用counting()收集器来计算每个分组的数量
+                        Collectors.counting()
+                ));
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (String key : collect.keySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", key);
+            map.put("value", collect.get(key));
+            mapList.add(map);
+        }
+        return Result.success(mapList);
+    }
+    @GetMapping("/statusCount")
+    public Result statusCount() {
+        List<Consumer> consumers = consumerService.findAll();
+        Map<String, Long> collect = consumers.stream()
+                .collect(Collectors.groupingBy(
+                        consumer -> {
+                            String status = consumer.getStatus();
+                            if ("0".equals(status)) {
+                                return "正常";
+                            } else if ("1".equals(status)) {
+                                return "封禁";
+                            } else {
+                                return "未知"; // 如果status为空或者不是"0"或"1"
+                            }
+                        },
+                        Collectors.counting()
+                ));
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (String key : collect.keySet()) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", key);
+            map.put("value", collect.get(key));
+            mapList.add(map);
+        }
+        return Result.success(mapList);
     }
 }

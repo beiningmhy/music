@@ -6,6 +6,7 @@ import com.example.entity.Params;
 import com.example.entity.SongList;
 import com.example.service.SongListService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/songList")
+@Api(tags = "歌单管理")
 public class SongListController {
     private static final Logger log = LoggerFactory.getLogger(SongListController.class);
 

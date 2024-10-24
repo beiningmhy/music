@@ -5,6 +5,7 @@ import com.example.entity.Log;
 import com.example.entity.Params;
 import com.example.service.LogService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 @CrossOrigin
 @RestController
 @RequestMapping("/log")
+@Api(tags = "日志管理")
 public class LogController {
 
     @Resource

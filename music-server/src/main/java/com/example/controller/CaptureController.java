@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 @CrossOrigin
 @RestController
 @RequestMapping
+@Api(tags = "验证码")
 public class CaptureController {
 
     @RequestMapping("/captcha")

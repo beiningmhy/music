@@ -9,6 +9,7 @@ import com.example.exception.CustomException;
 import com.example.service.ListSongService;
 import com.github.pagehelper.PageInfo;
 import com.wf.captcha.utils.CaptchaUtil;
+import io.swagger.annotations.Api;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +21,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/listSong")
+@Api(tags = "歌单歌曲管理")
 public class ListSongController {
     private static final Logger log = LoggerFactory.getLogger(ListSongController.class);
 
