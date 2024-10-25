@@ -45,6 +45,9 @@ public class LogExceptionAspect {
         if (ObjectUtil.isNotNull(user)) {
             username = user.getName();
         }
+        if(username.equals("")){
+            username="系统操作";
+        }
         // 操作人IP
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = request.getRemoteAddr()+"/"+LogAspect.getClientIpAddress();

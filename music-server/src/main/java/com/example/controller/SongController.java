@@ -153,7 +153,13 @@ public class SongController {
         if (!CollectionUtil.isEmpty(infoList)) {
             for (Song song : infoList) {
                 song.setId(null);
-                Integer id = singerService.findByName(song.getSingerName()).getId();
+                Singer singer = singerService.findByName(song.getSingerName());
+                Integer id;
+                if (singer != null) {
+                    id = singer.getId();
+                } else {
+                    throw new CustomException("请检查歌手名称或先添加歌手");
+                }
                 song.setSingerId(id);
 //                System.out.println(song.toString());
                 try {
@@ -175,7 +181,7 @@ public class SongController {
                         // 使用counting()收集器来计算每个分组的数量
                         Collectors.counting()));
         List<Map<String, Object>> mapList = new ArrayList<>();
-        for (String key : collect.keySet()){
+        for (String key : collect.keySet()) {
             Map<String, Object> map = new HashMap<>();
             map.put("name", key);
             map.put("value", collect.get(key));

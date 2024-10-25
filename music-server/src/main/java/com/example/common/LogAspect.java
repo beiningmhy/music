@@ -56,6 +56,9 @@ public class LogAspect {
             Admin admin = (Admin) data;
             username = admin.getName();
         }
+        if(username.equals("")){
+            username="系统操作";
+        }
 
 
         // 再去往日志表里写一条日志记录

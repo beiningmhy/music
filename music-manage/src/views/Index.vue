@@ -329,22 +329,25 @@ export default {
                     {
                         name: '',
                         type: 'pie',
-                        radius: [20, 180],
+                        radius: [50, 180],
                         avoidLabelOverlap: false,
                         itemStyle: {
                             borderRadius: 10
                         },
-                        // label: {
-                        //     show: true,
-                        //     position: 'left'
-                        // },
-                        roseType: 'area',
+                        label: {
+                            show: false,
+                            position: 'center'
+                        },
+                        // roseType: 'area',
                         emphasis: {
                             label: {
                                 show: true,
                                 fontSize: 40,
                                 fontWeight: 'bold'
                             }
+                        },
+                        labelLine: {
+                            show: false
                         },
                         data: data,
                     }

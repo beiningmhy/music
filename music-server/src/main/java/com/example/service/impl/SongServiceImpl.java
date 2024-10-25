@@ -37,7 +37,7 @@ public class SongServiceImpl implements SongService {
     }
 
     @Override
-    public void add(Song song,Integer cont) {
+    public void add(Song song,Integer cont) {//cont=1表示同意导入，0表示判断一下是否存在
         // 1. 用户名一定要有，否则不让新增（后面需要用户名登录）
         if (song.getName() == null || "".equals(song.getName())) {
             throw new CustomException("歌曲名不能为空");
