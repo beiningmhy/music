@@ -13,10 +13,12 @@ import javax.annotation.Resource;
 import javax.servlet.MultipartConfigElement;
 
 @Configuration
-public class WebConfig implements  WebMvcConfigurer {
+public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configurePathMatch(PathMatchConfigurer configurer) {
         // 指定controller统一的接口前缀
+
+
         configurer.addPathPrefix("/api", clazz -> clazz.isAnnotationPresent(RestController.class));
     }
 
@@ -41,6 +43,9 @@ public class WebConfig implements  WebMvcConfigurer {
                 .excludePathPatterns("/api/admin/register")
                 .excludePathPatterns("/api/files/**")
                 .excludePathPatterns("/api/captcha")
-                .excludePathPatterns("/api/song/upload");
+                .excludePathPatterns("/api/song/upload")
+                .excludePathPatterns("/api/system/**")
+                .excludePathPatterns("/api/singer/search")
+                .excludePathPatterns("/api/songList/search");
     }
 }

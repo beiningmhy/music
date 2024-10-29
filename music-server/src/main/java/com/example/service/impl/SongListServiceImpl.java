@@ -1,9 +1,11 @@
 package com.example.service.impl;
 
+import com.example.entity.ListSong;
 import com.example.entity.Params;
 import com.example.entity.SongList;
 import com.example.exception.CustomException;
 import com.example.mapper.SongListMapper;
+import com.example.service.ListSongService;
 import com.example.service.SongListService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -16,6 +18,8 @@ import java.util.List;
 public class SongListServiceImpl implements SongListService {
     @Resource
     private SongListMapper songListMapper;
+    @Resource
+    private ListSongService listSongService;
 
     @Override
     public List<SongList> findAll() {
@@ -56,6 +60,10 @@ public class SongListServiceImpl implements SongListService {
 
     @Override
     public void delete(Integer id) {
+        ListSong listSong = listSongService.findBySongListId(id);
+        if (listSong!=null){
+            throw new CustomException("请先移除歌单中的歌曲");
+        }
         songListMapper.deleteByPrimaryKey(id);
     }
 

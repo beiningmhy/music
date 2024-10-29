@@ -2,7 +2,7 @@
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入地区名"
-                @change="findBySearch()"></el-input>
+                @input="findBySearch()"></el-input>
 
 
             <el-button type="warning" @click="findBySearch()">搜索</el-button>

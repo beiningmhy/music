@@ -1,6 +1,8 @@
 import request from '@/utils/request'
 import Address from '@/views/Address.vue'
 import Admin from '@/views/Admin.vue'
+import AdminSpace from '@/views/AdminSpace.vue'
+import ChangePassword from '@/views/ChangePassword.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Consumer from '@/views/Consumer.vue'
@@ -56,7 +58,6 @@ const routes = [
 				path: '/singer',
 				name: '歌手信息',
 				component: Singer,
-
 			},
 			{
 				path: '/song',
@@ -98,6 +99,16 @@ const routes = [
 				name: '日志管理',
 				component: Log,
 			},
+			{
+				path:'/changePassword',
+				name:'修改密码',
+				component:ChangePassword,
+			},
+			{
+				path:'/space',
+				name:'个人中心',
+				component:AdminSpace,
+			},
 		]
 	}
 
@@ -113,25 +124,21 @@ const router = new VueRouter({
 
 // 路由守卫
 router.beforeEach((to, from, next) => {
+
+	
+	
 	const user = localStorage.getItem("user");
 
 	if (to.path === '/login' || to.path === '/register') {
 		next();
-
-
 		return;
 	}
 
-
 	if (!user && (to.path !== '/login' || to.path !== '/register')) {
-
-
 		return next("/login");
 	}
 	if (user && (to.path !== '/login' || to.path !== '/register')) {
-
 		request.get("/web/").then(res => {
-
 			if (res.code === '0') {
 				return;
 			} else {
@@ -143,7 +150,6 @@ router.beforeEach((to, from, next) => {
 			localStorage.removeItem("user");
 			next("/login");
 		})
-
 	}
 	next();
 })

@@ -88,7 +88,8 @@ export default {
         <el-container>
             <!--    侧边栏  -->
             <el-aside :width="asideWidth" style="min-height: 100vh; background-color: #001529;">
-                <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center" @click="$route.path=='/'?'':$router.push('/')">
+                <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center"
+                    @click="$route.path == '/' ? '' : $router.push('/')">
                     <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px">
                     <span class="logo-title" v-show="!isCollapse">music</span>
                 </div>
@@ -158,7 +159,7 @@ export default {
                     </el-breadcrumb> -->
 
                     <el-tag v-for="tag in tagList" :key="tag.name" closable
-                        :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)"
+                        :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)" 
                         @click="tagClick(tag)" size="medium" hit style="margin-left: 10px"
                         :effect="tag.path == $route.path ? 'dark' : 'light'">
                         {{ tag.name }}
@@ -174,8 +175,14 @@ export default {
                                 <span>管理员{{ user.name }}</span>
                             </div>
                             <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>个人信息</el-dropdown-item>
-                                <el-dropdown-item>修改密码</el-dropdown-item>
+                                <el-dropdown-item>
+                                    <div @click="handleClick($route), goto('/space')">
+                                        个人信息
+                                    </div>
+                                </el-dropdown-item>
+                                <el-dropdown-item>
+                                    <div @click="handleClick($route), goto('/changePassword')">修改密码</div>
+                                </el-dropdown-item>
                                 <el-dropdown-item>
                                     <div @click="logout()">退出登录</div>
                                 </el-dropdown-item>
@@ -231,9 +238,12 @@ export default {
             // console.log(router);
             // console.log(this.tagList);
 
-            const exists = this.tagList.some(item => item.path === router.path);
+            const exists = this.tagList.some(item => item.name === router.name);
+            // console.log(exists);
 
             if (!exists) { // 如果不存在，则添加新的路由项
+                // console.log(11111);
+
                 this.tagList.push({
                     name: router.name,
                     title: router.name,
@@ -286,6 +296,29 @@ export default {
             }
 
         },
+        goto(route) {
+            // console.log(route);
+            let name = '';
+            if (route === '/changePassword') {
+                name = '修改密码';
+            } else if (route === '/space') {
+                name = '个人中心';
+            }
+            const exists = this.tagList.some(item => item.name === name);
+            if(exists&&route!==this.$route.path){
+                this.$router.push(route);
+            }
+            if (route !== this.$route.path) {
+
+                this.$router.push(route);
+                this.tagList.push({
+                    name: name,
+                    title: name,
+                    content: name,
+                    path: route
+                });
+            }
+        },
     },
     created() {
         this.initializeTagList();
@@ -295,6 +328,12 @@ export default {
 
     mounted() {
         window.addEventListener('resize', this.handleResize);
+    },
+    watch: {
+        $route() {
+            // console.log(this.$route);
+            this.handleClick(this.$route);
+        }
     },
 }
 </script>

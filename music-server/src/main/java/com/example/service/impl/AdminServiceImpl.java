@@ -129,4 +129,18 @@ public class AdminServiceImpl implements AdminService {
     public Admin findByById(Integer id) {
         return adminMapper.selectByPrimaryKey(id);
     }
+
+    @Override
+    public void updatePassword(Params params) {
+        Admin admin =adminMapper.selectByPrimaryKey(params.getUserId());
+        if(admin==null){
+            throw new CustomException("用户不存在");
+        }
+        if(!admin.getPassword().equals(params.getOldPw())){
+            throw new CustomException("旧密码输入错误");
+        }
+        admin.setPassword(params.getNewPw());
+        adminMapper.updateByPrimaryKeySelective(admin);
+
+    }
 }

@@ -10,12 +10,36 @@ spring:
     url: jdbc:mysql://localhost:3306/music?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8&allowPublicKeyRetrieval=true
   main:
     allow-circular-references: true
+  mail:
+    port: 587
+    default-encoding: utf-8
+    host: smtp.qq.com
+    username: 3132367415@qq.com
+    password: choenyqdmfowdedf
+    properties:
+      mail:
+        smtp:
+          auth: true
+          ssl:
+            enable: true
+            required: false
+            protocols: TLSv1.2
+          starttls:
+            enable: true
+        debug: true
+
+
 #显示sql语句
 logging:
   level:
     com:
       example:
         mapper: debug
+#    org:
+#      springframework:
+#        web: debug
+
+
 # 配置mybatis实体和xml映射
 mybatis:
   mapper-locations: classpath:mapper/*.xml

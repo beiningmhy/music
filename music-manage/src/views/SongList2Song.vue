@@ -9,13 +9,13 @@
         </div>
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
-                @change="findBySearch()" clearable></el-input>
+                @input="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
-                @change="findBySearch()" clearable filterable default-first-option>
+                @input="findBySearch()" clearable filterable default-first-option>
                 <el-option v-for="item in typeObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
-                @change="findBySearch()" clearable></el-input>
+                @input="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">添加歌曲</el-button>
@@ -181,15 +181,15 @@
                 <el-form :model="songsForm">
                     <el-form-item label="搜索歌曲" label-width="20%" aria-required="true">
                         <el-input v-model="params2.name" style="width: 80%; margin-right: 10px;" placeholder="请输入歌曲名"
-                            @change="findBySearch2()" clearable></el-input>
+                            @input="findBySearch2()" clearable></el-input>
                         <el-select v-model="params2.singerId" placeholder="歌手"
-                            style="width: 80%; margin-right: 10px;margin-top: 20px;" @change="findBySearch2()" clearable
+                            style="width: 80%; margin-right: 10px;margin-top: 20px;" @input="findBySearch2()" clearable
                             filterable default-first-option>
                             <el-option v-for="item in typeObjs" :key="item.id" :label="item.name"
                                 :value="item.id"></el-option>
                         </el-select>
                         <el-input v-model="params2.other" style="width:80%; margin-right: 10px;margin-top: 20px;"
-                            placeholder="模糊查询" @change="findBySearch2()" clearable></el-input>
+                            placeholder="模糊查询" @input="findBySearch2()" clearable></el-input>
                     </el-form-item>
                     <el-form-item label="歌曲" label-width="20%">
                         <el-select v-model="songsForm.songId" placeholder="请选择" style="width: 50%" clearable filterable>

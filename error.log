@@ -1,0 +1,3 @@
+mysqldump: [Warning] Using a password on the command line interface can be insecure.
+Warning: A partial dump from a server that has GTIDs will by default include the GTIDs of all transactions, even those that changed suppressed parts of the database. If you don't want to restore GTIDs, pass --set-gtid-purged=OFF. To make a complete dump, pass --all-databases --triggers --routines --events. 
+mysqldump: Got error: 1059: Identifier name 'music?useunicode=true&characterencoding=utf-8&allowmultiqueries=true&usessl=false&servertimezone=gmt' is too long when selecting the database

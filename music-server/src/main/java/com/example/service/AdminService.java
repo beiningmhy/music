@@ -21,4 +21,5 @@ public interface AdminService {
     Admin login(Admin admin);
 
     Admin findByById(Integer id);
+    void updatePassword(Params params);
 }

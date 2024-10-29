@@ -14,6 +14,7 @@ public interface ListSongService {
 
     void delete(Integer songId, Integer songListId);
     ListSong findById(Integer id);
+    ListSong findBySongListId(Integer songListId);
 
 
 }

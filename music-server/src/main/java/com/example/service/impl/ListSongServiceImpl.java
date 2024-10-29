@@ -55,5 +55,10 @@ public class ListSongServiceImpl implements ListSongService {
         return listSongMapper.selectByPrimaryKey(id);
     }
 
+    @Override
+    public ListSong findBySongListId(Integer songListId) {
+        return listSongMapper.findBySongListId(songListId);
+    }
+
 
 }

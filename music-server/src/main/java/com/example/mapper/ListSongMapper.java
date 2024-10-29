@@ -20,5 +20,7 @@ public interface ListSongMapper extends Mapper<ListSong> {
     @Select("select * from music_list_song where song_id = #{songId} limit 1")
     ListSong findBySongId(Integer songId);
 
+    @Select("select * from music_list_song where song_list_id = #{songListId}")
+    ListSong findBySongListId(Integer songListId);
 
 }

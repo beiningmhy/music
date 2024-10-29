@@ -116,4 +116,9 @@ public class AdminController {
         }
         return Result.success(mapList);
     }
+    @PostMapping("/changePassword")
+    public Result changePassword(@RequestBody Params params) {
+        adminService.updatePassword(params);
+        return Result.success();
+    }
 }

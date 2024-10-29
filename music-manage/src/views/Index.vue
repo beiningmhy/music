@@ -74,7 +74,6 @@
 <script>
 import request from "@/utils/request";
 import * as echarts from "echarts";
-// import * as echarts from "echarts";
 export default {
     name: "INDEX",
     data() {
@@ -313,7 +312,6 @@ export default {
                 // legend: {
                 //     orient: 'vertical',
                 //     left: 'left',
-                //     // fontSize: 1
                 // },
                 toolbox: {
                     show: true,
@@ -334,10 +332,10 @@ export default {
                         itemStyle: {
                             borderRadius: 10
                         },
-                        label: {
-                            show: false,
-                            position: 'center'
-                        },
+                        // label: {
+                        //     show: false,
+                        //     position: 'center'
+                        // },
                         // roseType: 'area',
                         emphasis: {
                             label: {
@@ -346,9 +344,9 @@ export default {
                                 fontWeight: 'bold'
                             }
                         },
-                        labelLine: {
-                            show: false
-                        },
+                        // labelLine: {
+                        //     show: false
+                        // },
                         data: data,
                     }
                 ]

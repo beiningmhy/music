@@ -25,4 +25,9 @@ public class Params {
     private String radio;
 //    前端单选框选择的id
     private String radioId;
+
+//    修改密码
+    private String oldPw;
+    private String newPw;
+    private String confirmPw;
 }

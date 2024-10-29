@@ -2,13 +2,13 @@
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
-                @change="findBySearch()" clearable></el-input>
+                @input="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
-                @change="findBySearch()" clearable filterable default-first-option>
+                @input="findBySearch()" clearable filterable default-first-option>
                 <el-option v-for="item in typeObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
             </el-select>
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
-                @change="findBySearch()" clearable></el-input>
+                @input="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">新增</el-button>
