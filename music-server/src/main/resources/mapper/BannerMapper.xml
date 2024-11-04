@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.BannerMapper">
+    <resultMap id="BannerRM" type="com.example.entity.Banner">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="pic" jdbcType="VARCHAR" property="pic"/>
+
+
+    </resultMap>
+
+    <select id="findBySearch" resultMap="BannerRM">
+        select * from music_banner
+        <where>
+
+            <if test="params != null and params.status != null and params.status != ''">
+                and status like concat('%', #{ params.status }, '%')
+            </if>
+        </where>
+    </select>
+
+
+</mapper>

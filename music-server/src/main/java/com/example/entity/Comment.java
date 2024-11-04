@@ -36,11 +36,14 @@ public class Comment {
     @Transient
     private String username;
     @Transient
+    private String userAvatar;
+    @Transient
     private String songName;
     @Transient
     private String songListTitle;
     @Transient
     private String singerName;
+
 
 
 }

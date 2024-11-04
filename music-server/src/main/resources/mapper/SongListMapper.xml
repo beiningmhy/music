@@ -18,6 +18,9 @@
             <if test="params != null and params.style != null and params.style != ''">
                 and style like #{ params.style }
             </if>
+            <if test="params != null and params.songListId != null and params.songListId != ''">
+                and id  like #{ params.songListId }
+            </if>
 
             <if test="params != null and params.other != null and params.other != ''">
 

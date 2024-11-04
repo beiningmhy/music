@@ -327,6 +327,8 @@ export default {
             })
         },
         up(row) {
+            // console.log(row);
+            
             request.post("/comment/up", row).then(res => {
                 if (res.code === '0') {
                     this.$message({

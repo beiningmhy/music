@@ -1,7 +1,7 @@
 <template>
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
-            <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入姓名"
+            <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
                 @input="findBySearch()" clearable></el-input>
             <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
                 @input="findBySearch()" clearable filterable default-first-option>

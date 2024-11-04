@@ -128,6 +128,7 @@ export default {
                             <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
                         <el-menu-item-group>
+                            <el-menu-item index="/banner" @click="handleClick($route)">轮播图管理</el-menu-item>
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
                             <el-menu-item index="/rankList" @click="handleClick($route)">评分信息</el-menu-item>

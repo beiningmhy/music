@@ -19,6 +19,7 @@
     <select id="findBySearch" resultMap="CommentRM">
         select   mc.*,
         m.username AS username,
+        m.avatar AS userAvatar,
         ms.name AS songName,
         msinger.name AS singerName,
         msl.title AS songListTitle

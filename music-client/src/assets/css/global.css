@@ -23,3 +23,7 @@ body {
     -ms-user-select: none;
     /* IE10+/Edge */
 }
+tr,th {
+    text-align: center;
+    background-color: transparent;
+}

@@ -2,6 +2,7 @@ import request from '@/utils/request'
 import Address from '@/views/Address.vue'
 import Admin from '@/views/Admin.vue'
 import AdminSpace from '@/views/AdminSpace.vue'
+import Banner from '@/views/Banner.vue'
 import ChangePassword from '@/views/ChangePassword.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
@@ -98,6 +99,11 @@ const routes = [
 				path: '/log',
 				name: '日志管理',
 				component: Log,
+			},
+			{
+				path: '/banner',
+				name: '轮播图管理',
+				component: Banner,
 			},
 			{
 				path:'/changePassword',
