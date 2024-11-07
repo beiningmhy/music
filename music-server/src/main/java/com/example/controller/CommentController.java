@@ -28,7 +28,7 @@ public class CommentController {
     @Resource
     private CommentService commentService;
 
-    @PostMapping
+    @PostMapping("/save")
     @AutoLog("添加或修改评论")
     public Result save(@RequestBody Comment comment) {
         if (comment.getId() == null) {

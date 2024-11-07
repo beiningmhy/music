@@ -44,7 +44,7 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setCreateTime(time);
         if (comment.getStatus()==null){
-            comment.setStatus("1");//注册先置为禁用，登录后才为启用
+            comment.setStatus("0");//注册先置为禁用，登录后才为启用
         }
 
         commentMapper.insertSelective(comment);

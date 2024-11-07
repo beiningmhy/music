@@ -1,8 +1,8 @@
 <template>
 
-    <div style="max-height: 85vh;overflow: auto;" class="main">
+    <div style="max-height: 89vh;overflow: auto;" class="main">
         <div ref="draggableButton" class="draggable-button" @mousedown="startDrag">
-            <el-backtop target=".main" :visibility-height="10"></el-backtop>
+            <el-backtop target=".main" :visibility-height="10" :bottom="120"></el-backtop>
         </div>
 
         <!-- 轮播图 -->
@@ -21,7 +21,7 @@
             <h1 style="font-size:25px;">歌手 ></h1>
             <div style="display: flex;flex-wrap: wrap;">
                 <div v-for="item in singer" :key="item.id" :label="item.pic" :value="item.id" @click="goSinger(item)"
-                    style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;">
+                    style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;overflow: hidden;width: 100px;height: 150px;">
                     <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
                         :src="'http://localhost:8080/api/files/' + item.pic">
                     </el-image>
@@ -43,7 +43,7 @@
             <div style="display: flex;flex-wrap: wrap;">
                 <div v-for="item in songList" :key="item.id" :label="item.pic" :value="item.id" @click="goSongList(item)"
                     style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;">
-                    <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
+                    <el-image style="width: 100px; height: 100px; border-radius: 20% ;"
                         :src="'http://localhost:8080/api/files/' + item.pic">
                     </el-image>
                     <div style="text-align: center;">
@@ -57,7 +57,9 @@
             </el-pagination>
 
         </div>
+        <div style="height: 15vh;">
 
+        </div>
     </div>
 </template>
 <script>

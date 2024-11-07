@@ -1,6 +1,6 @@
 <template>
-    <div style="max-height: 85vh;overflow: auto;" class="detail">
-        <el-backtop target=".detail" :visibility-height="10"></el-backtop>
+    <div style="max-height: 89vh;overflow: auto;" class="detail">
+        <el-backtop target=".detail" style="z-index: 10000;" :bottom="120" :visibility-height="10"></el-backtop>
         <!-- 头部歌单详情介绍 -->
         <div style="height: 250px;width: 80%;margin:0 auto ;">
             <el-skeleton style="width: 100%" :loading="loading" animated>
@@ -41,13 +41,21 @@
                         <div
                             style=" height: 250px;width: 100px;flex: 1;display: flex;flex-direction: column;margin-left: 20px;">
                             <div style="height: 60px;padding-top: 10px;padding-left: 100px;overflow: hidden;">
-                                <span style="font-size: 30px;">{{ songList.title }}</span>
+                                <span style="font-size: 30px;height: 60px;line-height: 60px;">{{ songList.title
+                                    }}</span>
                             </div>
-                            <div style="height: 120px;overflow: hidden;flex: 1;" @click="introductionDialog = true">
+                            <div style="height: 100px;overflow: hidden;flex: 1;" @click="introductionDialog = true">
                                 <span style="font-size: 16px;">{{ songList.introductions }}</span>
                             </div>
+                            <div style="height: 30px;">
+                                <!-- {{ averageScore }} -->
+                                <el-rate :value="Number(averageScore)" :max=10 :low-threshold=4 :high-threshold=8
+                                    disabled :colors="['#99A9AF', '#F7BA2A', '#FF5500']" show-score text-color="#ff9900"
+                                    :score-template="`${averageScore}`">
+                                </el-rate>
+                            </div>
                             <div style="height: 50px;">
-                                <el-button type="primary" style="margin: 0 auto;">播放全部</el-button>
+                                <el-button type="primary" style="margin: 0 auto;" @click="playAll()">播放全部</el-button>
                             </div>
                         </div>
                     </div>
@@ -58,13 +66,16 @@
         <!-- 歌手歌曲 -->
         <div>
             <div>
-                <h1 style="font-size:25px;">歌曲 ></h1>
+                <el-tooltip class="item" effect="dark" content="单击歌曲查看歌曲详情，双击添加至播放列表" placement="left">
+                    <h1 style="font-size:25px;width: 100px;">歌曲 ></h1>
+                </el-tooltip>
             </div>
             <div>
                 <el-pagination @current-change="handleCurrentChange2" background layout="prev, pager, next"
                     :total="total2" :page-size="params2.pageSize" :current-page="params2.pageNum">
                 </el-pagination>
-                <el-table v-loading="songLoading" :data="tableData" style="width: 100%;background-color: transparent ;">
+                <el-table v-loading="songLoading" :data="tableData" style="width: 100%;background-color: transparent ;"
+                    @row-dblclick="songDbClick($event)">
                     <el-table-column prop="name" label="歌曲" width="400">
                         <template v-slot="scope">
                             <div style="display: flex;">
@@ -74,7 +85,8 @@
                                         :preview-src-list="['http://localhost:8080/api/files/' + scope.row.pic]">
                                     </el-image>
                                 </div>
-                                <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;">
+                                <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;"
+                                    @click="songClick(scope.row)">
                                     <span style="margin-left: 10px;font-weight: 600;font-size: 15px;color: black;">
                                         {{ scope.row.name }}</span>
                                 </div>
@@ -97,9 +109,21 @@
             <div>
                 <h1 style="font-size:25px;">评论区 ></h1>
             </div>
-            <div>这里是发表评论的地方，尚未开发</div>
-            <!-- 所有评论 -->
             <div>
+                <!-- 这里是发表评论的地方，尚未开发 -->
+                <div class="container">
+                    <!-- <label for="styled-textarea">请输入您的文本:</label> -->
+                    <textarea id="styled-textarea" name="styled-textarea" rows="10" cols="50" placeholder="在这里输入您的评论..."
+                        v-model="comment"></textarea>
+                    <div>
+                        <el-button type="primary" style="margin: 0 auto; margin-top: 10px;"
+                            @click="publishComment()">发表评论</el-button>
+                    </div>
+                </div>
+
+            </div>
+            <!-- 所有评论 -->
+            <div style="margin-top: 10px;">
                 <div v-if="commentList.length == 0">
                     <div style="width: 60%;height: 80px;margin: 0 auto;text-align: center;">
                         <h1>暂无评论</h1>
@@ -108,7 +132,8 @@
                 </div>
                 <div v-else>
                     <div v-for="item in commentList" :key="item.id">
-                        <div style="display: flex;width: 60%;height: 80px;margin: 0 auto;">
+                        <div
+                            style="display: flex;width: 60%;height: 80px;margin: 0 auto;border-top: 1px solid rgb(162 162 162);">
                             <div style="width: 100px;">
                                 <!-- 头像 -->
                                 <el-image style="width: 60px; height: 60px; border-radius: 10%;margin-top: 10px;"
@@ -117,10 +142,11 @@
                                 </el-image>
                             </div>
                             <div style="flex: 1;display: flex;flex-direction: column;">
-                                <div style="flex: 1;overflow: hidden;padding-top: 5px;padding-left: 5px;">
-                                    <span style="font-size: 20px;color: blue;">{{ item.username }}</span>
-                                    <span>
-                                        :{{ item.content }}
+                                <div style="flex: 1;overflow: hidden;padding-top: 5px;padding-left: 5px;"
+                                    @click="commentForm = item; commentDialog = true;">
+                                    <span style="font-size: 20px;color: blue;">{{ item.username }}:</span>
+                                    <span style="white-space:pre-wrap;word-wrap: break-word;">
+                                        {{ item.content }}
                                     </span>
                                 </div>
                                 <div style="height: 30%;">
@@ -174,6 +200,56 @@
             </span>
         </el-dialog>
 
+        <el-dialog :title="commentForm.username" :visible.sync="commentDialog" width="40%"
+            style="text-align: center;border-radius: 30% !important;">
+
+            <div style="text-align: left;">
+                <div style="height: 100px;max-height: 200px">
+                    评论内容：<br>
+                    <div style="padding-left: 50px;">
+                        <span style="white-space:pre-wrap;word-wrap: break-word;font-size: 20px;">
+                            {{ commentForm.content }}</span>
+                    </div>
+
+                </div>
+
+                <div style="height: 30%;">
+                    <div style="float: left;">
+                        {{ commentForm.createTime }}
+                    </div>
+                    <div style="float: right;display: flex;">
+                        <div @click="up(commentForm)" style="margin-right: 10px;">
+                            <svg t="1728798081711" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="1477" width="20" height="20">
+                                <path
+                                    d="M896 341.333333a42.666667 42.666667 0 0 1 41.642667 51.925334l-85.333334 469.333333A42.666667 42.666667 0 0 1 810.666667 896h-298.666667c-8.448 0-16.682667-2.517333-23.68-7.168L328.405333 810.666667H128a42.666667 42.666667 0 0 1-42.666667-42.666667V384a42.666667 42.666667 0 0 1 42.666667-42.666667h189.141333l158.250667-235.306666A42.666667 42.666667 0 0 1 512 85.333333h21.333333C592.170667 85.333333 640 170.666667 640 192L682.666667 341.333333h213.333333z m-371.114667 469.333334h251.562667l66.346667-384H640a42.666667 42.666667 0 0 1-42.666667-42.666667l-42.666666-192a21.418667 21.418667 0 0 0-18.645334-21.162667L384 395.818667v349.354666L524.885333 810.666667zM298.666667 426.666667H170.666667v298.666666h128v-298.666666z"
+                                    fill="#6CCAFF" p-id="1478"></path>
+                            </svg>
+                            <el-badge :value="commentForm.up" class="item">
+                            </el-badge>
+                        </div>
+                        <div @click="down(commentForm)">
+                            <svg t="1728798866603" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="1641" width="20" height="20">
+                                <path
+                                    d="M128 682.666667a42.666667 42.666667 0 0 1-41.642667-51.925334l85.333334-469.333333A42.666667 42.666667 0 0 1 213.333333 128h341.333334c8.448 0 16.64 2.517333 23.68 7.168L695.594667 213.333333H896a42.666667 42.666667 0 0 1 42.666667 42.666667v384a42.666667 42.666667 0 0 1-42.666667 42.666667h-189.141333l-158.293334 235.306666A42.666667 42.666667 0 0 1 512 938.666667h-21.333333C431.786667 938.666667 384 853.333333 384 832L341.333333 682.666667H128z m413.781333-469.333334H247.552l-66.346667 384H384a42.666667 42.666667 0 0 1 42.666667 42.666667l42.666666 192c0 10.837333 8.106667 19.797333 18.645334 21.162667L640 628.181333V278.826667L541.781333 213.333333zM725.333333 597.333333h128V298.666667h-128v298.666666z"
+                                    fill="#d81e06" p-id="1642"></path>
+                            </svg>
+                            <el-badge :value="commentForm.down" class="item">
+                            </el-badge>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <span slot="footer" class="dialog-footer">
+                <!-- <el-button @click="commentDialog = false">取 消</el-button> -->
+                <el-button type="primary" @click="commentDialog = false">关闭</el-button>
+            </span>
+        </el-dialog>
+        <div style="height: 15vh;">
+
+        </div>
     </div>
 
 </template>
@@ -183,6 +259,7 @@ import request from '@/utils/request';
 export default {
     data() {
         return {
+            user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
             songListId: this.$route.query.songListId ? this.$route.query.songListId : '',
             params: {
                 pageNum: 1,
@@ -204,6 +281,10 @@ export default {
             commentList: [],
             total3: 0,
             songLoading: true,
+            averageScore: 0,
+            comment: '',
+            commentDialog: false,
+            commentForm: {},
 
         }
     },
@@ -214,9 +295,13 @@ export default {
     //     }
     // },
     created() {
-        this.initSongListDetail();
-        this.initSongs();
-        this.initComments();
+
+    },
+    async mounted() {
+        await this.initSongListDetail();
+        await this.initSongs();
+        await this.initComments();
+        await this.avgScore();
     },
 
     methods: {
@@ -226,7 +311,7 @@ export default {
                 params: this.params
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data)
+                    // console.log(res.data)
                     this.loading = false;
                     let temp = [];
                     temp = res.data.list.map(item => ({
@@ -263,10 +348,15 @@ export default {
                     this.tableData = await Promise.all(
                         data.map(async item => {
                             let audioUrl = '';
-                            if (item.url.includes('|')) {
-                                audioUrl = 'http://localhost:8080/api/files/' + item.url;
+                            if (item.url != null) {
+                                if (item.url.includes('|')) {
+                                    audioUrl = 'http://localhost:8080/api/files/' + item.url;
+                                } else {
+                                    audioUrl = item.url;
+                                }
                             } else {
-                                audioUrl = item.url;
+                                audioUrl = '';
+
                             }
 
                             try {
@@ -393,6 +483,124 @@ export default {
                 }
             })
         },
+        songClick(item) {
+            // console.log(item);
+            this.$router.push({
+                path: '/songDetails',
+                query: {
+                    songId: item.id
+                }
+            })
+
+
+        },
+        songDbClick(item) {
+            localStorage.setItem("playingMusic", JSON.stringify(item));
+            // 首先从 localStorage 获取现有的 musicList
+            let musicList = localStorage.getItem('musicList');
+
+            // 将获取到的字符串转换为数组
+            if (musicList) {
+                musicList = JSON.parse(musicList);
+            } else {
+                // 如果 musicList 不存在，则初始化为空数组
+                musicList = [];
+            }
+
+            // 检查是否存在相同的 item 并删除
+            const index = musicList.findIndex(existingItem => existingItem.id === item.id);
+            if (index !== -1) {
+                // 删除已存在的 item
+                musicList.splice(index, 1);
+            }
+
+            // 将新的 item 放在数组的最前面
+            musicList.unshift(item);
+
+            // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
+            localStorage.setItem('musicList', JSON.stringify(musicList));
+        },
+        avgScore() {
+            this.params.songListId = this.songListId;
+            request.get("/rankList/avg", {
+                params: this.params
+            }).then(res => {
+                if (res.code === '0') {
+                    this.averageScore = res.data ? res.data.toFixed(2) : 0;
+                    // console.log(this.averageScore);
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
+        publishComment() {
+            // console.log(this.comment);
+            if (this.comment == '') {
+                this.$message({
+                    message: '评论不能为空',
+                    type: 'error'
+                });
+                return;
+            }
+            let c = {
+                songListId: this.songListId,
+                content: this.comment,
+            }
+            if (this.user == '') {
+                c.userId = 0;
+            } else {
+                c.userId = this.user.id;
+            }
+            request.post("/comment/save", c).then(res => {
+                if (res.code == '0') {
+                    this.$message({
+                        message: '评论成功',
+                        type: 'success'
+                    });
+                    this.comment = '';
+                    this.initComments();
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
+        playAll() {
+            if (this.tableData.length != 0) {
+                // 首先从 localStorage 获取现有的 musicList
+                let musicList = localStorage.getItem("musicList");
+
+                // 将获取到的字符串转换为数组
+                if (musicList) {
+                    musicList = JSON.parse(musicList);
+                } else {
+                    // 如果 musicList 不存在，则初始化为空数组
+                    musicList = [];
+                }
+                localStorage.setItem('playingMusic', JSON.stringify(this.tableData[this.tableData.length - 1]));
+                // 遍历 tableData 中的每一首歌
+                this.tableData.forEach(song => {
+                    // 检查是否存在相同的 song 并删除
+                    const index = musicList.findIndex(existingSong => existingSong.id === song.id);
+                    if (index !== -1) {
+                        // 删除已存在的 song
+                        musicList.splice(index, 1);
+                    }
+
+                    // 将新的 song 放在数组的最前面
+                    musicList.unshift(song);
+                });
+
+                // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
+                localStorage.setItem("musicList", JSON.stringify(musicList));
+            }
+        },
     },
 
 }
@@ -407,5 +615,58 @@ export default {
     /* 隐藏 IE 和 Edge 的滚动条 */
     overflow: -moz-scrollbars-none;
     /* 隐藏 Firefox 的滚动条 */
+}
+
+/* 容器样式 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 200px;
+    background-color: rgb(255, 255, 255);
+    font-family: Arial, sans-serif;
+}
+
+/* 标签样式 */
+label {
+    font-size: 1.2em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* 文本域样式 */
+textarea {
+    width: 100%;
+    max-width: 800px;
+    height: 100px;
+    max-height: 150px;
+    padding: 15px;
+    font-size: 1em;
+    color: #333;
+    border: 2px solid #ccc;
+    border-radius: 8px;
+    background-color: #fff;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    resize: vertical;
+    /* 允许垂直调整大小 */
+}
+
+/* 文本域聚焦时的样式 */
+textarea:focus {
+    border-color: #007BFF;
+    box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+    outline: none;
+}
+
+/* 占位符样式 */
+::placeholder {
+    color: #aaa;
+    opacity: 1;
+}
+
+/* 占位符聚焦时的样式 */
+textarea:focus::placeholder {
+    color: #ccc;
 }
 </style>

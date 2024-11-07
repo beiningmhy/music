@@ -25,6 +25,9 @@
             <if test="params != null and params.singerId != null and params.singerId != ''">
                 and music_song.singer_id = #{params.singerId}
             </if>
+            <if test="params != null and params.songId != null and params.songId != ''">
+                and music_song.id = #{params.songId}
+            </if>
             <if test="params != null and params.other != null and params.other != ''">
 
                 and (music_song.introduction like concat('%', #{params.other}, '%')
@@ -56,6 +59,7 @@
             <if test="params != null and params.songListId != null and params.songListId != ''">
                 and music_song.id in (select music_list_song.song_id from music_list_song where music_list_song.song_list_id = #{params.songListId})
             </if>
+
 
         </where>
     </select>

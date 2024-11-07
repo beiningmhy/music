@@ -25,6 +25,8 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 
 @CrossOrigin
@@ -188,5 +190,53 @@ public class SongController {
             mapList.add(map);
         }
         return Result.success(mapList);
+    }
+
+    @GetMapping("/lyric/{id}")
+    public Result findLyric(@PathVariable Integer id) {
+        Song song = songService.findByById(id);
+        String lyric = song.getLyric();
+        if (lyric == null) {
+            return Result.error("暂无歌词");
+        }
+        List<Map<String, String>> lyricList = parseLyric(lyric);
+//        for (Map<String, String> map : lyricList) {
+//            System.out.println("Time: " + map.get("time") + ", Lyric: " + map.get("lyric"));
+//        }
+        return Result.success(lyricList);
+    }
+
+    //    public static List<Map<String, String>> parseLyric(String lyric) {
+//        List<Map<String, String>> result = new ArrayList<>();
+//        Pattern pattern = Pattern.compile(""\\[(\\d{2}:\\d{2}\\.\\d{2})\\](.*)"");
+//        Matcher matcher = pattern.matcher(lyric);
+//
+//        while (matcher.find()) {
+//            Map<String, String> map = new HashMap<>();
+//            map.put("time", matcher.group(1));
+//            map.put("lyric", matcher.group(2).trim());
+//            result.add(map);
+//        }
+//
+//        return result;
+//    }
+    public static List<Map<String, String>> parseLyric(String lyric) {
+        List<Map<String, String>> result = new ArrayList<>();
+        Pattern pattern = Pattern.compile("\\[(.*?)\\]");
+        String[] lines = lyric.split("\n");
+
+        for (String line : lines) {
+            Matcher matcher = pattern.matcher(line);
+            if (matcher.find()) {
+                String time = matcher.group(1);
+                String lyricContent = line.substring(matcher.end()).trim();
+                Map<String, String> map = new HashMap<>();
+                map.put("time", time);
+                map.put("lyric", lyricContent);
+                result.add(map);
+            }
+        }
+
+        return result;
     }
 }

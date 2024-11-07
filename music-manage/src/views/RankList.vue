@@ -31,7 +31,9 @@
                 <el-table-column prop="object" label="评分对象"></el-table-column>
                 <el-table-column prop="score" label="分数" width="300">
                     <template slot-scope="scope">
-                        <el-rate v-model="scope.row.score" :max=10 :low-threshold=4 :high-threshold=8 disabled  :colors="['#99A9AF', '#F7BA2A', '#FF5500']" show-score text-color="#ff9900" :score-template="scope.row.scope">
+                        <el-rate v-model="scope.row.score" :max=10 :low-threshold=4 :high-threshold=8 disabled
+                            :colors="['#99A9AF', '#F7BA2A', '#FF5500']" show-score text-color="#ff9900"
+                            :score-template="scope.row.scope">
                         </el-rate>
                     </template>
                 </el-table-column>

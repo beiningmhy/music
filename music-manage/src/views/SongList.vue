@@ -15,7 +15,7 @@
         </div>
         <div style="max-height: 80vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
-                highlight-current-row>
+                highlight-current-row v-loading="loading">
                 <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="title" label="歌单名" fixed width="200"></el-table-column>
 
@@ -141,6 +141,7 @@ export default {
                     // console.log(this.tableData);
 
                     this.total = res.data.total;
+                    this.loading = false;
                 } else {
                     this.$message({
                         message: res.msg,
@@ -268,9 +269,13 @@ export default {
     ,
     // 页面加载的时候做一些事情
     created() {
-        this.findBySearch();
+        // this.findBySearch();
         this.findStyle();
     },
+    async mounted() {
+        await this.findBySearch();
+    },
+
     data() {
         return {
             params: {
@@ -286,6 +291,7 @@ export default {
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             fileList: [],
             styleObjs: [],
+            loading:true,
         }
     },
     computed: {

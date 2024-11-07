@@ -1,7 +1,7 @@
 <template>
-    <div style="max-height: 89vh;overflow: auto;" class="detail">
+    <div style="max-height:89vh;overflow: auto;" class="detail">
         <el-backtop target=".detail" style="z-index: 10000;" :bottom="120" :visibility-height="10"></el-backtop>
-        <!-- 头部歌手详情介绍 -->
+        <!-- {{ this.songId }} -->
         <div style="height: 250px;width: 80%;margin:0 auto ;">
             <el-skeleton style="width: 100%;" :loading="loading" animated>
                 <template slot="template">
@@ -32,22 +32,33 @@
                         <!-- 歌手照片 -->
                         <div style="width:250px; height: 250px;">
                             <el-image style="width:250px; height: 250px;border-radius: 10% ;"
-                                :src="'http://localhost:8080/api/files/' + singer.pic"
-                                :preview-src-list="['http://localhost:8080/api/files/' + singer.pic]">
+                                :src="'http://localhost:8080/api/files/' + song.pic"
+                                :preview-src-list="['http://localhost:8080/api/files/' + song.pic]">
                             </el-image>
 
                         </div>
                         <!-- 歌手详细介绍 -->
                         <div
                             style=" height: 250px;width: 100px;flex: 1;display: flex;flex-direction: column;margin-left: 20px;">
-                            <div style="height: 60px;padding-top: 10px;padding-left: 20%;overflow: hidden;">
-                                <span style="font-size: 30px;height: 60px;line-height: 60px;">{{ singer.name }}</span>
+                            <div style="height: 60px;padding-top: 10px;padding-left: 15%;overflow: hidden;">
+                                <span style="font-size: 30px;height: 60px;line-height: 60px;">歌曲：{{ song.name }}</span>
                             </div>
-                            <div style="height: 120px;overflow: hidden;flex: 1;" @click="introductionDialog = true">
-                                <span style="font-size: 16px;height: 120px;">{{ singer.introductions }}</span>
+                            <div
+                                style="height: 40px;padding-top: 10px;padding-left: 15%;overflow: hidden;line-height: 40px;">
+                                <span style="font-size: 20px;">歌手：{{ singer.name }}</span>
                             </div>
-                            <div style="height: 50px;">
-                                <el-button type="primary" style="margin: 0 auto;" @click="playAll()">播放全部</el-button>
+                            <div style="height: 60px;overflow: hidden;flex: 1;padding-left: 15%"
+                                @click="introductionDialog = true">
+                                <span style="font-size: 16px;height: 60px;line-height: 60px;">专辑：{{ song.introductions
+                                    }}</span>
+                            </div>
+                            <div
+                                style="height: 60px;padding-top: 10px;padding-left: 15%;overflow: hidden;line-height: 40px;">
+                                <span style="font-size: 20px;height: 60px;line-height: 60px;">时长：{{ song.audioDuration
+                                    }}</span>
+                            </div>
+                            <div style="height: 50px;padding-left: 15%">
+                                <el-button type="primary" style="margin: 0 auto;" @click="play(song)">点击播放</el-button>
                             </div>
                         </div>
                     </div>
@@ -55,51 +66,36 @@
                 </template>
             </el-skeleton>
         </div>
-        <!-- 歌手歌曲 -->
+        <!-- 歌词列表 -->
         <div>
             <div>
-                <el-tooltip class="item" effect="dark" content="单击歌曲查看歌曲详情，双击添加至播放列表" placement="left">
-                    <h1 style="font-size:25px;width: 100px;">歌曲 ></h1>
-                </el-tooltip>
+                <h1 style="font-size:25px;">歌词 ></h1>
+            </div>
+            <div v-if="lyricList.length == 0">
+                <div style="width: 60%;height: 80px;margin: 0 auto;text-align: center;">
+                    <h1>暂无歌词</h1>
+                </div>
+            </div>
+            <div v-else>
 
-            </div>
-            <div>
-                <el-pagination @current-change="handleCurrentChange2" background layout="prev, pager, next"
-                    :total="total2" :page-size="params2.pageSize" :current-page="params2.pageNum">
-                </el-pagination>
-                <el-table v-loading="songLoading" :data="tableData" style="width: 100%;background-color: transparent ;"
-                    @row-dblclick="songDbClick($event)">
-                    <el-table-column prop="name" label="歌曲" width="400">
-                        <template v-slot="scope">
-                            <div style="display: flex;">
-                                <div>
-                                    <el-image style="width: 30px; height: 30px; border-radius: 10%"
-                                        :src="'http://localhost:8080/api/files/' + scope.row.pic"
-                                        :preview-src-list="['http://localhost:8080/api/files/' + scope.row.pic]">
-                                    </el-image>
+                <div style="width: 60%;max-height: 300px;margin: 0 auto;;
+                    border-radius: 20px;">
+                    <div style="width: 100%;max-height: 300px;margin: 0 auto;overflow-y: auto;">
+                        <div v-for="item in lyricList" :key="item.id" class="lyricDiv">
+                            <div style="display: flex;width: 60%;margin: 0 auto;">
+                                <div
+                                    style="width: 80px;height: 40px;line-height: 40px;text-align: center;overflow: hidden;">
+                                    {{ item.time }}
                                 </div>
-                                <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;"
-                                    @click="songClick(scope.row)">
-                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;color: black;">
-                                        {{ scope.row.name }}</span>
+                                <div style="flex: 1;height: 40px;line-height: 40px;margin-left: 20px;overflow: hidden;">
+                                    {{ item.lyric }}
                                 </div>
-                                <!-- <div>
-                                    <el-button type="text" style="margin-left: 10px;">点击</el-button>
-                                </div> -->
                             </div>
-                        </template>
-                    </el-table-column>
-                    <el-table-column prop="singerName" label="歌手">
-                    </el-table-column>
-                    <el-table-column prop="introductions" label="专辑">
-                    </el-table-column>
-                    <el-table-column prop="audioDuration" label="时长">
-                    </el-table-column>
-                </el-table>
-                <el-pagination @current-change="handleCurrentChange2" background layout="prev, pager, next"
-                    :total="total2" :page-size="params2.pageSize" :current-page="params2.pageNum">
-                </el-pagination>
+                        </div>
+                    </div>
+                </div>
             </div>
+
         </div>
         <div>
             <div>
@@ -175,8 +171,8 @@
                             </div>
                         </div>
                     </div>
-                    <el-pagination @current-change="handleCurrentChange3" background layout="prev, pager, next"
-                        :total="total3" :page-size="params3.pageSize" :current-page="params3.pageNum">
+                    <el-pagination @current-change="handleCurrentChange2" background layout="prev, pager, next"
+                        :total="total2" :page-size="params2.pageSize" :current-page="params2.pageNum">
                     </el-pagination>
                 </div>
 
@@ -184,10 +180,10 @@
             </div>
         </div>
 
-        <el-dialog :title="singer.name" :visible.sync="introductionDialog" width="30%"
+        <el-dialog :title="song.name" :visible.sync="introductionDialog" width="30%"
             style="text-align: center;border-radius: 30% !important;">
             <div style="text-align: left;">
-                <span>{{ singer.introduction }}</span>
+                <span>{{ song.introduction }}</span>
             </div>
 
             <span slot="footer" class="dialog-footer">
@@ -246,108 +242,65 @@
         <div style="height: 15vh;">
 
         </div>
-
     </div>
-
 </template>
 <script>
 import request from '@/utils/request';
-
 export default {
     data() {
         return {
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
-            singerId: this.$route.query.singerId ? this.$route.query.singerId : '',
+            songId: this.$route.query.songId ? this.$route.query.songId : '',
+            song: {},
             params: {
                 pageNum: 1,
                 pageSize: 1,
             },
             params2: {
                 pageNum: 1,
-                pageSize: 10,
-            },
-            params3: {
-                pageNum: 1,
                 pageSize: 5,
             },
-            loading: true,
-            singer: {},
-            introductionDialog: false,
             total2: 0,
-            tableData: [],
+            loading: true,
             commentList: [],
-            total3: 0,
-            songLoading: true,
+            introductionDialog: false,
+            singer: {},
+            lyricList: [],
             comment: '',
             commentDialog: false,
             commentForm: {},
-
         }
     },
-    // props: {
-    //     singer: {
-    //         type: Object,
-    //         required: true
-    //     }
-    // },
     created() {
 
 
     },
     async mounted() {
-        await this.initSingerDetail();
-        await this.initSongs();
+        await this.initSongDetail();
         await this.initComments();
+        await this.initLyric();
     },
-
     methods: {
-        async initSingerDetail() {
-
-
-            this.params.singerId = this.singerId;
-            await request.get("/singer/search", {
-                params: this.params
-            }).then(res => {
-                if (res.code === '0') {
-                    // console.log(res.data)
-                    this.loading = false;
-                    let temp = [];
-                    temp = res.data.list.map(item => ({
-                        ...item,
-                        sts: item.status === '0',
-                        introductions: item.introduction != null && item.introduction.length > 200 ? item.introduction.substring(0, 200) + '...' : item.introduction,
-                        // birth: new Date(item.birth), 
-                    }));
-
-                    this.singer = temp[0];
-                } else {
-                    this.$message({
-                        message: res.msg,
-                        type: 'error'
-                    });
-                }
-            })
-        },
-        async initSongs() {
-            this.params2.singerId = this.singerId;
+        async initSongDetail() {
+            // console.log(songId);
+            this.params.singerId = '';
+            this.params.songId = this.songId;
             try {
                 const res = await request.get("/song/search", {
-                    params: this.params2
+                    params: this.params
                 });
 
                 if (res.code === '0') {
                     // console.log(res.data);
-                    this.loading = false;
+
 
                     // 获取数据列表
                     const data = res.data.list;
-
+                    let temp = [];
                     // 异步处理每个项目的音频时长
-                    this.tableData = await Promise.all(
+                    temp = await Promise.all(
                         data.map(async item => {
                             let audioUrl = '';
-                            // console.log(item.url);
-
                             if (item.url != null) {
                                 if (item.url.includes('|')) {
                                     audioUrl = 'http://localhost:8080/api/files/' + item.url;
@@ -358,7 +311,6 @@ export default {
                                 audioUrl = '';
 
                             }
-
 
                             try {
                                 const audioDuration = await this.getAudioDuration(audioUrl);
@@ -380,8 +332,13 @@ export default {
                         })
                     );
 
-                    this.total2 = res.data.total;
-                    this.songLoading = false;
+                    // this.total = res.data.total;
+                    // this.songLoading = false;
+
+                    this.song = temp[0];
+                    // console.log(this.song);
+                    await this.initSinger(this.song.singerId);
+                    this.loading = false;
                 } else {
                     this.$message({
                         message: res.msg,
@@ -396,30 +353,7 @@ export default {
                 });
             }
         },
-        async initComments() {
-            this.params3.radioId = this.singerId;
-            this.params3.radio = '歌手';
-            await request.get("/comment/search", {
-                params: this.params3
-            }).then(res => {
-                if (res.code === '0') {
-                    // console.log(res.data)
-                    this.loading = false;
-                    let temp = [];
-                    temp = res.data.list.map(item => ({
-                        ...item,
-                        sts: item.status === '0',
-                    }))
-                    this.commentList = temp;
-                    this.total3 = res.data.total;
-                } else {
-                    this.$message({
-                        message: res.msg,
-                        type: 'error'
-                    });
-                }
-            })
-        },
+
         getAudioDuration(url) {
             return new Promise((resolve, reject) => {
                 const audio = new Audio(url);
@@ -440,15 +374,80 @@ export default {
             const remainingSeconds = seconds % 60;
             return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
         },
+        initLyric() {
+            // console.log(this.songId);
 
+            request.get("/song/lyric/" + this.songId).then(res => {
+                if (res.code === '0') {
+                    this.lyricList = res.data;
+                    // console.log(res.data);
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+
+            })
+        },
+        async initSinger(singerId) {
+            this.params.songId = '';
+            this.params.singerId = singerId;
+            await request.get("/singer/search", {
+                params: this.params
+            }).then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data)
+                    this.loading = false;
+                    let temp = [];
+                    temp = res.data.list.map(item => ({
+                        ...item,
+                        sts: item.status === '0',
+                        introductions: item.introduction != null && item.introduction.length > 200 ? item.introduction.substring(0, 200) + '...' : item.introduction,
+                        // birth: new Date(item.birth), 
+                    }));
+
+                    this.singer = temp[0];
+                    // console.log(this.singer);
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
+        async initComments() {
+            this.params2.radioId = this.songId;
+            this.params2.radio = '歌曲';
+            await request.get("/comment/search", {
+                params: this.params2
+            }).then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data)
+                    this.loading = false;
+                    let temp = [];
+                    temp = res.data.list.map(item => ({
+                        ...item,
+                        sts: item.status === '0',
+                    }))
+                    this.commentList = temp;
+                    this.total2 = res.data.total;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
         handleCurrentChange2(pageNum) {
             this.params2.pageNum = pageNum;
-            this.initSongs();
-        },
-        handleCurrentChange3(pageNum) {
-            this.params3.pageNum = pageNum;
             this.initComments();
         },
+
         up(item) {
             // console.log(item);
             request.post("/comment/up", item).then(res => {
@@ -484,18 +483,41 @@ export default {
                 }
             })
         },
-        songClick(item) {
-            // console.log(item);
-            this.$router.push({
-                path: '/songDetails',
-                query: {
-                    songId: item.id
+        publishComment() {
+            // console.log(this.comment);
+            if (this.comment == '') {
+                this.$message({
+                    message: '评论不能为空',
+                    type: 'error'
+                });
+                return;
+            }
+            let c = {
+                songId: this.songId,
+                content: this.comment,
+            }
+            if (this.user == '') {
+                c.userId = 0;
+            } else {
+                c.userId = this.user.id;
+            }
+            request.post("/comment/save", c).then(res => {
+                if (res.code == '0') {
+                    this.$message({
+                        message: '评论成功',
+                        type: 'success'
+                    });
+                    this.comment = '';
+                    this.initComments();
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
                 }
             })
-
-
         },
-        songDbClick(item) {
+        play(item) {
             localStorage.setItem("playingMusic", JSON.stringify(item));
             // 首先从 localStorage 获取现有的 musicList
             let musicList = localStorage.getItem('musicList');
@@ -520,72 +542,7 @@ export default {
 
             // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
             localStorage.setItem('musicList', JSON.stringify(musicList));
-        },
-        publishComment() {
-            // console.log(this.comment);
-            if (this.comment == '') {
-                this.$message({
-                    message: '评论不能为空',
-                    type: 'error'
-                });
-                return;
-            }
-            let c = {
-                singerId: this.singerId,
-                content: this.comment,
-            }
-            if (this.user == '') {
-                c.userId = 0;
-            } else {
-                c.userId = this.user.id;
-            }
-            request.post("/comment/save", c).then(res => {
-                if (res.code == '0') {
-                    this.$message({
-                        message: '评论成功',
-                        type: 'success'
-                    });
-                    this.comment = '';
-                    this.initComments();
-                } else {
-                    this.$message({
-                        message: res.msg,
-                        type: 'error'
-                    });
-                }
-            })
-        },
-        playAll() {
-            if (this.tableData.length != 0) {
-                // 首先从 localStorage 获取现有的 musicList
-                let musicList = localStorage.getItem("musicList");
-
-                // 将获取到的字符串转换为数组
-                if (musicList) {
-                    musicList = JSON.parse(musicList);
-                } else {
-                    // 如果 musicList 不存在，则初始化为空数组
-                    musicList = [];
-                }
-                localStorage.setItem('playingMusic', JSON.stringify(this.tableData[this.tableData.length-1]));
-                // 遍历 tableData 中的每一首歌
-                this.tableData.forEach(song => {
-                    // 检查是否存在相同的 song 并删除
-                    const index = musicList.findIndex(existingSong => existingSong.id === song.id);
-                    if (index !== -1) {
-                        // 删除已存在的 song
-                        musicList.splice(index, 1);
-                    }
-
-                    // 将新的 song 放在数组的最前面
-                    musicList.unshift(song);
-                });
-
-                // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
-                localStorage.setItem("musicList", JSON.stringify(musicList));
-            }
-
-        },
+        }
 
     },
     watch: {
@@ -594,29 +551,22 @@ export default {
             // 当路由变化时，更新songId
             // console.log(to);
 
-            this.singerId = to.query.singerId ? to.query.singerId : '';
+            this.songId = to.query.songId ? to.query.songId : '';
             // console.log(this.songId);
 
-            await this.initSingerDetail();
-            await this.initSongs();
+            await this.initSongDetail();
             await this.initComments();
+            await this.initLyric();
         },
 
 
     }
-
 }
 </script>
 <style scoped>
-.detail {
-    max-height: 90vh;
-    overflow: auto;
-    scrollbar-width: none;
-    /* 隐藏滚动条 */
-    -ms-overflow-style: none;
-    /* 隐藏 IE 和 Edge 的滚动条 */
-    overflow: -moz-scrollbars-none;
-    /* 隐藏 Firefox 的滚动条 */
+.lyricDiv :hover {
+    background-color: rgba(231, 230, 230, 0.734);
+    border-radius: 10px;
 }
 
 /* 容器样式 */

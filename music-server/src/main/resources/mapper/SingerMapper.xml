@@ -19,10 +19,10 @@
                 and name like concat('%', #{ params.name }, '%')
             </if>
             <if test="params != null and params.singerId != null and params.singerId != ''">
-                and id like concat('%', #{ params.singerId }, '%')
+                and id = #{ params.singerId }
             </if>
             <if test="params != null and params.other != null and params.other != ''">
-                 and( birth like concat('%', #{params.other}, '%')
+                and( birth like concat('%', #{params.other}, '%')
                 or address like concat('%', #{params.other}, '%')
                 or introduction like concat('%', #{params.other}, '%'))
 

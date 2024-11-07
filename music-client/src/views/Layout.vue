@@ -3,11 +3,18 @@
         <el-container>
             <el-aside width="200px">
                 <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center"
-                    @click="$route.path == '/' ? '' : $router.push('/')">
-                    <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px">
+                    @click="$route.path == '/' ? '' : $router.push('/'), songListRight = -350">
+                    <!-- <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px"> -->
+                    <svg t="1730986111036" class="icon" viewBox="0 0 2299 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1868" width="50" height="50">
+                        <path
+                            d="M1775.840814 322.588002c6.0164 1.002733 53.144869-9.525967 55.150336-6.016401 3.0082 4.5123 24.065601 155.92504 18.550567 156.927774s-44.621635 10.027334-44.621635 10.027334c-3.0082-20.556034-28.577901-147.903173-29.079268-160.938707m75.205003-14.539634l20.556034 162.944174c10.5287-0.501367 53.144869-3.509567 57.155803-4.010934-6.0164-61.668103-16.545101-158.933241-16.545101-158.93324-20.054668-4.010934-41.112069-4.010934-61.166736 0m-40.610702 226.116376s92.752838-23.564234 126.344406-12.0328c17.046467 61.668103 48.131202 407.611118 51.139402 421.649386-21.057401 2.506833-90.246004 8.523234-95.761037 10.027333-4.5123-26.071068-81.72277-403.098818-81.722771-419.643919m343.436183-207.565809c5.515034 1.5041 54.648969-5.013667 55.150335-1.5041 1.002733 12.032801 6.0164 157.42914 0.501367 157.930507s-44.621635 4.010934-44.621635 4.010934c-1.002733-20.054668-12.032801-146.90044-11.030067-160.437341m75.70637-4.010933l4.010933 160.938707c10.5287 0 52.643502 2.506833 57.155803 2.005467-1.002733-61.668103 0-158.933241 0-158.933241-20.054668-3.509567-40.610702-5.013667-61.166736-4.010933m-64.676303 216.089043s94.758304-12.534167 126.845772 2.506833c7.019134 72.196803 6.0164 408.613852 7.019134 422.652119-21.558768 0-90.246004 1.002733-95.761038 2.005467-1.002733-26.071068-39.607968-410.619319-38.103868-427.164419m-220.099977-413.627519c54.648969 278.759879 96.262404 755.058234 97.766504 785.641602 0 0 43.117535 1.002733 91.750105 4.010934C2105.740095 614.383415 2070.644427 134.575493 2071.145794 119.033126c-12.032801-13.536901-126.344406 6.0164-126.344406 6.0164m-120.328005 659.297196c-10.5287-78.213204-290.291313-166.955108-447.720454-138.377206 0 0-19.553301-172.470141-27.073801-339.425248-6.517767-143.390873-1.002733-282.770813 0.501366-305.833681-10.5287-7.5205-123.837572 46.627102-185.004308 69.188603 0 0 73.199537 309.844614 126.344406 952.59671 0 0 84.730971 9.0246 230.12731-19.051934s317.365114-115.815705 302.825481-219.097244m-341.932083 140.88404l-24.566967-176.982441c6.0164-3.0082 156.927774 53.144869 172.971507 63.172203-2.506833 11.030067-148.40454 113.810238-148.40454 113.810238M610.664628 322.588002c6.0164 1.002733 53.144869-9.525967 55.150335-6.016401 3.0082 4.5123 24.065601 155.92504 18.550568 156.927774s-44.621635 10.027334-44.621635 10.027334c-3.0082-20.556034-28.577901-147.903173-29.079268-160.938707m75.205003-14.539634l20.556034 162.944174c10.5287-0.501367 53.144869-3.509567 57.155803-4.010934-6.517767-61.668103-16.545101-158.933241-16.545101-158.93324-20.054668-4.010934-41.112069-4.010934-61.166736 0m-40.610702 226.116376s92.752838-23.564234 126.344406-12.0328c17.046467 61.668103 48.131202 407.611118 51.139402 421.649386-21.057401 2.506833-90.246004 8.523234-95.761037 10.027333-4.5123-26.071068-81.72277-403.098818-81.722771-419.643919m343.436182-207.565809c5.515034 1.5041 54.648969-5.013667 55.150336-1.5041 1.002733 12.032801 6.0164 157.42914 0.501367 157.930507s-44.621635 4.010934-44.621635 4.010934c-1.002733-20.054668-11.531434-146.90044-11.030068-160.437341m75.706371-4.010933l4.010933 160.938707c10.5287 0 52.643502 2.506833 57.155803 2.005467-1.002733-61.668103 0-158.933241 0-158.933241-20.054668-3.509567-40.610702-4.5123-61.166736-4.010933m-64.676303 216.089043s94.758304-12.534167 126.845772 2.506833c7.019134 72.196803 6.0164 408.613852 7.019134 422.652119-21.558768 0-90.246004 1.002733-95.761038 2.005467-0.501367-26.071068-39.607968-410.619319-38.103868-427.164419m-220.099977-413.627519c54.648969 278.759879 96.262404 755.058234 97.766504 785.641602 0 0 43.117535 1.002733 91.750105 4.010934-28.577901-300.318647-63.67357-780.126569-63.172203-796.170303-12.032801-13.035534-126.344406 6.517767-126.344406 6.517767m-120.328005 659.297196c-10.5287-78.213204-290.291313-166.955108-447.720454-138.377206 0 0-19.553301-172.470141-27.073801-339.425248-6.517767-143.390873-1.002733-282.770813 0.501366-305.833681C174.475608-6.308547 61.166736 47.337689 0 69.89919c0 0 73.199537 309.844614 126.344406 952.59671 0 0 84.730971 9.0246 230.12731-19.051934s317.365114-115.815705 302.825481-219.097244m-341.932083 140.88404l-24.566967-176.982441c6.0164-3.0082 156.927774 53.144869 172.971507 63.172203-2.506833 11.030067-148.40454 113.810238-148.40454 113.810238"
+                            p-id="1869" data-spm-anchor-id="a313x.collections_detail.0.i0.78093a81HkR4tf"
+                            class="selected"></path>
+                    </svg>
                     <span class="logo-title" style="color: black;">music</span>
                 </div>
-                <div>
+                <div @click="songListRight = -350">
                     <!-- 用户头像部分 -->
                     <div>
                         <div style="height: 80px;width: 80px;margin:0 auto;margin-top: 20px;">
@@ -29,7 +36,8 @@
                     </div>
                     <!-- 菜单部分 -->
                     <div style="display: flex;flex-direction: column;width: 80%;margin:  0 auto;margin-top: 20px;">
-                        <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;" class="menu-item" @click="clickTag('/')">
+                        <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;" class="menu-item"
+                            @click="clickTag('/')">
                             <div style="height: 40px;margin-top: 5px;">
                                 <svg t="1730735590148" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" p-id="3624" width="30" height="30">
@@ -45,7 +53,8 @@
                                 <span>首页</span>
                             </div>
                         </div>
-                        <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;" class="menu-item" @click="clickTag('/singer')">
+                        <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;" class="menu-item"
+                            @click="clickTag('/singer')">
                             <div style="height: 40px;margin-top: 5px;">
                                 <svg t="1730736206940" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                     xmlns="http://www.w3.org/2000/svg" p-id="5578" width="30" height="30">
@@ -82,7 +91,7 @@
             <el-container>
                 <el-header>
                     <!-- 头部 -->
-                    <div style="display: flex;flex-direction: row;">
+                    <div style="display: flex;flex-direction: row;" @click="songListRight = -350">
                         <div @click="$router.go(-1)"
                             style="background-color: rgba(200, 200, 200,0.5);width: 40px;border-radius: 50%;height: 40px;line-height: 40px;margin-top: 10px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);">
                             <i class="el-icon-arrow-left"></i>
@@ -95,15 +104,15 @@
                             style="display: flex;flex-direction: row;margin-left: 50px;height: 40px;line-height: 40px;margin-top: 10px;">
                             <!-- 目录 -->
                             <div @click="clickTag('/')"
-                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40%;width: 60px;">
+                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40px;width: 60px;">
                                 首页
                             </div>
                             <div @click="clickTag('/singer')"
-                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40%;width: 60px;">
+                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40px;width: 60px;">
                                 歌手
                             </div>
                             <div
-                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40%;width: 60px;">
+                                style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40px;width: 60px;">
                                 歌单
                             </div>
                         </div>
@@ -113,13 +122,189 @@
 
 
                 </el-header>
-                <el-main>
+                <el-main @click="songListRight = -350">
                     <!-- <el-backtop target=".main" :visibility-height="10"></el-backtop> -->
                     <router-view class="main"></router-view>
                 </el-main>
             </el-container>
         </el-container>
+        <div class="tag" @click="toggleTag"
+            :style="`position: absolute;bottom:${footerBottom + 100}px;transition: bottom 1s ease-in;`">
+            <i :class="tagIcon" style="font-size: 30px;"></i>
+        </div>
+
+
+        <div class="footer" :style="`position: absolute;bottom:${footerBottom}px;transition: bottom 1s ease-in;`">
+            <div style="display: flex;height: 80px;width: 90%;margin: 10px auto;">
+                <div style="width: 20%;height: 100%;display: flex;">
+                    <div style="background-color: cadetblue;width: 80px;border-radius: 10px;height: 100%;">
+                        <!-- 歌曲图片 -->
+                        <el-image style="width: 80px; height: 80px; border-radius: 10%;"
+                            :src="'http://localhost:8080/api/files/' + playingMusic.pic"
+                            :preview-src-list="['http://localhost:8080/api/files/' + playingMusic.pic]">
+                        </el-image>
+                    </div>
+                    <div style="flex: 1; ">
+                        <div style="margin-left: 20px;height: 80%;margin-top:5%;display: flex;flex-direction: column;">
+                            <div style="font-size: 18px;font-weight: bolder;height: 25px;overflow: hidden;"
+                                @click="clickMusicName(playingMusic)" class="music-name">
+                                {{ playingMusic.name }}
+                            </div>
+                            <div style="margin-top: 15px;height: 20px;overflow: hidden;"
+                                @click="clickSingerName(playingMusic)" class="singer-name">
+                                {{ playingMusic.singerName }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="width: 60%;">
+                    <div style="width: 90%;margin:0 auto;height: 100%;">
+                        <!-- 歌曲进度条 -->
+                        <div>
+                            <div v-if="playingMusic.url != null" hidden>
+                                <audio v-if="playingMusic.url.includes('song|')"
+                                    :src="'http://localhost:8080/api/files/' + playingMusic.url" controls="controls"
+                                    id="audio1">
+                                </audio>
+                                <audio v-else :src="playingMusic.url" controls="controls"
+                                    id="audio2">
+                                    <source :src="playingMusic.url">
+                                    您的浏览器不支持 audio 标签。
+                                </audio>
+                            </div>
+                            <!-- <div v-else>暂无歌曲</div> -->
+                        </div>
+                        <div style="display: flex;flex-direction: column;width: 100%;height: 100%;">
+                            <div style="height: 70%;width: 40%;margin: 0 auto;display: flex;">
+                                <div style="width: 25%;height: 100%;">
+                                    <div style="margin: 0 auto;width: 35px;height: 35px;margin-top:10px;"
+                                        class="last-icon">
+                                        <svg t="1730986972484" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="1301" width="35" height="35">
+                                            <path
+                                                d="M356.77 605.22L701.8 849.53c69.8 49.42 166.29-0.49 166.29-86.01V261.25c0-85.52-96.49-135.43-166.29-86.01L356.77 419.55c-64.02 45.34-64.02 140.34 0 185.67zM210.42 154.36c30.38 0 55 24.62 55 55v606.07c0 30.38-24.62 55-55 55s-55-24.62-55-55V209.36c0-30.38 24.62-55 55-55z"
+                                                p-id="1302"></path>
+                                        </svg>
+                                    </div>
+
+                                </div>
+                                <div style="width: 50%;height: 100%">
+
+                                    <div style="margin: 0 auto;width: 50px;height: 50px;margin-top: 3px;"
+                                        class="play-icon" @click="playOrPause">
+                                        <svg v-if="!play" t="1730986703357" class="icon" viewBox="0 0 1024 1024"
+                                            version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="927" width="50"
+                                            height="50">
+                                            <path
+                                                d="M783.74 401.86L372.23 155.28c-85.88-51.46-195.08 10.41-195.08 110.53v493.16c0 100.12 109.2 161.99 195.08 110.53l411.51-246.58c83.5-50.04 83.5-171.03 0-221.06z"
+                                                p-id="928" fill="#2c2c2c"
+                                                data-spm-anchor-id="a313x.collections_detail.0.i0.43c33a81fsIjrG"
+                                                class="selected"></path>
+                                        </svg>
+                                        <svg v-if="play" t="1730989226232" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="1633" width="50" height="50">
+                                            <path
+                                                d="M332.26 853.89c-49.71 0-90-40.29-90-90v-503c0-49.71 40.29-90 90-90s90 40.29 90 90v503c0 49.7-40.3 90-90 90zM691.26 853.89c-49.71 0-90-40.29-90-90v-503c0-49.71 40.29-90 90-90s90 40.29 90 90v503c0 49.7-40.3 90-90 90z"
+                                                p-id="1634"></path>
+                                        </svg>
+                                    </div>
+
+                                </div>
+                                <div style="width: 25%;height: 100%;;">
+                                    <div style="margin: 0 auto;width: 35px;height: 35px;margin-top:10px;"
+                                        class="next-icon">
+                                        <svg t="1730987216598" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="1467" width="35" height="35">
+                                            <path
+                                                d="M665.47 417.65l-345.03-244.3c-69.8-49.42-166.29 0.49-166.29 86.01v502.27c0 85.52 96.49 135.43 166.29 86.01l345.03-244.31c64.02-45.34 64.02-140.34 0-185.68zM811.82 868.52c-30.38 0-55-24.62-55-55V207.46c0-30.38 24.62-55 55-55s55 24.62 55 55v606.07c0 30.37-24.62 54.99-55 54.99z"
+                                                p-id="1468"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                            </div>
+                            <div style="flex: 1;width: 100%;">
+                                <div style="height: 100%;width: 80%;margin: 0 auto;">
+                                    <el-slider v-model="value3" :show-tooltip="false"></el-slider>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div style="width: 20%;display: flex;height: 100%;">
+                    <div style="background-color: darkgoldenrod;width: 100px;height: 100%;flex: 1;">
+                        <!-- 其他按钮 -->
+                    </div>
+                    <div style="float: right;height: 100%;width: 60px;">
+                        <!-- 播放列表按钮 -->
+                        <div style="margin-top: 40%;margin-left: 30%;"
+                            @click="songListRight = songListRight === 0 ? -350 : 0">
+                            <svg t="1730885207826" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="2369" width="30" height="30">
+                                <path
+                                    d="M187.392 70.656q28.672 0 48.64 19.456t19.968 48.128l0 52.224q0 28.672-19.968 48.64t-48.64 19.968l-54.272 0q-27.648 0-47.616-19.968t-19.968-48.64l0-52.224q0-28.672 19.968-48.128t47.616-19.456l54.272 0zM889.856 70.656q27.648 0 47.616 19.456t19.968 48.128l0 52.224q0 28.672-19.968 48.64t-47.616 19.968l-437.248 0q-28.672 0-48.64-19.968t-19.968-48.64l0-52.224q0-28.672 19.968-48.128t48.64-19.456l437.248 0zM187.392 389.12q28.672 0 48.64 19.968t19.968 48.64l0 52.224q0 27.648-19.968 47.616t-48.64 19.968l-54.272 0q-27.648 0-47.616-19.968t-19.968-47.616l0-52.224q0-28.672 19.968-48.64t47.616-19.968l54.272 0zM889.856 389.12q27.648 0 47.616 19.968t19.968 48.64l0 52.224q0 27.648-19.968 47.616t-47.616 19.968l-437.248 0q-28.672 0-48.64-19.968t-19.968-47.616l0-52.224q0-28.672 19.968-48.64t48.64-19.968l437.248 0zM187.392 708.608q28.672 0 48.64 19.968t19.968 47.616l0 52.224q0 28.672-19.968 48.64t-48.64 19.968l-54.272 0q-27.648 0-47.616-19.968t-19.968-48.64l0-52.224q0-27.648 19.968-47.616t47.616-19.968l54.272 0zM889.856 708.608q27.648 0 47.616 19.968t19.968 47.616l0 52.224q0 28.672-19.968 48.64t-47.616 19.968l-437.248 0q-28.672 0-48.64-19.968t-19.968-48.64l0-52.224q0-27.648 19.968-47.616t48.64-19.968l437.248 0z"
+                                    p-id="2370" fill="#2c2c2c"></path>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+
+        <div class="songList" :style="`position: absolute;right:${songListRight}px;transition: right 0.5s ease-in;`">
+            <div>
+                <h1 style="margin: 0 30%;">播放列表</h1>
+            </div>
+            <div style="height: 75vh;width: 80%;margin: 0 auto;margin-top: 30px;">
+                <div style="height: 30px;width: 100%;">
+                    <div class="clear" @click="clearList">
+                        清空列表
+                    </div>
+                </div>
+                <div
+                    style="max-height: 90%;overflow-y: auto;scrollbar-width: none;-ms-overflow-style: none;overflow: -moz-scrollbars-none;">
+                    <div v-for="item in musicList" :key="item.id"
+                        style="height: 50px;width: 100%;display: flex;margin-top: 5px;padding-left: 10px;"
+                        class="music-item">
+                        <div style="width: 40px;height: 40px;" @click="clickItem(item)">
+                            <el-image style="width: 40px; height: 40px; border-radius: 10%;margin-top: 5px;"
+                                :src="'http://localhost:8080/api/files/' + item.pic">
+                            </el-image>
+                        </div>
+                        <div
+                            style="height: 80%;width: 190px;display: flex;margin-left: 10px;margin-top: 5px;flex-direction: column;">
+                            <div style="margin: 0 auto;width: 100%;height: 50%;overflow: hidden;font-size: 14px;"
+                                @click="clickMusicName(item)" class="music-name">
+                                {{ item.name }}
+                            </div>
+                            <div style="margin: 0 auto;width: 100%;height: 40%;overflow: hidden;font-size: 10px;margin-top: 7px"
+                                @click="clickSingerName(item)" class="singer-name">
+                                {{ item.singerName }}——{{ item.introductions }}
+                            </div>
+
+                        </div>
+                        <div style="flex: 1;">
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div style="height: 15vh;">
+
+            </div>
+
+        </div>
     </div>
+
+
+
 </template>
 <script>
 export default {
@@ -129,6 +314,13 @@ export default {
             isNameVisible: false,
             observer: null,
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
+            tagIcon: 'el-icon-arrow-down',
+            footerBottom: 0,
+            songListRight: -350,
+            musicList: localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [],
+            playingMusic: localStorage.getItem("playingMusic") ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0],
+            play: false,
+
         }
     },
     // props: {
@@ -143,6 +335,35 @@ export default {
     // beforeDestroy() {
     //     this.observer.disconnect();
     // },
+    // 可以设置一个定时器定期检查localStorage的变化
+    mounted() {
+        // this.interval = setInterval(this.checkLocalStorage, 1000); // 每秒检查一次
+        this.interval1 = setInterval(this.initPlay, 500);
+
+    },
+    beforeDestroy() {
+        // 清除定时器
+        clearInterval(this.interval);
+        clearInterval(this.interval1);
+    },
+
+    watch: {
+        // 监听musicList变化
+        musicList: {
+            handler(newValue, oldValue) {
+                // 当musicList变化时，更新localStorage
+                localStorage.setItem("musicList", JSON.stringify(newValue));
+            },
+            deep: true // 开启深度监听
+        },
+        songListRight(newValue, oldValue) {
+            if (newValue === 0) {
+                this.interval = setInterval(this.checkLocalStorage, 500);
+            } else {
+                clearInterval(this.interval);
+            }
+        }
+    },
     methods: {
         clickTag(path) {
             if (path === this.$route.path) {
@@ -170,6 +391,112 @@ export default {
 
             this.observer.observe(targetElement);
         },
+        toggleTag() {
+            this.tagIcon = this.tagIcon === 'el-icon-arrow-up' ? 'el-icon-arrow-down' : 'el-icon-arrow-up';
+            this.footerBottom = this.footerBottom === 0 ? -100 : 0;
+            this.songListRight = -350;
+        },
+        checkLocalStorage() {
+            // 获取当前localStorage中的musicList
+            let currentMusicList = localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
+            // 如果当前musicList与组件中的musicList不一致，则更新组件中的musicList
+            if (JSON.stringify(currentMusicList) !== JSON.stringify(this.musicList)) {
+                this.musicList = currentMusicList;
+                //  console.log(this.musicList);
+
+            }
+        },
+        clearList() {
+            this.play=false ;
+            localStorage.removeItem('musicList');
+            localStorage.setItem('musicList', JSON.stringify([]));
+            localStorage.setItem('playingMusic', JSON.stringify({ id: 0 }));
+        },
+        // 跳转到歌曲详情页
+        clickMusicName(item) {
+            // console.log(item);
+            let path = '/songDetails?songId=' + item.id;
+            if (path === this.$route.fullPath) {
+                return;
+            } else {
+                // console.log(path);
+                this.$router.push({
+                    path: '/songDetails',
+                    query: {
+                        songId: item.id
+                    }
+                })
+                // this.$router.push(path);
+            }
+
+        },
+        // 跳转到歌手详情页
+        clickSingerName(item) {
+            let path = '/singerDetails?singerId=' + item.singerId;
+            if (path === this.$route.fullPath) {
+                return;
+            } else {
+                // console.log(path);
+                this.$router.push({
+                    path: '/singerDetails',
+                    query: {
+                        singerId: item.singerId
+                    }
+                })
+                // this.$router.push(path);
+            }
+        },
+        // 添加到播放器
+        clickItem(item) {
+            localStorage.setItem("playingMusic", JSON.stringify(item));
+        },
+        initPlay() {
+            // console.log(this.musicList);
+            // console.log(this.playingMusic);
+
+            if (this.playingMusic.id === 0 && this.musicList.length !== 0) {
+                this.playingMusic = this.musicList[0];
+                return
+            }
+            // console.log(JSON.parse(localStorage.getItem("playingMusic")));
+            // console.log(JSON.parse(localStorage.getItem("musicList")));
+
+
+            let tmp = localStorage.getItem("playingMusic") ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")) == [] || JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
+            if (tmp.id === this.playingMusic.id) {
+            } else {
+                console.log(tmp);
+
+                this.playingMusic = tmp;
+            }
+        },
+        playOrPause(){
+            console.log(this.playingMusic);
+            
+            if(this.playingMusic.id!==0&&this.playingMusic.url!==''){
+                this.play=!this.play;
+                let audio='';
+                if(this.playingMusic.url.includes('song|')){
+                    audio=document.getElementById('audio1');
+                }else if(this.playingMusic.url.includes('http')){
+                    audio=document.getElementById('audio2');
+                }else{
+                    return
+                }
+                if(this.play){
+                    audio.play();
+                }else{
+                    audio.pause();
+                }
+            }else{
+                this.$message({
+                    message: '请先添加歌曲',
+                    type: 'warning'
+                });
+            }
+            
+        }
+
     }
 }
 </script>
@@ -178,7 +505,7 @@ export default {
     /* background-color: rgba(240, 240, 240, 0.5); */
     color: #333;
     text-align: center;
-    line-height: 60px;
+    line-height: 50px;
 
 
 }
@@ -188,18 +515,97 @@ export default {
     color: #6b6b6b;
     text-align: center;
     /* line-height: 200px; */
-    min-height: 100vh;
+    /* height: 85vh; */
     box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
-    border-radius: 5%;
+    border-radius: 20px;
 }
 
-/* .el-main {
-    background-color: rgba(180, 176, 176, 0.158);
-    
+.el-main {
+    /* background-color: rgba(180, 176, 176, 0.158); */
+    padding: 5px 15px;
+    height: 91vh;
 
-} */
+}
+
 .menu-item:hover {
     background-color: rgba(231, 230, 230, 0.734);
-    border-radius: 5%;
+    border-radius: 10px;
+}
+
+.tag {
+    position: absolute;
+    bottom: 100px;
+    width: 30px;
+    height: 30px;
+    margin-left: 100px;
+    background-color: rgba(238, 240, 244, 0.8);
+    backdrop-filter: blur(10px);
+    border-radius: 10px 10px 0px 0px;
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+}
+
+.footer {
+
+    height: 100px;
+    width: 100%;
+    background-color: rgba(238, 240, 244, 0.8);
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    /* position: absolute;
+    bottom: 0px; */
+    z-index: 100;
+    /* filter: blur(1px); */
+    backdrop-filter: blur(10px);
+}
+
+.songList {
+    height: 100%;
+    width: 350px;
+    background-color: rgba(238, 240, 244, 0.8);
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    position: absolute;
+    /*right: 0px; */
+    top: 0px;
+    z-index: 99;
+    backdrop-filter: blur(10px);
+}
+
+.clear {
+    /* width: 80px; */
+    float: right;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    margin-right: 10px;
+}
+
+.clear:hover {
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
+}
+
+.music-item:hover {
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
+}
+
+.music-name:hover {
+    /* background-color: rgb(227, 225, 225); */
+    color: #d392f8;
+    /* border-radius: 10px; */
+}
+
+.singer-name:hover {
+    /* background-color: rgb(227, 225, 225); */
+    color: #d392f8;
+    /* border-radius: 10px; */
+}
+
+.play-icon:hover,
+.last-icon:hover,
+.next-icon:hover {
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
 }
 </style>

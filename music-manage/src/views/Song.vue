@@ -24,7 +24,8 @@
         </div>
         <div style="max-height: 80vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe highlight-current-row
-                lazy @selection-change="handleSelectionChange" :row-key="getRowKeys" ref="multipleTable">
+                lazy @selection-change="handleSelectionChange" :row-key="getRowKeys" ref="multipleTable"
+                v-loading="loading" >
                 <el-table-column type="selection" :reserve-selection="true" v-if="user.role === '0'"></el-table-column>
                 <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="singerName" label="歌手" fixed width="80"></el-table-column>
@@ -213,6 +214,7 @@
 
 <script>
 import request from "@/utils/request";
+import { Loading } from "element-ui";
 export default {
     // 定义一些页面上控件触的事件调用的方法
     methods: {
@@ -240,6 +242,7 @@ export default {
                     // console.log(this.tableData);
 
                     this.total = res.data.total;
+                    this.loading = false;
                 } else {
                     this.$message({
                         message: res.msg,
@@ -577,9 +580,13 @@ export default {
     ,
     // 页面加载的时候做一些事情
     created() {
-        this.findBySearch();
+        // this.findBySearch();
         this.findSinger();
     },
+    async mounted() {
+        await this.findBySearch();
+    },
+
     data() {
         return {
             params: {
@@ -606,6 +613,7 @@ export default {
             songListForm: {
                 songListNames: []
             },
+            loading: true,
         }
     },
     computed: {
