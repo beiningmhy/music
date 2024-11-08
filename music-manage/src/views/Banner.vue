@@ -66,7 +66,7 @@
                     <el-form :model="form">
 
                         <el-form-item label="轮播图" label-width="20%" aria-required="true">
-                            <el-upload action="http://localhost:8080/api/files/upload" :on-success="successUpload"
+                            <el-upload action="http://localhost:8080/api/files/upload?fileDir=swiper" :on-success="successUpload"
                                 list-type="picture-card" :file-list="fileList">
                                 <i slot="default" class="el-icon-plus"></i>
                                 <!-- <el-button size="small" type="primary">点击上传</el-button> -->

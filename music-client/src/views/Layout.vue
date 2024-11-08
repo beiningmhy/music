@@ -5,14 +5,14 @@
                 <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center"
                     @click="$route.path == '/' ? '' : $router.push('/'), songListRight = -350">
                     <!-- <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px"> -->
-                    <svg t="1730986111036" class="icon" viewBox="0 0 2299 1024" version="1.1"
+                    <!-- <svg t="1730986111036" class="icon" viewBox="0 0 2299 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="1868" width="50" height="50">
                         <path
                             d="M1775.840814 322.588002c6.0164 1.002733 53.144869-9.525967 55.150336-6.016401 3.0082 4.5123 24.065601 155.92504 18.550567 156.927774s-44.621635 10.027334-44.621635 10.027334c-3.0082-20.556034-28.577901-147.903173-29.079268-160.938707m75.205003-14.539634l20.556034 162.944174c10.5287-0.501367 53.144869-3.509567 57.155803-4.010934-6.0164-61.668103-16.545101-158.933241-16.545101-158.93324-20.054668-4.010934-41.112069-4.010934-61.166736 0m-40.610702 226.116376s92.752838-23.564234 126.344406-12.0328c17.046467 61.668103 48.131202 407.611118 51.139402 421.649386-21.057401 2.506833-90.246004 8.523234-95.761037 10.027333-4.5123-26.071068-81.72277-403.098818-81.722771-419.643919m343.436183-207.565809c5.515034 1.5041 54.648969-5.013667 55.150335-1.5041 1.002733 12.032801 6.0164 157.42914 0.501367 157.930507s-44.621635 4.010934-44.621635 4.010934c-1.002733-20.054668-12.032801-146.90044-11.030067-160.437341m75.70637-4.010933l4.010933 160.938707c10.5287 0 52.643502 2.506833 57.155803 2.005467-1.002733-61.668103 0-158.933241 0-158.933241-20.054668-3.509567-40.610702-5.013667-61.166736-4.010933m-64.676303 216.089043s94.758304-12.534167 126.845772 2.506833c7.019134 72.196803 6.0164 408.613852 7.019134 422.652119-21.558768 0-90.246004 1.002733-95.761038 2.005467-1.002733-26.071068-39.607968-410.619319-38.103868-427.164419m-220.099977-413.627519c54.648969 278.759879 96.262404 755.058234 97.766504 785.641602 0 0 43.117535 1.002733 91.750105 4.010934C2105.740095 614.383415 2070.644427 134.575493 2071.145794 119.033126c-12.032801-13.536901-126.344406 6.0164-126.344406 6.0164m-120.328005 659.297196c-10.5287-78.213204-290.291313-166.955108-447.720454-138.377206 0 0-19.553301-172.470141-27.073801-339.425248-6.517767-143.390873-1.002733-282.770813 0.501366-305.833681-10.5287-7.5205-123.837572 46.627102-185.004308 69.188603 0 0 73.199537 309.844614 126.344406 952.59671 0 0 84.730971 9.0246 230.12731-19.051934s317.365114-115.815705 302.825481-219.097244m-341.932083 140.88404l-24.566967-176.982441c6.0164-3.0082 156.927774 53.144869 172.971507 63.172203-2.506833 11.030067-148.40454 113.810238-148.40454 113.810238M610.664628 322.588002c6.0164 1.002733 53.144869-9.525967 55.150335-6.016401 3.0082 4.5123 24.065601 155.92504 18.550568 156.927774s-44.621635 10.027334-44.621635 10.027334c-3.0082-20.556034-28.577901-147.903173-29.079268-160.938707m75.205003-14.539634l20.556034 162.944174c10.5287-0.501367 53.144869-3.509567 57.155803-4.010934-6.517767-61.668103-16.545101-158.933241-16.545101-158.93324-20.054668-4.010934-41.112069-4.010934-61.166736 0m-40.610702 226.116376s92.752838-23.564234 126.344406-12.0328c17.046467 61.668103 48.131202 407.611118 51.139402 421.649386-21.057401 2.506833-90.246004 8.523234-95.761037 10.027333-4.5123-26.071068-81.72277-403.098818-81.722771-419.643919m343.436182-207.565809c5.515034 1.5041 54.648969-5.013667 55.150336-1.5041 1.002733 12.032801 6.0164 157.42914 0.501367 157.930507s-44.621635 4.010934-44.621635 4.010934c-1.002733-20.054668-11.531434-146.90044-11.030068-160.437341m75.706371-4.010933l4.010933 160.938707c10.5287 0 52.643502 2.506833 57.155803 2.005467-1.002733-61.668103 0-158.933241 0-158.933241-20.054668-3.509567-40.610702-4.5123-61.166736-4.010933m-64.676303 216.089043s94.758304-12.534167 126.845772 2.506833c7.019134 72.196803 6.0164 408.613852 7.019134 422.652119-21.558768 0-90.246004 1.002733-95.761038 2.005467-0.501367-26.071068-39.607968-410.619319-38.103868-427.164419m-220.099977-413.627519c54.648969 278.759879 96.262404 755.058234 97.766504 785.641602 0 0 43.117535 1.002733 91.750105 4.010934-28.577901-300.318647-63.67357-780.126569-63.172203-796.170303-12.032801-13.035534-126.344406 6.517767-126.344406 6.517767m-120.328005 659.297196c-10.5287-78.213204-290.291313-166.955108-447.720454-138.377206 0 0-19.553301-172.470141-27.073801-339.425248-6.517767-143.390873-1.002733-282.770813 0.501366-305.833681C174.475608-6.308547 61.166736 47.337689 0 69.89919c0 0 73.199537 309.844614 126.344406 952.59671 0 0 84.730971 9.0246 230.12731-19.051934s317.365114-115.815705 302.825481-219.097244m-341.932083 140.88404l-24.566967-176.982441c6.0164-3.0082 156.927774 53.144869 172.971507 63.172203-2.506833 11.030067-148.40454 113.810238-148.40454 113.810238"
                             p-id="1869" data-spm-anchor-id="a313x.collections_detail.0.i0.78093a81HkR4tf"
                             class="selected"></path>
-                    </svg>
-                    <span class="logo-title" style="color: black;">music</span>
+                    </svg> -->
+                    <span class="logo-title" style="color: black;">真谛好music</span>
                 </div>
                 <div @click="songListRight = -350">
                     <!-- 用户头像部分 -->
@@ -161,14 +161,14 @@
                     <div style="width: 90%;margin:0 auto;height: 100%;">
                         <!-- 歌曲进度条 -->
                         <div>
-                            <div v-if="playingMusic.url != null" hidden>
-                                <audio v-if="playingMusic.url.includes('song|')"
+                            <div v-if="playingMusic.url != null">
+                                <!-- <audio v-if="playingMusic.url.includes('song|')"
                                     :src="'http://localhost:8080/api/files/' + playingMusic.url" controls="controls"
                                     id="audio1">
-                                </audio>
-                                <audio v-else :src="playingMusic.url" controls="controls"
-                                    id="audio2">
-                                    <source :src="playingMusic.url">
+                                </audio> -->
+                                <audio :src="playingMusic.audioUrl" controls="controls" id="audio" ref="audioElement"
+                                    @timeupdate="updateCurrentTime" hidden preload="auto">
+                                    <source :src="playingMusic.audioUrl">
                                     您的浏览器不支持 audio 标签。
                                 </audio>
                             </div>
@@ -178,7 +178,7 @@
                             <div style="height: 70%;width: 40%;margin: 0 auto;display: flex;">
                                 <div style="width: 25%;height: 100%;">
                                     <div style="margin: 0 auto;width: 35px;height: 35px;margin-top:10px;"
-                                        class="last-icon">
+                                        class="last-icon" @click="lastMusic">
                                         <svg t="1730986972484" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" p-id="1301" width="35" height="35">
                                             <path
@@ -192,17 +192,19 @@
 
                                     <div style="margin: 0 auto;width: 50px;height: 50px;margin-top: 3px;"
                                         class="play-icon" @click="playOrPause">
-                                        <svg v-if="!play" t="1730986703357" class="icon" viewBox="0 0 1024 1024"
-                                            version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="927" width="50"
-                                            height="50">
+                                        <!-- {{ $store.state.play }} -->
+                                        <svg v-if="!$store.state.isplay" t="1730986703357" class="icon"
+                                            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                            p-id="927" width="50" height="50">
                                             <path
                                                 d="M783.74 401.86L372.23 155.28c-85.88-51.46-195.08 10.41-195.08 110.53v493.16c0 100.12 109.2 161.99 195.08 110.53l411.51-246.58c83.5-50.04 83.5-171.03 0-221.06z"
                                                 p-id="928" fill="#2c2c2c"
                                                 data-spm-anchor-id="a313x.collections_detail.0.i0.43c33a81fsIjrG"
                                                 class="selected"></path>
                                         </svg>
-                                        <svg v-if="play" t="1730989226232" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                                            xmlns="http://www.w3.org/2000/svg" p-id="1633" width="50" height="50">
+                                        <svg v-if="$store.state.isplay" t="1730989226232" class="icon"
+                                            viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+                                            p-id="1633" width="50" height="50">
                                             <path
                                                 d="M332.26 853.89c-49.71 0-90-40.29-90-90v-503c0-49.71 40.29-90 90-90s90 40.29 90 90v503c0 49.7-40.3 90-90 90zM691.26 853.89c-49.71 0-90-40.29-90-90v-503c0-49.71 40.29-90 90-90s90 40.29 90 90v503c0 49.7-40.3 90-90 90z"
                                                 p-id="1634"></path>
@@ -212,7 +214,7 @@
                                 </div>
                                 <div style="width: 25%;height: 100%;;">
                                     <div style="margin: 0 auto;width: 35px;height: 35px;margin-top:10px;"
-                                        class="next-icon">
+                                        class="next-icon" @click="nextMusic">
                                         <svg t="1730987216598" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                             xmlns="http://www.w3.org/2000/svg" p-id="1467" width="35" height="35">
                                             <path
@@ -222,11 +224,24 @@
                                     </div>
                                 </div>
                             </div>
-                            <div style="flex: 1;width: 100%;">
-                                <div style="height: 100%;width: 80%;margin: 0 auto;">
-                                    <el-slider v-model="value3" :show-tooltip="false"></el-slider>
-                                </div>
+                            <!-- 播放进度 -->
+                            <div style="flex: 1;width: 100%;display: flex;">
+                                <div style="height: 100%;width: 50px;">
+                                    <span style="height: 38px;line-height: 38px;margin-left: 10px;">
+                                        {{ formatDuration(currentTime.toFixed(0)) }}
+                                    </span>
 
+                                </div>
+                                <div style="height: 100%;margin: 0 auto;flex: 1;">
+                                    <el-slider v-model="currentTime" :show-tooltip="false"
+                                        :max="playingMusic.audioDurationSeconds" @change="setAudioTime"
+                                        :disabled="playingMusic.id == 0"></el-slider>
+                                </div>
+                                <div style="height: 100%;width: 50px;">
+                                    <span style="height: 38px;line-height: 38px;margin-left: 10px;">
+                                        {{ playingMusic.audioDuration }}
+                                    </span>
+                                </div>
                             </div>
                         </div>
 
@@ -236,13 +251,53 @@
 
 
                 <div style="width: 20%;display: flex;height: 100%;">
-                    <div style="background-color: darkgoldenrod;width: 100px;height: 100%;flex: 1;">
+                    <div style="width: 100px;height: 100%;flex: 1;">
                         <!-- 其他按钮 -->
+                        <div style="display: flex;height: 30px;width: auto;margin: 0 auto ;margin-top: 20px;">
+                            <div style="margin-left: 30px;height: 40px;width: 40px;padding-left: 5px;padding-top: 5px;"
+                                class="order-icon" @click="musicOrder()">
+                                <!-- 单曲循环 -->
+                                <svg v-if="musicLoop" t="1731071069690" class="icon" viewBox="0 0 1024 1024"
+                                    version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1739" width="30" height="30">
+                                    <path
+                                        d="M361.5 727.8c-119.1 0-215.9-96.9-215.9-215.9 0-119.1 96.9-215.9 215.9-215.9 2.3 0 4.6-0.2 6.8-0.6v58.3c0 12.3 14 19.4 23.9 12.1l132.6-97.6c8.1-6 8.1-18.2 0-24.2l-132.6-97.6c-9.9-7.3-23.9-0.2-23.9 12.1v58.1c-2.2-0.4-4.5-0.6-6.8-0.6-39.8 0-78.5 7.9-115 23.4-35.2 15-66.8 36.3-94 63.5s-48.6 58.8-63.5 94c-15.5 36.5-23.4 75.2-23.4 115s7.9 78.5 23.4 115c15 35.2 36.3 66.8 63.5 94s58.8 48.6 94 63.5c36.5 15.5 75.2 23.4 115 23.4 22.1 0 40-17.9 40-40s-17.9-40-40-40z m576.7-330.9c-15-35.2-36.3-66.8-63.5-94s-58.8-48.6-94-63.5c-36.5-15.5-75.2-23.4-115-23.4-22.1 0-40 17.9-40 40s17.9 40 40 40c119.1 0 215.9 96.9 215.9 215.9 0 119.1-96.9 215.9-215.9 215.9-4.1 0-8.1 0.6-11.8 1.8v-60.8c0-12.3-14-19.4-23.9-12.1l-132.6 97.6c-8.1 6-8.1 18.2 0 24.2L629.9 876c9.9 7.3 23.9 0.2 23.9-12.1V806c3.7 1.2 7.7 1.8 11.8 1.8 39.8 0 78.5-7.9 115-23.4 35.2-15 66.8-36.3 94-63.5s48.6-58.8 63.5-94c15.5-36.5 23.4-75.2 23.4-115s-7.8-78.5-23.3-115z"
+                                        p-id="1740" fill="#bf7fe3"></path>
+                                    <path
+                                        d="M512.8 660.6c22.1-0.1 39.9-18.1 39.8-40.2l-1.2-214.1c-0.1-22-18-39.8-40-39.8h-0.2c-22.1 0.1-39.9 18.1-39.8 40.2l1.2 214.1c0.1 22 18 39.8 40 39.8h0.2z"
+                                        p-id="1741" fill="#bf7fe3"></path>
+                                </svg>
+                                <!-- 列表循环 -->
+                                <svg v-if="!musicLoop" t="1731070889129" class="icon" viewBox="0 0 1024 1024"
+                                    version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1517" width="30" height="30">
+                                    <path
+                                        d="M361.5 727.8c-119.1 0-215.9-96.9-215.9-215.9 0-119.1 96.9-215.9 215.9-215.9 2.3 0 4.6-0.2 6.8-0.6v58.3c0 12.3 14 19.4 23.9 12.1l132.6-97.6c8.1-6 8.1-18.2 0-24.2l-132.6-97.6c-9.9-7.3-23.9-0.2-23.9 12.1v58.1c-2.2-0.4-4.5-0.6-6.8-0.6-39.8 0-78.5 7.9-115 23.4-35.2 15-66.8 36.3-94 63.5s-48.6 58.8-63.5 94c-15.5 36.5-23.4 75.2-23.4 115s7.9 78.5 23.4 115c15 35.2 36.3 66.8 63.5 94s58.8 48.6 94 63.5c36.5 15.5 75.2 23.4 115 23.4 22.1 0 40-17.9 40-40s-17.9-40-40-40z m576.7-330.9c-15-35.2-36.3-66.8-63.5-94s-58.8-48.6-94-63.5c-36.5-15.5-75.2-23.4-115-23.4-22.1 0-40 17.9-40 40s17.9 40 40 40c119.1 0 215.9 96.9 215.9 215.9 0 119.1-96.9 215.9-215.9 215.9-4.1 0-8.1 0.6-11.8 1.8v-60.8c0-12.3-14-19.4-23.9-12.1l-132.6 97.6c-8.1 6-8.1 18.2 0 24.2L629.9 876c9.9 7.3 23.9 0.2 23.9-12.1V806c3.7 1.2 7.7 1.8 11.8 1.8 39.8 0 78.5-7.9 115-23.4 35.2-15 66.8-36.3 94-63.5s48.6-58.8 63.5-94c15.5-36.5 23.4-75.2 23.4-115s-7.8-78.5-23.3-115z"
+                                        p-id="1518" data-spm-anchor-id="a313x.collections_detail.0.i5.76be3a81sbnCdm"
+                                        class="selected" fill="#2c2c2c"></path>
+                                </svg>
+                            </div>
+                            <div style="margin-left: 30px;height: 40px;width: 40px;padding-left: 5px;padding-top: 5px;"
+                                class="sound-icon" @click="toggleMute">
+                                <svg v-if="!isMuted" t="1731073024398" class="icon" viewBox="0 0 1024 1024"
+                                    version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2879" width="30" height="30">
+                                    <path
+                                        d="M257.493333 322.4l215.573334-133.056c24.981333-15.413333 57.877333-7.914667 73.493333 16.746667 5.301333 8.373333 8.106667 18.048 8.106667 27.914666v555.989334C554.666667 819.093333 530.784 842.666667 501.333333 842.666667c-9.994667 0-19.786667-2.773333-28.266666-8L257.493333 701.6H160c-41.237333 0-74.666667-33.013333-74.666667-73.738667V396.138667c0-40.725333 33.429333-73.738667 74.666667-73.738667h97.493333z m26.133334 58.4a32.298667 32.298667 0 0 1-16.96 4.8H160c-5.888 0-10.666667 4.714667-10.666667 10.538667v231.733333c0 5.813333 4.778667 10.538667 10.666667 10.538667h106.666667c5.994667 0 11.872 1.664 16.96 4.8L490.666667 770.986667V253.013333L283.626667 380.8zM800.906667 829.653333a32.288 32.288 0 0 1-45.248-0.757333 31.317333 31.317333 0 0 1 0.768-44.693333c157.653333-150.464 157.653333-393.962667 0-544.426667a31.317333 31.317333 0 0 1-0.768-44.682667 32.288 32.288 0 0 1 45.248-0.757333c183.68 175.306667 183.68 460.010667 0 635.317333z m-106.901334-126.186666a32.288 32.288 0 0 1-45.248-1.216 31.328 31.328 0 0 1 1.237334-44.672c86.229333-80.608 86.229333-210.56 0-291.178667a31.328 31.328 0 0 1-1.237334-44.672 32.288 32.288 0 0 1 45.248-1.216c112.885333 105.546667 112.885333 277.418667 0 382.965333z"
+                                        fill="#000000" p-id="2880"></path>
+                                </svg>
+                                <svg v-if="isMuted" t="1731073066103" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                    xmlns="http://www.w3.org/2000/svg" p-id="3041" width="30" height="30">
+                                    <path
+                                        d="M257.493333 322.4l215.573334-133.056c24.981333-15.413333 57.877333-7.914667 73.493333 16.746667 5.301333 8.373333 8.106667 18.048 8.106667 27.914666v555.989334C554.666667 819.093333 530.784 842.666667 501.333333 842.666667c-9.994667 0-19.786667-2.773333-28.266666-8L257.493333 701.6H160c-41.237333 0-74.666667-33.013333-74.666667-73.738667V396.138667c0-40.725333 33.429333-73.738667 74.666667-73.738667h97.493333z m26.133334 58.4a32.298667 32.298667 0 0 1-16.96 4.8H160c-5.888 0-10.666667 4.714667-10.666667 10.538667v231.733333c0 5.813333 4.778667 10.538667 10.666667 10.538667h106.666667c5.994667 0 11.872 1.664 16.96 4.8L490.666667 770.986667V253.013333L283.626667 380.8zM832.565333 518.4l86.474667 86.474667a30.570667 30.570667 0 1 1-43.232 43.242666L789.333333 561.653333l-86.474666 86.474667a30.570667 30.570667 0 1 1-43.232-43.242667l86.474666-86.474666-86.474666-86.474667a30.570667 30.570667 0 1 1 43.232-43.232L789.333333 475.178667l86.474667-86.474667a30.570667 30.570667 0 1 1 43.232 43.232l-86.474667 86.474667z"
+                                        fill="#bf7fe3" p-id="3042"></path>
+                                </svg>
+                            </div>
+                        </div>
+
                     </div>
                     <div style="float: right;height: 100%;width: 60px;">
                         <!-- 播放列表按钮 -->
-                        <div style="margin-top: 40%;margin-left: 30%;"
-                            @click="songListRight = songListRight === 0 ? -350 : 0">
+                        <div style="height: 50px;width: 50px;margin-top: 15px;margin-left: 15px;padding-left: 10px;padding-top: 10px;"
+                            @click="songListRight = songListRight === 0 ? -350 : 0" class="song-list-icon">
+                            
                             <svg t="1730885207826" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="2369" width="30" height="30">
                                 <path
@@ -318,8 +373,12 @@ export default {
             footerBottom: 0,
             songListRight: -350,
             musicList: localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [],
-            playingMusic: localStorage.getItem("playingMusic") ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0],
-            play: false,
+            playingMusic: localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0],
+            // play: false,
+            // schedule: 0,
+            currentTime: 0,
+            musicLoop: false,
+            isMuted: false,
 
         }
     },
@@ -339,6 +398,8 @@ export default {
     mounted() {
         // this.interval = setInterval(this.checkLocalStorage, 1000); // 每秒检查一次
         this.interval1 = setInterval(this.initPlay, 500);
+        this.$store.commit('updateIsplay', false);
+        this.playingMusic = localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
 
     },
     beforeDestroy() {
@@ -362,7 +423,26 @@ export default {
             } else {
                 clearInterval(this.interval);
             }
+        },
+        '$store.state.isplay'(newValue, oldValue) {
+            let audio = '';
+            if (this.playingMusic.audioUrl.includes('http')) {
+                audio = document.getElementById('audio');
+            } else {
+                return
+            }
+            if (newValue) {
+                // console.log('开始播放');
+                setTimeout(() => {
+                    audio.play();
+                }, 200)
+            } else {
+                // console.log('暂停播放');
+
+                audio.pause();
+            }
         }
+
     },
     methods: {
         clickTag(path) {
@@ -407,7 +487,8 @@ export default {
             }
         },
         clearList() {
-            this.play=false ;
+            this.$store.commit('updateIsplay', false);
+            this.currentTime = 0.00;
             localStorage.removeItem('musicList');
             localStorage.setItem('musicList', JSON.stringify([]));
             localStorage.setItem('playingMusic', JSON.stringify({ id: 0 }));
@@ -448,53 +529,208 @@ export default {
         },
         // 添加到播放器
         clickItem(item) {
+            this.$store.commit('updateIsplay', false);
             localStorage.setItem("playingMusic", JSON.stringify(item));
         },
         initPlay() {
             // console.log(this.musicList);
-            // console.log(this.playingMusic);
 
-            if (this.playingMusic.id === 0 && this.musicList.length !== 0) {
+
+            // console.log(JSON.parse(localStorage.getItem("musicList"))[0]);
+            // if(JSON.parse(localStorage.getItem("playingMusic"))==null){
+            //     localStorage.setItem("playingMusic", JSON.stringify({ id: 0 }));
+            // }
+            if (this.playingMusic == undefined) {
+                localStorage.setItem("playingMusic", JSON.stringify({ id: 0 }));
+                this.playingMusic = JSON.parse(localStorage.getItem("playingMusic"));
+                return;
+            }
+            if (this.playingMusic == undefined && this.playingMusic.id === 0 && this.musicList.length !== 0) {
                 this.playingMusic = this.musicList[0];
-                return
+                // console.log(this.playingMusic);
+
+                return;
             }
             // console.log(JSON.parse(localStorage.getItem("playingMusic")));
             // console.log(JSON.parse(localStorage.getItem("musicList")));
 
 
-            let tmp = localStorage.getItem("playingMusic") ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")) == [] || JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
+            let tmp = localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")) == [] || JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
             if (tmp.id === this.playingMusic.id) {
             } else {
                 console.log(tmp);
-
                 this.playingMusic = tmp;
             }
         },
-        playOrPause(){
-            console.log(this.playingMusic);
-            
-            if(this.playingMusic.id!==0&&this.playingMusic.url!==''){
-                this.play=!this.play;
-                let audio='';
-                if(this.playingMusic.url.includes('song|')){
-                    audio=document.getElementById('audio1');
-                }else if(this.playingMusic.url.includes('http')){
-                    audio=document.getElementById('audio2');
-                }else{
+        playOrPause() {
+            // console.log(this.playingMusic);
+
+            if (this.playingMusic.id !== 0 && this.playingMusic.url !== '') {
+                this.$store.commit('updateIsplay', !this.$store.state.isplay);
+                // console.log(this.$play);
+                // this.play=this.$play;
+                let audio = '';
+
+                if (this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                } else {
                     return
                 }
-                if(this.play){
-                    audio.play();
-                }else{
-                    audio.pause();
-                }
-            }else{
+                // if (this.$store.state.isplay) {
+                //     audio.play();
+                // } else {
+                //     audio.pause();
+                // }
+            } else {
                 this.$message({
                     message: '请先添加歌曲',
                     type: 'warning'
                 });
             }
-            
+
+        },
+        updateCurrentTime() {
+            // 使用Vue的$refs来访问DOM元素，获取currentTime
+            this.currentTime = this.$refs.audioElement.currentTime;
+            if (this.formatDuration(this.currentTime.toFixed(0)) === this.playingMusic.audioDuration) {
+                if (this.musicLoop != true) {
+                    console.log('播放下一首');
+                    this.nextMusic();
+                } else {
+                    this.currentTime = 0;
+                    let audio = '';
+                    if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                        audio = document.getElementById('audio');
+                        setTimeout(() => {
+                            audio.play();
+                        }, 200)
+                    }
+                }
+
+            }
+        },
+        // 节流
+        setAudioTime(value) {
+            // 使用requestAnimationFrame来更新currentTime
+            requestAnimationFrame(() => {
+                this.$refs.audioElement.currentTime = value;
+            });
+        },
+        formatDuration(seconds) {
+            if (seconds === null || seconds === undefined) {
+                return '未知';
+            }
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        },
+        lastMusic() {
+            // console.log(JSON.parse(localStorage.getItem("musicList")));
+
+            if (localStorage.getItem("musicList") == null || JSON.parse(localStorage.getItem("musicList")).length === 0) {
+
+
+                return;
+            }
+            if (this.musicLoop === true) {
+                this.currentTime = 0;
+                let audio = '';
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.play();
+                        this.$store.commit('updateIsplay', true);
+                    }, 200)
+                }
+            } else {
+                let audio = '';
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.pause();
+                    }, 200)
+                }
+                let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
+                if (index === 0) {
+                    let item = this.musicList[this.musicList.length - 1];
+                    this.playingMusic = item;
+                    localStorage.setItem("playingMusic", JSON.stringify(item));
+
+                } else {
+                    let item = this.musicList[index - 1];
+                    this.playingMusic = item;
+                    localStorage.setItem("playingMusic", JSON.stringify(item));
+                }
+                if (this.$store.state.isplay == false) {
+                    this.$store.commit('updateIsplay', true);
+                }
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.play();
+                    }, 200)
+                }
+            }
+
+        },
+        nextMusic() {
+            if (localStorage.getItem("musicList") == null || JSON.parse(localStorage.getItem("musicList")).length === 0) {
+                return;
+            }
+            if (this.musicLoop === true) {
+                this.currentTime = 0;
+                let audio = '';
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.play();
+                        this.$store.commit('updateIsplay', true);
+                    }, 200)
+                }
+            } else {
+                let audio = '';
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.pause();
+                    }, 200)
+                }
+                let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
+                if (index === this.musicList.length - 1) {
+                    let item = this.musicList[0];
+                    this.playingMusic = item;
+                    localStorage.setItem("playingMusic", JSON.stringify(item));
+
+                } else {
+                    let item = this.musicList[index + 1];
+                    this.playingMusic = item;
+                    localStorage.setItem("playingMusic", JSON.stringify(item));
+                }
+                if (this.$store.state.isplay == false) {
+                    this.$store.commit('updateIsplay', true);
+                }
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                    setTimeout(() => {
+                        audio.play();
+                    }, 200)
+                }
+            }
+
+
+        },
+        musicOrder() {
+            this.musicLoop = !this.musicLoop;
+        },
+        toggleMute() {
+            // 获取audio元素
+            let audio = '';
+            if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                audio = document.getElementById('audio');
+            }
+            // 切换muted属性
+            this.isMuted = !this.isMuted;
+            audio.muted = this.isMuted;
         }
 
     }
@@ -596,6 +832,38 @@ export default {
     /* border-radius: 10px; */
 }
 
+/* @keyframes scroll-text {
+    0% {
+        transform: translateX(0);
+    }
+
+    50% {
+        transform: translateX(-50%);
+    }
+
+    100% {
+        transform: translateX(0);
+    }
+}
+
+.music-name {
+    display: inline-block;
+    white-space: nowrap;
+    overflow: hidden;
+    border: 1px solid #000;
+    padding: 5px;
+    position: relative;
+}
+
+.music-name::after {
+    content: attr(data-text);
+    position: absolute;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 100%;
+    animation: scroll-text 10s linear infinite;
+} */
+
 .singer-name:hover {
     /* background-color: rgb(227, 225, 225); */
     color: #d392f8;
@@ -604,7 +872,10 @@ export default {
 
 .play-icon:hover,
 .last-icon:hover,
-.next-icon:hover {
+.next-icon:hover,
+.order-icon:hover,
+.sound-icon:hover,
+.song-list-icon:hover {
     background-color: rgb(206, 206, 206);
     border-radius: 10px;
 }

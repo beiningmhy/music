@@ -365,7 +365,9 @@ export default {
                                     ...item,
                                     sts: item.status === '0',
                                     introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
-                                    audioDuration: this.formatDuration(audioDuration)
+                                    audioDuration: this.formatDuration(audioDuration),
+                                    audioDurationSeconds: audioDuration,
+                                    audioUrl:audioUrl,
                                 };
                             } catch (error) {
                                 // console.error(`Failed to load audio file for item ${item.id}:`, error);
@@ -495,6 +497,7 @@ export default {
 
         },
         songDbClick(item) {
+            this.$store.commit('updateIsplay', false);
             localStorage.setItem("playingMusic", JSON.stringify(item));
             // 首先从 localStorage 获取现有的 musicList
             let musicList = localStorage.getItem('musicList');
@@ -572,6 +575,7 @@ export default {
             })
         },
         playAll() {
+            this.$store.commit('updateIsplay', false);
             if (this.tableData.length != 0) {
                 // 首先从 localStorage 获取现有的 musicList
                 let musicList = localStorage.getItem("musicList");
