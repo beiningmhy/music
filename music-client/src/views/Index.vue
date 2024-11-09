@@ -172,6 +172,16 @@ export default {
         },
         goSinger(item) {
             // console.log(item);
+            request.post("/singer/clicks",item).then(res=>{
+                if(res.code==='0'){
+
+                }else{
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
             this.$router.push({
                 path: '/singerDetails',
                 query: {

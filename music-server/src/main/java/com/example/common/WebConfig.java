@@ -54,6 +54,11 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/comment/down")
                 .excludePathPatterns("/api/song/lyric/**")
                 .excludePathPatterns("/api/rankList/avg")
-                .excludePathPatterns("/api/comment/save");
+                .excludePathPatterns("/api/comment/save")
+                .excludePathPatterns("/api/web/user")
+                .excludePathPatterns("/api/singer/clicks")
+                .excludePathPatterns("/api/songList/clicks")
+                .excludePathPatterns("/api/singer/top/**")
+                .excludePathPatterns("/api/songList/top/**");
     }
 }

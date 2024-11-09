@@ -239,4 +239,8 @@ public class SongController {
 
         return result;
     }
+    @GetMapping("/top/{num}")
+    public Result top(@PathVariable String num) {
+        return Result.success();
+    }
 }

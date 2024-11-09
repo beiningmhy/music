@@ -27,6 +27,8 @@ public class Singer {
     private String address;
     @Column(name="introduction")
     private String introduction;
+    @Column(name="clicks")
+    private Integer clicks;
 
 
 

@@ -23,6 +23,8 @@ public class SongList {
     private String introduction;
     @Column(name="style")
     private String style;
+    @Column(name="clicks")
+    private Integer clicks;
 
 
 

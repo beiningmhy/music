@@ -111,7 +111,7 @@
                                 style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40px;width: 60px;">
                                 歌手
                             </div>
-                            <div
+                            <div @click="clickTag('/songList')"
                                 style="margin-left: 30px; background-color:rgba(200, 200, 200,0.2) ;box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);border-radius: 40px;width: 60px;">
                                 歌单
                             </div>
@@ -167,7 +167,7 @@
                                     id="audio1">
                                 </audio> -->
                                 <audio :src="playingMusic.audioUrl" controls="controls" id="audio" ref="audioElement"
-                                    @timeupdate="updateCurrentTime" hidden preload="auto">
+                                    @timeupdate="updateCurrentTime" hidden preload="auto" @ended="audioEnded">
                                     <source :src="playingMusic.audioUrl">
                                     您的浏览器不支持 audio 标签。
                                 </audio>
@@ -592,8 +592,25 @@ export default {
         updateCurrentTime() {
             // 使用Vue的$refs来访问DOM元素，获取currentTime
             this.currentTime = this.$refs.audioElement.currentTime;
-            if (this.formatDuration(this.currentTime.toFixed(0)) === this.playingMusic.audioDuration) {
-                if (this.musicLoop != true) {
+            // if (this.formatDuration(this.currentTime.toFixed(0)) === this.playingMusic.audioDuration) {
+            //     if (this.musicLoop != true) {
+            //         console.log('播放下一首');
+            //         this.nextMusic();
+            //     } else {
+            //         this.currentTime = 0;
+            //         let audio = '';
+            //         if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+            //             audio = document.getElementById('audio');
+            //             setTimeout(() => {
+            //                 audio.play();
+            //             }, 200)
+            //         }
+            //     }
+
+            // }
+        },
+        audioEnded(){
+            if (this.musicLoop != true) {
                     console.log('播放下一首');
                     this.nextMusic();
                 } else {
@@ -606,8 +623,6 @@ export default {
                         }, 200)
                     }
                 }
-
-            }
         },
         // 节流
         setAudioTime(value) {

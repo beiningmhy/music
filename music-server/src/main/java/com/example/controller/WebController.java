@@ -16,4 +16,8 @@ public class WebController {
     public Result index() {
         return Result.success();
     }
+    @GetMapping("/user")
+    public Result user() {
+        return Result.success();
+    }
 }
