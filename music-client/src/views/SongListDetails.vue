@@ -331,6 +331,7 @@ export default {
             })
         },
         async initSongs() {
+            this.params2.status='0';
             this.params2.songListId = this.songListId;
             try {
                 const res = await request.get("/song/search", {

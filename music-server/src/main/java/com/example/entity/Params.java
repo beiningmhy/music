@@ -12,6 +12,7 @@ public class Params {
     private String username;
     private String singerType;
     private String other;
+    private String search;
     private String singerId;
     private Integer parentId;
     private String title;

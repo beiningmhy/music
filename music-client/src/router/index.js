@@ -1,6 +1,9 @@
 import request from '@/utils/request'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
+import Search from '@/views/Search.vue'
 import Singer from '@/views/Singer.vue'
 import SingerDetails from '@/views/SingerDetails.vue'
 import SongDetails from '@/views/SongDetails.vue'
@@ -20,32 +23,47 @@ const routes = [
       {
         path: '/',
         name: '首页',
-        component:Index,
+        component: Index,
       },
       {
         path: '/singer',
         name: '歌手页面',
-        component:Singer,
+        component: Singer,
       },
       {
         path: '/songList',
         name: '歌单页面',
-        component:SongList,
+        component: SongList,
       },
       {
         path: '/singerDetails',
         name: '歌手详情页面',
-        component:SingerDetails,
+        component: SingerDetails,
       },
       {
         path: '/songListDetails',
         name: '歌单详情页面',
-        component:SongListDetails,
+        component: SongListDetails,
       },
       {
         path: '/songDetails',
         name: '歌曲详情页面',
-        component:SongDetails,
+        component: SongDetails,
+      },
+      {
+        path: '/search',
+        name: '搜索页面',
+        component: Search,
+      },
+      {
+        path: '/login',
+        name: '登录页面',
+        component: Login,
+      },
+      {
+        path: '/register',
+        name: '注册页面',
+        component: Register,
       },
     ]
   },
@@ -66,11 +84,11 @@ router.beforeEach((to, from, next) => {
       next();
     } else {
       console.log("系统错误");
-      
+
       return;
     }
   })
-  
+
 })
 
 export default router

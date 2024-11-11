@@ -38,6 +38,12 @@ public class Song {
     @Column(name = "url")
     @Alias("歌曲地址")
     private String url;
+    @Column(name = "clicks")
+    @Alias("点击量")
+    private Integer clicks;
+    @Column(name="status")
+    private String status;
+
     @Transient
     @Alias("歌手名称")
     private String singerName;

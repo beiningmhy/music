@@ -41,6 +41,8 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(jwtInterceptor).addPathPatterns("/api/**")
                 .excludePathPatterns("/api/admin/login")
                 .excludePathPatterns("/api/admin/register")
+                .excludePathPatterns("/api/consumer/login")
+                .excludePathPatterns("/api/consumer/register")
                 .excludePathPatterns("/api/files/**")
                 .excludePathPatterns("/api/captcha")
                 .excludePathPatterns("/api/song/upload")
@@ -58,7 +60,9 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/web/user")
                 .excludePathPatterns("/api/singer/clicks")
                 .excludePathPatterns("/api/songList/clicks")
+                .excludePathPatterns("/api/song/clicks")
                 .excludePathPatterns("/api/singer/top/**")
+                .excludePathPatterns("/api/song/top/**")
                 .excludePathPatterns("/api/songList/top/**");
     }
 }

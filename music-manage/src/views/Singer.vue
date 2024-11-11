@@ -34,9 +34,8 @@
                 </el-table-column>
                 <el-table-column prop="birth" label="出生日期" width="150"></el-table-column>
                 <el-table-column prop="address" label="地址" width="50"></el-table-column>
-                <el-table-column prop="introductions" label="介绍" width="600"></el-table-column>
-
-
+                <el-table-column prop="introductions" label="介绍" width="500"></el-table-column>
+                <el-table-column prop="clicks" label="点击次数" width="100" sortable></el-table-column>
 
                 <el-table-column label="操作" width="160" fixed="right">
                     <template slot-scope="scope">
@@ -102,6 +101,9 @@
                     </el-form-item>
                     <el-form-item label="地址" label-width="20%" aria-required="true">
                         <el-input v-model="form.address" autocomplete="off" style="width: 90%"></el-input>
+                    </el-form-item>
+                    <el-form-item label="点击次数" label-width="20%" aria-required="true">
+                        <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
                     </el-form-item>
 
 

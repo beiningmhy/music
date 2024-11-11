@@ -54,9 +54,6 @@ public class LogExceptionAspect {
 
 
 
-
-
-
         // 再去往日志表里写一条日志记录
         Log log = LogSystemInfo.getSystemInfo(request);
         log.setName("方法:"+methodName+"发生异常: "+ ex.getMessage()+"\n"+

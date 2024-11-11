@@ -39,6 +39,7 @@ public class LogAspect {
         // 操作人
         String username = "";
         Admin user = JwtTokenUtils.getCurrentUser();
+//        System.out.println("user----------------"+JwtTokenUtils.getCurrentUser());
         if (ObjectUtil.isNotNull(user)) {
             username = user.getName();
         }

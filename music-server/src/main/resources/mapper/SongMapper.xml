@@ -11,12 +11,14 @@
         <result column="pic" jdbcType="VARCHAR" property="pic"/>
         <result column="lyric" jdbcType="VARCHAR" property="lyric"/>
         <result column="url" jdbcType="VARCHAR" property="url"/>
+        <result column="clicks" jdbcType="VARCHAR" property="clicks"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
 
     </resultMap>
 
     <select id="findBySearch" resultMap="SongRM">
         -- select * from music_song
-        select music_song.*,music_singer.name as singerName from music_song  left join music_singer   on
+        select music_song.*,music_singer.name as singerName from music_song left join music_singer on
         music_song.singer_id = music_singer.id
         <where>
             <if test="params != null and params.name != null and params.name != ''">
@@ -28,13 +30,25 @@
             <if test="params != null and params.songId != null and params.songId != ''">
                 and music_song.id = #{params.songId}
             </if>
+            <if test="params != null and params.status != null and params.status != ''">
+                and music_song.status = #{params.status}
+            </if>
             <if test="params != null and params.other != null and params.other != ''">
 
                 and (music_song.introduction like concat('%', #{params.other}, '%')
-                    or music_song.lyric like concat('%', #{params.other}, '%'))
+                or music_song.lyric like concat('%', #{params.other}, '%'))
             </if>
             <if test="params != null and params.songListId != null and params.songListId != ''">
-                and music_song.id in (select music_list_song.song_id from music_list_song where music_list_song.song_list_id = #{params.songListId})
+                and music_song.id in (select music_list_song.song_id from music_list_song where
+                music_list_song.song_list_id = #{params.songListId})
+            </if>
+            <if test="params != null and params.search != null and params.search != ''">
+
+                and (music_song.introduction like concat('%', #{params.search}, '%')
+                or music_song.lyric like concat('%', #{params.search}, '%')
+                or music_song.name like concat('%', #{params.search}, '%')
+                or music_singer.name like concat('%', #{params.search}, '%')
+                or music_song.lyric like concat('%', #{params.search}, '%'))
             </if>
 
         </where>

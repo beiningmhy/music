@@ -15,6 +15,23 @@
                 </el-carousel-item>
             </el-carousel>
         </div>
+        <hr>
+
+        <div>
+            <h1 style="font-size:25px;">TOP10歌曲 ></h1>
+            <div style="display: flex;flex-wrap: wrap;">
+                <div v-for="item in song" :key="item.id" :label="item.pic" :value="item.id" @click="goSong(item)"
+                    style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;overflow: hidden;width: 100px;height: 150px;">
+                    <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
+                        :src="'http://localhost:8080/api/files/' + item.pic">
+                    </el-image>
+                    <div style="text-align: center;">
+                        <span style="font-size: small;">{{ item.name }}</span>
+                    </div>
+                </div>
+
+            </div>
+        </div>
         <!-- 歌手 -->
         <hr>
         <div>
@@ -41,8 +58,8 @@
         <div>
             <h1 style="font-size:25px;">歌单 ></h1>
             <div style="display: flex;flex-wrap: wrap;">
-                <div v-for="item in songList" :key="item.id" :label="item.pic" :value="item.id" @click="goSongList(item)"
-                    style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;">
+                <div v-for="item in songList" :key="item.id" :label="item.pic" :value="item.id"
+                    @click="goSongList(item)" style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;">
                     <el-image style="width: 100px; height: 100px; border-radius: 20% ;"
                         :src="'http://localhost:8080/api/files/' + item.pic">
                     </el-image>
@@ -88,6 +105,7 @@ export default {
             currentY: 300,
             windowWidth: 0,
             windowHeight: 0,
+            song: [],
 
 
         }
@@ -113,7 +131,22 @@ export default {
                 }
             })
         },
+        async initTopSong() {
+            await request.get("/song/top/" + 10).then(res => {
+                if (res.code === '0') {
+                    // console.log(res);
+                    this.song = JSON.parse(JSON.stringify(res.data));
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
         async loadSinger() {
+            
             await request.get("/singer/search", {
                 params: this.params1
 
@@ -172,10 +205,10 @@ export default {
         },
         goSinger(item) {
             // console.log(item);
-            request.post("/singer/clicks",item).then(res=>{
-                if(res.code==='0'){
+            request.post("/singer/clicks", item).then(res => {
+                if (res.code === '0') {
 
-                }else{
+                } else {
                     this.$message({
                         message: res.msg,
                         type: 'error'
@@ -191,6 +224,15 @@ export default {
 
         },
         goSongList(item) {
+            request.post("/songList/clicks", item).then(res => {
+                if (res.code === '0') {
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
             // console.log(item);
             this.$router.push({
                 path: '/songListDetails',
@@ -199,6 +241,15 @@ export default {
                 }
             })
 
+        },
+        goSong(item) {
+
+            this.$router.push({
+                path: '/songDetails',
+                query: {
+                    songId: item.id
+                }
+            })
         },
         setInitialPosition() {
             const button = this.$refs.draggableButton;
@@ -247,12 +298,13 @@ export default {
             // button.style.transform = `translate(${this.currentX}px, ${this.currentY}px)`;
 
         },
-
+        
     },
     created() {
         this.loadSinger();
         this.loadSongList();
         this.loadSwiper();
+        this.initTopSong();
         // this.handleResize();
     }
 }

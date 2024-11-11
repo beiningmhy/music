@@ -241,6 +241,27 @@ public class SongController {
     }
     @GetMapping("/top/{num}")
     public Result top(@PathVariable String num) {
+        Params params = new Params();
+        params.setPageNum(1);
+        params.setPageSize(1);
+        params.setStatus("0");
+        PageInfo<Song> tmp = songService.findBySearch(params);
+        params.setPageSize((int) tmp.getTotal());
+        PageInfo<Song> search = songService.findBySearch(params);
+        List<Song> list = search.getList();
+        // 使用stream流获取点击量最高的10个Singer
+        List<Song> topSongs = list.stream()
+                .sorted(Comparator.comparingInt(Song::getClicks).reversed()) // 根据点击量降序排序
+                .limit(Long.parseLong(num)) // 限制结果为10个
+                .collect(Collectors.toList()); // 收集结果到List
+        return Result.success(topSongs);
+    }
+    @PostMapping("/clicks")
+    public Result updateClicks(@RequestBody Song song) {
+        Song byId = songService.findByById(song.getId());
+        byId.setClicks(byId.getClicks()+1);
+        songService.update(byId);
         return Result.success();
+
     }
 }

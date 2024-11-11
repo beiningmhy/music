@@ -1,10 +1,12 @@
 <template>
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
-            <el-input v-model="params.name" style="width: 200px;margin-right: 10px" placeholder="请输入操作内容"></el-input>
+            <el-input v-model="params.name" style="width: 200px;margin-right: 10px" placeholder="请输入操作内容"
+                @input="findBySearch()" clearable></el-input>
             <el-select v-model="params.username" placeholder="请选择操作人" style="width: 200px; margin-right: 10px"
                 @input="findBySearch()" clearable filterable default-first-option>
-                <el-option v-for="item in usernameObjs" :key="item.username" :label="item.username" :value="item.username"></el-option>
+                <el-option v-for="item in usernameObjs" :key="item.username" :label="item.username"
+                    :value="item.username"></el-option>
             </el-select>
             <el-button type="warning" style="margin-left: 10px" @click="findBySearch()">查询</el-button>
             <el-button type="warning" style="margin-left: 10px" @click="reset()">清空</el-button>

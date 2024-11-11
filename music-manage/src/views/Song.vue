@@ -9,6 +9,11 @@
             </el-select>
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
                 @input="findBySearch()" clearable></el-input>
+            <el-select v-model="params.status" placeholder="请选择状态" style="width: 200px; margin-right: 10px"
+                @input="findBySearch()" clearable>
+                <el-option label="正常" value="0"></el-option>
+                <el-option label="封禁" value="1"></el-option>
+            </el-select>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <el-button type="primary" @click="add()">新增</el-button>
@@ -25,7 +30,7 @@
         <div style="max-height: 80vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe highlight-current-row
                 lazy @selection-change="handleSelectionChange" :row-key="getRowKeys" ref="multipleTable"
-                v-loading="loading" >
+                v-loading="loading">
                 <el-table-column type="selection" :reserve-selection="true" v-if="user.role === '0'"></el-table-column>
                 <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="singerName" label="歌手" fixed width="80"></el-table-column>
@@ -61,9 +66,18 @@
                         <el-button type="primary" @click="editSongList(scope.row)">编辑</el-button>
                     </template>
                 </el-table-column>
+                <el-table-column prop="clicks" label="点击次数" width="100" sortable></el-table-column>
+
                 <el-table-column prop="createTime" label="创建日期" width="150"></el-table-column>
                 <el-table-column prop="updateTime" label="更新日期" width="150"></el-table-column>
-
+                <el-table-column prop="sts" label="状态" fixed="right">
+                    <template slot-scope="scope">
+                        <!-- {{ scope.row.sts }} -->
+                        <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
+                            @change="updateStatus(scope.row)">
+                        </el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" width="160" fixed="right">
                     <template slot-scope="scope">
                         <div>
@@ -113,7 +127,7 @@
             <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" top="1vh">
                 <el-form :model="form">
                     <el-form-item label="歌曲名" label-width="20%" aria-required="true">
-                        <el-input v-model="form.name" autocomplete="off" style="width: 90%"></el-input>
+                        <el-input v-model="form.name" autocomplete="off" style="width: 90%" clearable></el-input>
                     </el-form-item>
 
                     <el-form-item label="歌手" label-width="20%">
@@ -157,7 +171,9 @@
                             style="width: 90%"></el-input>
                     </el-form-item>
 
-
+                    <el-form-item label="点击次数" label-width="20%" aria-required="true">
+                        <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
+                    </el-form-item>
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
@@ -200,6 +216,7 @@
                                 :value="item.id"></el-option>
                         </el-select>
                     </el-form-item>
+
                 </el-form>
 
                 <span slot="footer" class="dialog-footer">
@@ -214,7 +231,6 @@
 
 <script>
 import request from "@/utils/request";
-import { Loading } from "element-ui";
 export default {
     // 定义一些页面上控件触的事件调用的方法
     methods: {
@@ -236,6 +252,7 @@ export default {
                     // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
+                        sts: item.status === '0',
                         lyrics: item.lyric != null && item.lyric != '' && item.lyric.length > 10 ? item.lyric.substring(0, 50) + '...' : item.lyric,
                         introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                     }));
@@ -572,6 +589,12 @@ export default {
                     songListId: item.id,
                 }
             })
+        },
+        updateStatus(row) {
+            // console.log(this.tableData);
+            row.status = row.status === '0' ? '1' : '0';
+            this.form = row;
+            this.submit();
         },
 
 

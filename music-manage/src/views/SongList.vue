@@ -14,8 +14,8 @@
             <el-button type="primary" @click="add()">新增</el-button>
         </div>
         <div style="max-height: 80vh;overflow: auto;">
-            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
-                highlight-current-row v-loading="loading">
+            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe highlight-current-row
+                v-loading="loading">
                 <el-table-column prop="id" label="序号" fixed width="70" sortable></el-table-column>
                 <el-table-column prop="title" label="歌单名" fixed width="200"></el-table-column>
 
@@ -32,6 +32,8 @@
 
                 <el-table-column prop="introductions" label="介绍" width="400"></el-table-column>
                 <el-table-column prop="style" label="曲风" width="150"></el-table-column>
+                <el-table-column prop="clicks" label="点击次数" width="100" sortable></el-table-column>
+
                 <el-table-column prop="createTime" label="创建时间" width="150">
                     <template v-slot="scope">
                         <el-button type="text" icon="el-icon-search" @click="toSong(scope.row)">点击查看歌单内容</el-button>
@@ -70,7 +72,7 @@
             </el-pagination>
         </div>
         <div>
-            <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" top="15vh">
+            <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" top="5vh">
                 <el-form :model="form">
                     <el-form-item label="歌单名" label-width="20%" aria-required="true">
                         <el-input v-model="form.title" autocomplete="off" style="width: 90%"></el-input>
@@ -96,6 +98,9 @@
                             <el-option v-for="item in styleObjs" :key="item" :label="item" :value="item">
                             </el-option>
                         </el-select>
+                    </el-form-item>
+                    <el-form-item label="点击次数" label-width="20%" aria-required="true">
+                        <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
                     </el-form-item>
 
 
@@ -257,7 +262,7 @@ export default {
         details(row) {
             window.open('https://cn.bing.com/search?q=' + row.title, '_blank');
         },
-        toSong(row){
+        toSong(row) {
             this.$router.push({
                 path: '/songList2Song',
                 query: {
@@ -291,7 +296,7 @@ export default {
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : {},
             fileList: [],
             styleObjs: [],
-            loading:true,
+            loading: true,
         }
     },
     computed: {

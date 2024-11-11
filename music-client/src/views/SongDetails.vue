@@ -43,7 +43,7 @@
                             <div style="height: 60px;padding-top: 10px;padding-left: 15%;overflow: hidden;">
                                 <span style="font-size: 30px;height: 60px;line-height: 60px;">歌曲：{{ song.name }}</span>
                             </div>
-                            <div
+                            <div @click="goSinger(singer)"
                                 style="height: 40px;padding-top: 10px;padding-left: 15%;overflow: hidden;line-height: 40px;">
                                 <span style="font-size: 20px;">歌手：{{ singer.name }}</span>
                             </div>
@@ -545,7 +545,27 @@ export default {
 
             // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
             localStorage.setItem('musicList', JSON.stringify(musicList));
-        }
+        },
+        goSinger(item) {
+            // console.log(item);
+            request.post("/singer/clicks", item).then(res => {
+                if (res.code === '0') {
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+            this.$router.push({
+                path: '/singerDetails',
+                query: {
+                    singerId: item.id
+                }
+            })
+
+        },
 
     },
     watch: {
