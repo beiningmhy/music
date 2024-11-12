@@ -62,8 +62,17 @@
                     </template>
                 </el-table-column>
                 <el-table-column prop="lyrics" label="歌词" width="150"></el-table-column>
+                <el-table-column prop="clicks" label="点击次数" width="100" sortable></el-table-column>
                 <el-table-column prop="createTime" label="创建日期" width="150"></el-table-column>
                 <el-table-column prop="updateTime" label="更新日期" width="150"></el-table-column>
+                <el-table-column prop="sts" label="状态" fixed="right">
+                    <template slot-scope="scope">
+                        <!-- {{ scope.row.sts }} -->
+                        <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
+                            @change="updateStatus(scope.row)">
+                        </el-switch>
+                    </template>
+                </el-table-column>
                 <el-table-column label="操作" width="200" fixed="right">
                     <template slot-scope="scope">
                         <div>
@@ -157,7 +166,9 @@
                         <el-input type="textarea" rows="5" v-model="form.lyric" autocomplete="off"
                             style="width: 90%"></el-input>
                     </el-form-item>
-
+                    <el-form-item label="点击次数" label-width="20%" aria-required="true">
+                        <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
+                    </el-form-item>
 
                 </el-form>
                 <div slot="footer" class="dialog-footer">
@@ -242,6 +253,7 @@ export default {
                     // console.log(res.data);
                     this.tableData = res.data.list.map(item => ({
                         ...item,
+                        sts: item.status === '0',
                         lyrics: item.lyric != null && item.lyric != '' && item.lyric.length > 10 ? item.lyric.substring(0, 50) + '...' : item.lyric,
                         introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
                     }));

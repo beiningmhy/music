@@ -119,7 +119,7 @@
         </div>
         <div class="block">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="params.pageNum" :page-sizes="[10, 20, 50, 100]" :page-size="params.pageSize"
+                :current-page="params.pageNum" :page-sizes="[10, 20, 50, 100,total]" :page-size="params.pageSize"
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>

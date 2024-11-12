@@ -1,10 +1,11 @@
 <template>
     <div class="register" @contextmenu.prevent>
-        <div
-            style="width: 400px; height: 400px; margin: 5% auto; margin-left: 15%; background-color: rgb(224, 224, 224); border-radius: 10px;box-shadow: 20px 20px 20px #cfcfcf;">
-            <div
-                style="width: 100%; height: 100px; font-size: 30px; line-height: 100px; text-align: center; color: #4a5ed0">
-                欢迎注册</div>
+        <div style="width: 400px; height: 400px; margin: 10% auto ;margin-right: 15%; 
+                border-radius: 30px;backdrop-filter: blur(20px);box-shadow: rgb(207, 207, 207) 0px 0px 20px 10px">
+                <div
+                    style="width: 100%; height: 100px; font-size: 30px; line-height: 100px; text-align: center; color: white">
+                    欢迎登录
+                </div>
             <div style="margin-top: 25px; text-align: center; height: 320px;">
                 <el-form :model="user">
                     <el-form-item>
@@ -71,10 +72,12 @@ export default {
 <style scoped>
 .register {
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     background-size: cover;
     background-position: center;
-    /* background-image: url('../assets/images/back.jpg'); */
+    background-image: url('../assets/images/back.jpg');
+    position: absolute;
+    top: 0;
 
 }
 </style>

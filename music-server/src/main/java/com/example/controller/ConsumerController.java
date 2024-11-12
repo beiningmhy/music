@@ -89,6 +89,11 @@ public class ConsumerController {
         consumerService.delete(id);
         return Result.success();
     }
+    @PostMapping("/changePassword")
+    public Result changePassword(@RequestBody Params params) {
+        consumerService.updatePassword(params);
+        return Result.success();
+    }
 
     @GetMapping("/sexCount")
     public Result sexCount() {

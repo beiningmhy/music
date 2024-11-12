@@ -90,5 +90,20 @@ public class CommentServiceImpl implements CommentService {
         return commentMapper.findByConsumerId();
     }
 
+    @Override
+    public List<Comment> findBySongId2(Integer id) {
+        return commentMapper.findBySongId2(id);
+    }
+
+    @Override
+    public List<Comment> findBySongListId2(Integer id) {
+        return commentMapper.findBySongListId2(id);
+    }
+
+    @Override
+    public List<Comment> findBySingerId2(Integer id) {
+        return commentMapper.findBySingerId2(id);
+    }
+
 
 }

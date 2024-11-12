@@ -16,6 +16,7 @@ public interface ConsumerService {
     void update(Consumer consumer);
 
     void delete(Integer id);
+    void updatePassword(Params params);
 
     Consumer login(Consumer consumer);
 

@@ -3,6 +3,7 @@ package com.example.service.impl;
 import cn.hutool.core.date.DateTime;
 import cn.hutool.core.date.DateUtil;
 import com.example.common.JwtTokenUtils;
+import com.example.entity.Admin;
 import com.example.entity.Consumer;
 import com.example.entity.Params;
 import com.example.exception.CustomException;
@@ -82,6 +83,19 @@ public class ConsumerServiceImpl implements ConsumerService {
         consumerMapper.deleteByPrimaryKey(id);
     }
 
+    @Override
+    public void updatePassword(Params params) {
+        Consumer consumer =consumerMapper.selectByPrimaryKey(params.getUserId());
+        if(consumer==null){
+            throw new CustomException("用户不存在");
+        }
+        if(!consumer.getPassword().equals(params.getOldPw())){
+            throw new CustomException("旧密码输入错误");
+        }
+        consumer.setPassword(params.getNewPw());
+        consumerMapper.updateByPrimaryKeySelective(consumer);
+    }
+
 
     @Override
     public Consumer login(Consumer consumer) {
@@ -106,6 +120,10 @@ public class ConsumerServiceImpl implements ConsumerService {
             throw new CustomException("该用户已被禁用");
         }
         user.setLoginTime(DateUtil.now());
+        if(user.getPoint()==null){
+            user.setPoint(0);
+        }
+        user.setPoint(user.getPoint()+100);
         consumerMapper.updateByPrimaryKeySelective(user);
         // 如果查出来了有，那说明确实有这个管理员，而且输入的用户名和密码都对；
         // 生成jwt token给前端

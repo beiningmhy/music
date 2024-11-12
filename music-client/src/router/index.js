@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import Comment from '@/views/Comment.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
@@ -9,6 +10,7 @@ import SingerDetails from '@/views/SingerDetails.vue'
 import SongDetails from '@/views/SongDetails.vue'
 import SongList from '@/views/SongList.vue'
 import SongListDetails from '@/views/SongListDetails.vue'
+import UserSpace from '@/views/UserSpace.vue'
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -56,17 +58,28 @@ const routes = [
         component: Search,
       },
       {
-        path: '/login',
-        name: '登录页面',
-        component: Login,
+        path: '/space',
+        name: '用户空间',
+        component: UserSpace,
       },
       {
-        path: '/register',
-        name: '注册页面',
-        component: Register,
+        path: '/comment',
+        name: '用户评论页面',
+        component: Comment,
       },
     ]
   },
+  {
+    path: '/login',
+    name: '登录页面',
+    component: Login,
+  },
+  {
+    path: '/register',
+    name: '注册页面',
+    component: Register,
+  },
+
 
 ]
 
@@ -78,17 +91,22 @@ const router = new VueRouter({
 
 
 router.beforeEach((to, from, next) => {
+  let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '';
   request.get("/web/user").then(res => {
     // console.log(res);
     if (res.code === '0') {
-      next();
+      // next();
+      return;
     } else {
       console.log("系统错误");
 
       return;
     }
   })
-
+  if (to.path === '/space' && user === '') {
+    return next("/");
+  }
+  next();
 })
 
 export default router

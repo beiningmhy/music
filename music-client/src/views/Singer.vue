@@ -5,7 +5,7 @@
             <div>
                 <!-- top10 -->
                 <div>
-                    <h1 style="font-size:25px;">TOP10 ></h1>
+                    <h1 style="font-size:25px;">TOP10歌手 ></h1>
                 </div>
                 <div style="display: flex;flex-wrap: wrap;">
                     <div v-for="item in singerTop" :key="item.id" :label="item.pic" :value="item.id"

@@ -76,6 +76,13 @@ public class CommentController {
         commentService.delete(id);
         return Result.success();
     }
+    @PostMapping("/status/{id}")
+    public Result UPStatus(@PathVariable Integer id) {
+        Comment comment = commentService.findById(id);
+        comment.setStatus("1");
+        commentService.update(comment);
+        return Result.success();
+    }
     @GetMapping("/song")
     public Result findBySongId() {
         List<Comment> list = commentService.findBySongId();
@@ -83,12 +90,29 @@ public class CommentController {
     }
     @GetMapping("/songList")
     public Result findBySongListId() {
+
         List<Comment> list = commentService.findBySongListId();
         return Result.success(list);
     }
     @GetMapping("/singer")
     public Result findBySingerId() {
         List<Comment> list = commentService.findBySingerId();
+        return Result.success(list);
+    }
+    @GetMapping("/song/{id}")
+    public Result findBySongId2(@PathVariable Integer id) {
+        List<Comment> list = commentService.findBySongId2(id);
+        return Result.success(list);
+    }
+    @GetMapping("/songList/{id}")
+    public Result findBySongListId2(@PathVariable Integer id) {
+
+        List<Comment> list = commentService.findBySongListId2(id);
+        return Result.success(list);
+    }
+    @GetMapping("/singer/{id}")
+    public Result findBySingerId2(@PathVariable Integer id) {
+        List<Comment> list = commentService.findBySingerId2(id);
         return Result.success(list);
     }
     @GetMapping("/consumer")

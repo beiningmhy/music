@@ -17,7 +17,7 @@
             </div>
         </div>
 
-    </div>
+    </div> 
 </template>
 <script>
 import request from '@/utils/request';
