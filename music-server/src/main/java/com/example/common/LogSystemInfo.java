@@ -1,5 +1,8 @@
 package com.example.common;
 
+import cn.hutool.http.HttpUtil;
+import cn.hutool.json.JSONObject;
+import cn.hutool.json.JSONUtil;
 import cn.hutool.system.SystemUtil;
 import com.example.entity.Log;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -31,7 +34,11 @@ public class LogSystemInfo {
             explorer= "Unknown";
         }
 //        System.out.println(explorer);
+//        String publicIp = getPublicIpAddress();
+//        System.out.println("本机的公网IP地址是: " + publicIp);
 
+//        String location = getIpLocation(publicIp);
+//        System.out.println("公网IP的地理位置是: " + location);
         //操作系统版本
         String os = SystemUtil.get("os.name");
         String osName= SystemUtil.get("user.name");
@@ -46,6 +53,8 @@ public class LogSystemInfo {
         log.setCountry(country);
         log.setHostName(hostName);
         log.setHostAddress(hostAddress);
+//        log.setPublicIp(publicIp);
+//        log.setLocation(location);
         return log;
     }
 
@@ -102,4 +111,38 @@ public class LogSystemInfo {
         }
         return ipAddress;
     }
+
+
+    /**
+     * 获取本机的公网IP地址
+     *
+     * @return 公网IP地址
+     */
+    public static String getPublicIpAddress() {
+        String url = "https://httpbin.org/ip"; // 使用ipify服务，返回JSON格式的响应
+
+        String response = HttpUtil.get(url);
+//        System.out.println(response);
+        JSONObject jsonObject = JSONUtil.parseObj(response);
+        return jsonObject.getStr("origin");
+    }
+
+    /**
+     * 根据IP地址获取地理位置信息
+     *
+     * @param ip IP地址
+     * @return 地理位置信息的字符串描述
+     */
+    public static String getIpLocation(String ip) {
+        String url = "https://ipapi.co/" + ip + "/json"; // 使用ipapi.co服务，返回JSON格式的响应
+        String response = HttpUtil.get(url);
+        JSONObject jsonObject = JSONUtil.parseObj(response);
+        // 获取国家、省份、城市等信息
+        String country = jsonObject.getStr("country_name");
+        String region = jsonObject.getStr("region");
+        String city = jsonObject.getStr("city");
+        // 构建并返回地理位置信息
+        return "国家：" + country + "，省份：" + region + "，城市：" + city;
+    }
+
 }

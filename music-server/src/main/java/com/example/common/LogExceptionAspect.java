@@ -3,6 +3,7 @@ package com.example.common;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import com.example.entity.Admin;
+import com.example.entity.Consumer;
 import com.example.entity.Log;
 import com.example.service.LogService;
 import org.aspectj.lang.JoinPoint;
@@ -41,9 +42,16 @@ public class LogExceptionAspect {
         String time = DateUtil.now();
         // 操作人
         String username = "";
-        Admin user = JwtTokenUtils.getCurrentUser();
+        Object user = JwtTokenUtils.getCurrentUser();
         if (ObjectUtil.isNotNull(user)) {
-            username = user.getName();
+            if (user instanceof Admin) {
+                Admin adminTmp = (Admin) user;
+                username = adminTmp.getName();
+            }
+            if (user instanceof Consumer) {
+                Consumer consumerTmp = (Consumer) user;
+                username = consumerTmp.getUsername();
+            }
         }
         if(username.equals("")){
             username="系统操作";

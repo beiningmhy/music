@@ -57,8 +57,16 @@
                                 <span style="font-size: 20px;height: 60px;line-height: 60px;">时长：{{ song.audioDuration
                                     }}</span>
                             </div>
-                            <div style="height: 50px;padding-left: 15%">
-                                <el-button type="primary" style="margin: 0 auto;" @click="play(song)">点击播放</el-button>
+
+                            <div style="display: flex;">
+                                <div style="height: 50px;padding-left: 15%">
+                                    <el-button type="primary" style="margin: 0 auto;"
+                                        @click="play(song)">点击播放</el-button>
+                                </div>
+                                <div style="height: 50px;">
+                                    <el-button type="primary" style="margin: 0 auto;margin-left: 30px;"
+                                        @click="addSong2Collect()">添加至收藏</el-button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -565,6 +573,25 @@ export default {
                 }
             })
 
+        },
+        addSong2Collect(){
+            let c = {
+                songId: this.songId,
+                userId: this.user.id
+            }
+            request.post("/collect", c).then(res => {
+                if (res.code === '0') {
+                    this.$message({
+                        message: '收藏成功',
+                        type: 'success'
+                    });
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    })
+                }
+            })
         },
 
     },

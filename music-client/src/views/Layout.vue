@@ -122,11 +122,11 @@
                             <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;" class="menu-item"
                                 @click="logout">
                                 <div style="height: 40px;margin-top: 5px;">
-                                    <svg t="1730736249960" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                                        xmlns="http://www.w3.org/2000/svg" p-id="6634" width="30" height="30">
+                                    <svg t="1731482637324" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                        xmlns="http://www.w3.org/2000/svg" p-id="2352" width="30" height="30">
                                         <path
-                                            d="M964.608 234.496c-46.08-52.565333-104.789333-93.696-169.642667-118.784a34.030933 34.030933 0 0 0-46.421333 31.744v420.352a178.005333 178.005333 0 0 0-110.933333-38.741333c-98.816 0-179.2 80.384-179.2 179.2S538.794667 887.466667 637.610667 887.466667s179.2-80.384 179.2-179.2c0-1.877333-0.170667-3.754667-0.341334-5.632 0-1.024 0.341333-1.877333 0.341334-2.901334V201.216c36.181333 20.309333 69.12 46.933333 96.597333 78.165333 12.458667 14.165333 34.133333 15.530667 48.128 3.072 14.165333-12.288 15.530667-33.792 3.072-47.957333zM637.610667 819.2c-61.098667 0-110.933333-49.834667-110.933334-110.933333s49.834667-110.933333 110.933334-110.933334 110.933333 49.834667 110.933333 110.933334-49.834667 110.933333-110.933333 110.933333zM185.344 307.2h392.533333c18.773333 0 34.133333-15.36 34.133334-34.133333s-15.36-34.133333-34.133334-34.133334h-392.533333a34.133333 34.133333 0 1 0 0 68.266667zM424.277333 460.8h-238.933333c-18.773333 0-34.133333 15.36-34.133333 34.133333s15.36 34.133333 34.133333 34.133334h238.933333c18.773333 0 34.133333-15.36 34.133334-34.133334s-15.36-34.133333-34.133334-34.133333zM321.877333 682.666667h-136.533333c-18.773333 0-34.133333 15.36-34.133333 34.133333s15.36 34.133333 34.133333 34.133333h136.533333c18.773333 0 34.133333-15.36 34.133334-34.133333s-15.36-34.133333-34.133334-34.133333z"
-                                            fill="#2c2c2c" p-id="6635"></path>
+                                            d="M573.2 646.5H309.8c-12.6 0-20.8-5.8-22.9-16.1-0.4-2.1-0.4-4.2-0.4-6.4V397.2c0-14.3 7.8-22 22.3-22H573.1v-6.9-201.8c0-9.3 4.4-16.6 11.9-19.5 8.6-3.3 16.2-1.8 22.7 5.1 3.7 3.9 7.8 7.5 11.6 11.4 48.2 48.1 96.3 96.2 144.5 144.2 61.9 61.7 123.7 123.4 185.6 185.2 10.3 10.3 10.4 21.1 0.2 31.2-88.5 88.4-177 176.8-265.6 265.1-25.2 25.1-50.5 50.1-75.7 75.2-6.5 6.5-13.7 9.3-22.5 6-8.6-3.3-12.6-10-12.6-20.7V646.5z m-159-497.3v76.4H212.9c-41 0-71.3 30.3-71.3 71.4 0 142.3 0.3 284.6-0.2 426.9-0.1 37.7 28.5 64.8 55 69.7 5.9 1.1 11.9 1.6 17.9 1.6 64.2 0.1 128.4 0.1 192.6 0.1h7.2v76c-0.9 0.2-2 0.6-3 0.6-68.2 0-136.5 0.7-204.7-0.3-66.7-1-125.7-51.6-138.5-117.1-1.8-9.2-2.7-18.8-2.7-28.2-0.2-143.8-0.5-287.7 0.1-431.5 0.3-60.1 30.1-103.2 82.2-131.2 18.4-9.9 38.7-14.4 59.6-14.4 67.7-0.2 135.3-0.1 203-0.1 1.1 0 2.3 0.1 4.1 0.1z m0 0"
+                                            p-id="2353"></path>
                                     </svg>
                                 </div>
                                 <div style="margin-left: 10px;">
@@ -455,7 +455,7 @@
                                         <span style="margin-left: 10px;">从播放列表中移除</span>
                                     </div>
                                     <div style="border-bottom:1px darkgray solid;"></div>
-                                    <div class="play-btn"
+                                    <div class="play-btn" @click="addSong2Collect(item)"
                                         style="display:flex;height: 30px;width: 90%;padding-top: 5px;padding-left: 10px;margin: 2px auto;">
                                         <div>
                                             <svg t="1731299241051" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -576,6 +576,8 @@ export default {
         // 监听musicList变化
         musicList: {
             handler(newValue, oldValue) {
+                console.log('musicList changed:', newValue);
+
                 // 当musicList变化时，更新localStorage
                 localStorage.setItem("musicList", JSON.stringify(newValue));
             },
@@ -585,12 +587,10 @@ export default {
             handler(newValue, oldValue) {
                 // 当playingMusic变化时，更新localStorage
                 // localStorage.setItem("playingMusic", JSON.stringify(newValue));
-                console.log(newValue);
+                // console.log(newValue);
                 if (newValue.id !== 0) {
                     this.updateSongClicks(newValue);
                 }
-
-
             },
             deep: true
         },
@@ -842,6 +842,7 @@ export default {
                         audio.pause();
                     }, 200)
                 }
+                this.musicList=localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
                 let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
                 if (index === 0) {
                     let item = this.musicList[this.musicList.length - 1];
@@ -887,6 +888,7 @@ export default {
                         audio.pause();
                     }, 200)
                 }
+                this.musicList=localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
                 let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
                 if (index === this.musicList.length - 1) {
                     let item = this.musicList[0];
@@ -980,6 +982,27 @@ export default {
                 localStorage.setItem('musicList', JSON.stringify(updatedMusicList));
             }
         },
+        addSong2Collect(item){
+            // console.log(item);
+            
+            let c = {
+                songId: item.id,
+                userId: this.user.id
+            }
+            request.post("/collect", c).then(res => {
+                if (res.code === '0') {
+                    this.$message({
+                        message: '收藏成功',
+                        type: 'success'
+                    });
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    })
+                }
+            })
+        },
         searchSong() {
             // console.log(this.search);
             if (this.search == '') {
@@ -1011,11 +1034,17 @@ export default {
             if (event.key === 'user') {
                 this.user = event.newValue ? JSON.parse(event.newValue) : '';
             }
+            if (event.key === 'musicList') {
+
+
+                this.musicList = event.newValue ? JSON.parse(event.newValue) : [];
+            }
+
         },
         logout() {
             localStorage.removeItem('user');
             window.location.reload();
-        }
+        },
 
     }
 }

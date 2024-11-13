@@ -16,6 +16,7 @@ request.interceptors.request.use(config => {
     const user = localStorage.getItem("user");
     if (user) {
         config.headers['token'] = JSON.parse(user).token;
+        config.headers['code']='user';
     }
     // config.headers['token'] = user.token;  // 设置请求头
     return config

@@ -4,6 +4,7 @@ import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.system.SystemUtil;
 import com.example.entity.Admin;
+import com.example.entity.Consumer;
 import com.example.entity.Log;
 import com.example.service.LogService;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -38,15 +39,24 @@ public class LogAspect {
         String time = DateUtil.now();
         // 操作人
         String username = "";
-        Admin user = JwtTokenUtils.getCurrentUser();
-//        System.out.println("user----------------"+JwtTokenUtils.getCurrentUser());
+        Object user = JwtTokenUtils.getCurrentUser();
+        //获取user中的name
+
+
+        System.out.println("user----------------" + JwtTokenUtils.getCurrentUser());
         if (ObjectUtil.isNotNull(user)) {
-            username = user.getName();
+            if (user instanceof Admin) {
+                Admin adminTmp = (Admin) user;
+                username = adminTmp.getName();
+            }
+            if (user instanceof Consumer) {
+                Consumer consumerTmp = (Consumer) user;
+                username = consumerTmp.getUsername();
+            }
         }
         // 操作人IP
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String ip = request.getRemoteAddr()+"/"+getClientIpAddress();
-
+        String ip = request.getRemoteAddr() + "/" + getClientIpAddress();
 
 
         // 执行具体的接口
@@ -57,8 +67,12 @@ public class LogAspect {
             Admin admin = (Admin) data;
             username = admin.getName();
         }
-        if(username.equals("")){
-            username="系统操作";
+        if(data instanceof Consumer){
+            Consumer consumer = (Consumer) data;
+            username = consumer.getUsername();
+        }
+        if (username.equals("")) {
+            username = "系统操作";
         }
 
 
@@ -75,6 +89,7 @@ public class LogAspect {
         // 你可以走了，去返回前台报到吧~
         return result;
     }
+
     public static String getClientIpAddress() {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         if (request != null) {

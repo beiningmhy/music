@@ -5,6 +5,7 @@
         <id column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="song_id" jdbcType="INTEGER" property="songId"/>
+        <result column="singer_id" jdbcType="INTEGER" property="singerId"/>
         <result column="song_list_id" jdbcType="INTEGER" property="songListId"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="up" jdbcType="VARCHAR" property="up"/>

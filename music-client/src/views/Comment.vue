@@ -42,8 +42,8 @@
             <!-- <el-button type="primary" @click="add()">新增</el-button> -->
         </div>
         <div style="max-height: 66vh;overflow: auto;">
-            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe
-                highlight-current-row>
+            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
+                @row-click="rowClick($event)">
                 <el-table-column prop="id" label="序号" fixed="left" width="70" sortable></el-table-column>
                 <el-table-column prop="username" label="评论人" fixed="left" width="80"></el-table-column>
                 <el-table-column prop="content" label="评论内容" width="500"></el-table-column>
@@ -119,8 +119,8 @@
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
-        
-        
+
+
     </div>
 </template>
 
@@ -219,10 +219,10 @@ export default {
             })
 
         },
-        
-        
+
+
         initSong() {
-            request.get("/comment/song/"+this.user.id).then(res => {
+            request.get("/comment/song/" + this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     this.songObjs = res.data.map(item => ({
@@ -240,7 +240,7 @@ export default {
             })
         },
         initSinger() {
-            request.get("/comment/singer/"+this.user.id).then(res => {
+            request.get("/comment/singer/" + this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.singerObjs = res.data;
@@ -258,7 +258,7 @@ export default {
             })
         },
         initSongList() {
-            request.get("/comment/songList/"+this.user.id).then(res => {
+            request.get("/comment/songList/" + this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.songListObjs = res.data;
@@ -275,10 +275,35 @@ export default {
                 }
             })
         },
+        rowClick(item) {
+            console.log(item);
+            if (item.singerId != null) {
+                this.$router.push({
+                    path: '/singerDetails',
+                    query: {
+                        singerId: item.singerId
+                    }
+                })
+            } else if (item.songId != null) {
+                this.$router.push({
+                    path: '/songDetails',
+                    query: {
+                        songId: item.songId
+                    }
+                })
+            } else if (item.songListId != null) {
+                this.$router.push({
+                    path: '/songListDetails',
+                    query: {
+                        songListId: item.songListId
+                    }
+                })
+            }
+
+        },
 
 
-    }
-    ,
+    },
     // 页面加载的时候做一些事情
     created() {
         this.findBySearch();

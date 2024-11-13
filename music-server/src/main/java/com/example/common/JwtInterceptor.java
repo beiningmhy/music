@@ -6,8 +6,10 @@ import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.example.entity.Admin;
+import com.example.entity.Consumer;
 import com.example.exception.CustomException;
 import com.example.service.AdminService;
+import com.example.service.ConsumerService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,8 @@ public class JwtInterceptor implements HandlerInterceptor {
 
     @Resource
     private AdminService adminService;
+    @Resource
+    private ConsumerService consumerService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -46,28 +50,61 @@ public class JwtInterceptor implements HandlerInterceptor {
         if (StrUtil.isBlank(token)) {
             throw new CustomException("无token，请重新登录");
         }
-        // 获取 token 中的userId
-        String userId;
-        Admin admin;
-        try {
-            userId = JWT.decode(token).getAudience().get(0);
-            // 根据token中的userid查询数据库
-            admin = adminService.findByById(Integer.parseInt(userId));
-        } catch (Exception e) {
-            String errMsg = "token验证失败，请重新登录";
-            log.error(errMsg + ", token=" + token, e);
-            throw new CustomException(errMsg);
+        String code = request.getHeader("code");
+        if (StrUtil.isBlank(code)) {
+            code = request.getParameter("code");
         }
-        if (admin == null) {
-            throw new CustomException("用户不存在，请重新登录");
+        if (StrUtil.isBlank(code)) {
+            throw new CustomException("无code，请重新登录");
         }
-        try {
-            // 用户密码加签验证 token
-            JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(admin.getPassword())).build();
-            jwtVerifier.verify(token); // 验证token
-        } catch (JWTVerificationException e) {
-            throw new CustomException("token验证失败，请重新登录");
+        if (code.equals("admin")) {
+            // 获取 token 中的userId
+            String userId;
+            Admin admin;
+            try {
+                userId = JWT.decode(token).getAudience().get(0);
+                // 根据token中的userid查询数据库
+                admin = adminService.findByById(Integer.parseInt(userId));
+            } catch (Exception e) {
+                String errMsg = "token验证失败，请重新登录";
+                log.error(errMsg + ", token=" + token, e);
+                throw new CustomException(errMsg);
+            }
+            if (admin == null) {
+                throw new CustomException("用户不存在，请重新登录");
+            }
+            try {
+                // 用户密码加签验证 token
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(admin.getPassword())).build();
+                jwtVerifier.verify(token); // 验证token
+            } catch (JWTVerificationException e) {
+                throw new CustomException("token验证失败，请重新登录");
+            }
+        }else{
+            // 获取 token 中的userId
+            String userId;
+            Consumer consumer;
+            try {
+                userId = JWT.decode(token).getAudience().get(0);
+                // 根据token中的userid查询数据库
+                consumer = consumerService.findByById(Integer.parseInt(userId));
+            } catch (Exception e) {
+                String errMsg = "token验证失败，请重新登录";
+                log.error(errMsg + ", token=" + token, e);
+                throw new CustomException(errMsg);
+            }
+            if (consumer == null) {
+                throw new CustomException("用户不存在，请重新登录");
+            }
+            try {
+                // 用户密码加签验证 token
+                JWTVerifier jwtVerifier = JWT.require(Algorithm.HMAC256(consumer.getPassword())).build();
+                jwtVerifier.verify(token); // 验证token
+            } catch (JWTVerificationException e) {
+                throw new CustomException("token验证失败，请重新登录");
+            }
         }
+
 //        log.info("token验证成功，允许放行");
         return true;
     }

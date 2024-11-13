@@ -35,5 +35,4 @@ public class Collect {
     private String songListTitle;
 
 
-
 }

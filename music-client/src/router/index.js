@@ -106,6 +106,12 @@ router.beforeEach((to, from, next) => {
   if (to.path === '/space' && user === '') {
     return next("/");
   }
+  if (to.path === '/comment' && user === '') {
+    return next("/");
+  }
+  if (to.path === '/collect' && user === '') {
+    return next("/");
+  }
   next();
 })
 

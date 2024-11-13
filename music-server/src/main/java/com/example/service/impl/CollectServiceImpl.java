@@ -34,14 +34,20 @@ public class CollectServiceImpl implements CollectService {
 
     @Override
     public void add(Collect collect) {
-
-
+        Collect collect1 = null;
+        if (collect.getSongId() != null) {
+            collect1 = collectMapper.finBySongId(collect.getSongId(), collect.getUserId());
+        }
+        if (collect.getSongListId() != null) {
+            collect1 = collectMapper.finBySongListId(collect.getSongListId(), collect.getUserId());
+        }
+        if (collect1 != null) {
+            throw new CustomException("该歌曲或歌单已被收藏");
+        }
         String time = DateUtil.now();
 
         collect.setCreateTime(time);
-        if (collect.getStatus()==null){
-            collect.setStatus("1");//注册先置为禁用，登录后才为启用
-        }
+
 
         collectMapper.insertSelective(collect);
     }
