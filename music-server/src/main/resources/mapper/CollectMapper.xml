@@ -56,6 +56,34 @@
             </if>
         </where>
     </select>
+    <select id="findBySongListId" resultMap="CollectRM">
+        select music_song_list.title as songListTitle, music_song_list.id
+        from music_song_list
+        where id in (SELECT DISTINCT song_list_id
+        FROM music_collect
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+            AND song_list_id IS NOT NULL
+
+        </where>
+        ORDER BY song_list_id ASC)
+    </select>
+    <select id="findBySongId" resultMap="CollectRM">
+        select music_song.name as songName, music_song.id
+        from music_song
+        where id in (SELECT DISTINCT song_id
+        FROM music_collect
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+            AND song_id IS NOT NULL
+
+        </where>
+        ORDER BY song_id ASC)
+    </select>
 
 
 </mapper>

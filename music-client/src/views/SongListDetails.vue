@@ -54,14 +54,53 @@
                                     :score-template="`${averageScore}`">
                                 </el-rate>
                             </div>
-                            <div style="display: flex;">
-                                <div style="height: 50px;">
+                            <div style="display: flex;width: 800px;">
+                                <!-- <div style="height: 50px;">
                                     <el-button type="primary" style="margin: 0 auto;"
                                         @click="playAll()">播放全部</el-button>
+                                </div> -->
+                                <div class="play-btn" @click="playAll()"
+                                    style="display:flex;height: 30px;width: 150px;padding-top: 5px;padding-left: 10px;overflow: hidden;">
+                                    <div>
+                                        <svg t="1731298449347" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="1457" width="20" height="20">
+                                            <path
+                                                d="M783.74 401.86L372.23 155.28c-85.88-51.46-195.08 10.41-195.08 110.53v493.16c0 100.12 109.2 161.99 195.08 110.53l411.51-246.58c83.5-50.04 83.5-171.03 0-221.06z"
+                                                p-id="1458"></path>
+                                        </svg>
+                                    </div>
+                                    <span style="margin-left: 10px;">播放全部</span>
                                 </div>
-                                <div style="height: 50px;">
+                                <!-- <div style="height: 50px;">
                                     <el-button type="primary" style="margin: 0 auto;margin-left: 30px;"
                                         @click="addSongList2Collect()">添加至收藏</el-button>
+                                </div> -->
+                                <div class="play-btn" @click="addSongList2Collect()"
+                                    style="display:flex;height: 30px;width: 150px;padding-top: 5px;padding-left: 20px;margin-left: 10px;">
+                                    <div>
+                                        <svg t="1731299241051" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="5668" width="20" height="20">
+                                            <path
+                                                d="M335.008 916.629333c-35.914667 22.314667-82.88 10.773333-104.693333-25.557333a77.333333 77.333333 0 0 1-8.96-57.429333l46.485333-198.24a13.141333 13.141333 0 0 0-4.021333-12.864l-152.16-132.586667c-31.605333-27.52-35.253333-75.648-8.234667-107.733333a75.68 75.68 0 0 1 51.733333-26.752L354.848 339.2c4.352-0.362667 8.245333-3.232 10.026667-7.594667l76.938666-188.170666c16.032-39.2 60.618667-57.92 99.52-41.461334a76.309333 76.309333 0 0 1 40.832 41.461334l76.938667 188.16c1.781333 4.373333 5.674667 7.253333 10.026667 7.605333l199.712 16.277333c41.877333 3.413333 72.885333 40.458667 69.568 82.517334a76.938667 76.938667 0 0 1-26.08 51.978666l-152.16 132.586667c-3.541333 3.082667-5.141333 8.074667-4.021334 12.853333l46.485334 198.24c9.621333 41.013333-15.36 82.336-56.138667 92.224a75.285333 75.285333 0 0 1-57.525333-9.237333l-170.976-106.24a11.296 11.296 0 0 0-12.010667 0l-170.986667 106.24zM551.786667 756.032l170.976 106.24c2.624 1.621333 5.717333 2.122667 8.650666 1.408 6.410667-1.557333 10.56-8.426667 8.928-15.424l-46.485333-198.24a77.141333 77.141333 0 0 1 24.277333-75.733333L870.293333 441.706667c2.485333-2.165333 4.053333-5.312 4.330667-8.746667 0.565333-7.136-4.490667-13.173333-10.976-13.696l-199.712-16.288a75.989333 75.989333 0 0 1-64.064-47.168l-76.938667-188.16a12.309333 12.309333 0 0 0-6.538666-6.741333c-5.898667-2.496-12.725333 0.373333-15.328 6.741333l-76.949334 188.16a75.989333 75.989333 0 0 1-64.064 47.168l-199.701333 16.288a11.68 11.68 0 0 0-7.978667 4.181333 13.226667 13.226667 0 0 0 1.333334 18.261334l152.16 132.586666a77.141333 77.141333 0 0 1 24.277333 75.733334l-46.485333 198.229333a13.333333 13.333333 0 0 0 1.514666 9.877333c3.488 5.792 10.581333 7.530667 16.064 4.128l170.986667-106.229333a75.296 75.296 0 0 1 79.562667 0z"
+                                                fill="#000000" p-id="5669"></path>
+                                        </svg>
+                                    </div>
+                                    <span style="margin-left: 10px;">添加至收藏</span>
+                                </div>
+                                <div class="play-btn" @click="markDialog = true"
+                                    style="display:flex;height: 30px;width: 100px;padding-top: 5px;padding-left: 20px;margin-left: 10px;">
+                                    <div>
+                                        <svg t="1731554882465" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="2350" width="20" height="20">
+                                            <path
+                                                d="M724.5 877.3c-7.8 0-15.5-2.9-21.5-8.3L575.8 753.4l-167.4 39.2c-11.9 2.7-24.3-1.4-32-10.8-7.8-9.4-9.5-22.4-4.5-33.5l70.7-156.7-89-147c-6.3-10.4-6.2-23.5 0.4-33.8 6.5-10.3 18.3-16 30.5-14.6L555.4 415l112.3-130.1c8-9.2 20.4-13.2 32.3-10 11.8 3 20.8 12.5 23.3 24.5l35 168.3 158.5 66.7c11.2 4.8 18.8 15.4 19.5 27.6 0.7 12.2-5.5 23.7-16.1 29.7l-149.3 85.2L756.4 848c-1 12.2-8.8 22.7-20.2 27.1-3.7 1.5-7.7 2.2-11.7 2.2zM584.9 686.4c7.9 0 15.6 2.9 21.5 8.3l91.7 83.3 10.4-123.5c0.9-10.5 6.9-19.9 16-25.1L832.1 568l-114.2-48c-9.7-4.1-16.8-12.7-18.9-23l-25.2-121.3-81 93.8c-6.9 8-17.3 11.9-27.7 10.9L442 466.8l64.2 106c5.5 9 6.1 20.1 1.8 29.8l-51 112.9 120.6-28.3c2.4-0.5 4.9-0.8 7.3-0.8z"
+                                                p-id="2351"></path>
+                                            <path
+                                                d="M637.4 268.8c-5.5-10.7-16.6-17.9-28.6-17.9l-142.9-0.9-80.6-118.2c-6.8-9.8-18.8-15.4-30.7-13.7-12.4 1.7-22.2 10.2-26 21.8l-44.8 135.7-137.4 39.7c-11.9 3.4-20.5 13.2-22.6 25.2-2.1 11.9 2.6 24.3 12.4 31.6l115.2 84.5-4.4 142.9c-0.4 12.4 6 23.5 16.6 29.4 4.7 2.6 10.2 3.8 15.4 3.8 6.4 0 12.8-2.1 18.3-6.4l98.6-70.4-33.3-55-49.9 35.8 3-94.7c0.4-10.7-4.3-20.9-12.8-26.9l-76.4-56.3 90.9-26.5c10.2-3 18.3-10.7 21.3-20.9l30.3-90 53.3 78.5c6 9 15.8 14.1 26 14.1l95.1 0.4-55.9 71.7 74.9 8.1 71.1-91.7c4.7-5.1 6.8-12.4 6.8-18.8 0.1-5.1-0.7-10.2-2.9-14.9z"
+                                                fill="#FFCE00" p-id="2352"></path>
+                                        </svg>
+                                    </div>
+                                    <span style="margin-left: 10px;">评分</span>
                                 </div>
                             </div>
 
@@ -368,6 +407,27 @@
                 <el-button type="primary" @click="commentDialog = false">关闭</el-button>
             </span>
         </el-dialog>
+
+
+        <el-dialog title="请对此歌单评分" :visible.sync="markDialog" width="30%"
+            style="text-align: center;border-radius: 30% !important;" top="40vh">
+            <div style="height: 30px;">
+                <!-- {{ mark }} -->
+                <el-rate v-model="mark" :max=10 :low-threshold=4 :high-threshold=8
+                    :colors="['#99A9AF', '#F7BA2A', '#FF5500']" show-score text-color="#ff9900"
+                    :score-template="`${mark}`">
+                </el-rate>
+                <!-- <el-rate v-model="mark" :max=10 :low-threshold=4 :high-threshold=8
+                    :colors="['#99A9AF', '#F7BA2A', '#FF5500']" show-score text-color="#ff9900"
+                    :score-template="`${mark}`">
+                </el-rate> -->
+            </div>
+
+            <span slot="footer" class="dialog-footer">
+                <el-button @click="markDialog = false">取 消</el-button>
+                <el-button type="primary" @click="submitMark">确 定</el-button>
+            </span>
+        </el-dialog>
         <div style="height: 15vh;">
 
         </div>
@@ -406,6 +466,8 @@ export default {
             comment: '',
             commentDialog: false,
             commentForm: {},
+            markDialog: false,
+            mark: null,
 
         }
     },
@@ -842,6 +904,32 @@ export default {
                     });
                 }
             })
+        },
+        submitMark() {
+            let m = {
+                songListId: this.songListId,
+                consumerId: this.user.id,
+                score: this.mark
+            }
+            // console.log(m);
+            
+            request.post("/rankList", m).then(res => {
+                console.log(res);
+
+                if (res.code == '0') {
+                    this.$message({
+                        message: '评价成功',
+                        type: 'success'
+                    });
+                    this.avgScore();
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+            this.markDialog=false;
         },
     },
 

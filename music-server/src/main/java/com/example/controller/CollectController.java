@@ -3,6 +3,7 @@ package com.example.controller;
 import com.example.common.AutoLog;
 import com.example.common.Result;
 import com.example.entity.Collect;
+import com.example.entity.Comment;
 import com.example.entity.Params;
 import com.example.service.CollectService;
 import com.github.pagehelper.PageInfo;
@@ -57,14 +58,21 @@ public class CollectController {
         collectService.delete(id);
         return Result.success();
     }
-    @GetMapping("/song")
-    public Result findBySongId() {
-        List<Collect> list = collectService.findBySongId();
+    @PostMapping("/status/{id}")
+    public Result UPStatus(@PathVariable Integer id) {
+        Collect collect = collectService.findById(id);
+        collect.setStatus("1");
+        collectService.update(collect);
+        return Result.success();
+    }
+    @GetMapping("/song/{id}")
+    public Result findBySongId(@PathVariable Integer id) {
+        List<Collect> list = collectService.findBySongId(id);
         return Result.success(list);
     }
-    @GetMapping("/songList")
-    public Result findBySongListId() {
-        List<Collect> list = collectService.findBySongListId();
+    @GetMapping("/songList/{id}")
+    public Result findBySongListId(@PathVariable Integer id) {
+        List<Collect> list = collectService.findBySongListId(id);
         return Result.success(list);
     }
     @GetMapping("/consumer")

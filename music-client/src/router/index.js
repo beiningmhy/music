@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
@@ -66,6 +67,10 @@ const routes = [
         path: '/comment',
         name: '用户评论页面',
         component: Comment,
+      },{
+        path: '/collect',
+        name: '用户收藏页面',
+        component: Collect,
       },
     ]
   },

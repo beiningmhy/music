@@ -18,7 +18,7 @@
     </resultMap>
 
     <select id="findBySearch" resultMap="CommentRM">
-        select   mc.*,
+        select mc.*,
         m.username AS username,
         m.avatar AS userAvatar,
         ms.name AS songName,
@@ -61,6 +61,48 @@
                 </if>
             </if>
         </where>
+    </select>
+    <select id="findBySongId2" resultMap="CommentRM">
+        select music_song.name as songName, music_song.id
+        from music_song
+        where id in (SELECT DISTINCT song_id
+        FROM music_comment
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+            AND song_id IS NOT NULL
+        </where>
+
+        ORDER BY song_id ASC)
+    </select>
+    <select id="findBySingerId2" resultMap="CommentRM">
+        select music_singer.name as singerName, music_singer.id
+        from music_singer
+        where id in (SELECT DISTINCT singer_id
+        FROM music_comment
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+            AND singer_id IS NOT NULL
+        </where>
+
+        ORDER BY singer_id ASC)
+    </select>
+    <select id="findBySongListId2" resultMap="CommentRM">
+        select music_song_list.title as songListTitle, music_song_list.id
+        from music_song_list
+        where id in (SELECT DISTINCT song_list_id
+        FROM music_comment
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+            AND song_list_id IS NOT NULL
+        </where>
+
+        ORDER BY song_list_id ASC)
     </select>
 
 

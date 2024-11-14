@@ -43,7 +43,7 @@
         </div>
         <div style="max-height: 66vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
-                @row-click="rowClick($event)">
+                @row-dblclick="rowClick($event)">
                 <el-table-column prop="id" label="序号" fixed="left" width="70" sortable></el-table-column>
                 <el-table-column prop="username" label="评论人" fixed="left" width="80"></el-table-column>
                 <el-table-column prop="content" label="评论内容" width="500"></el-table-column>
@@ -158,16 +158,7 @@ export default {
                     // console.log(this.tableData);
 
                     this.total = res.data.total;
-                    request.get("/comment/consumer").then(res => {
-                        if (res.code === '0') {
-                            this.userObjs = res.data;
-                        } else {
-                            this.$message({
-                                message: res.msg,
-                                type: 'error'
-                            });
-                        }
-                    })
+
                 } else {
                     this.$message({
                         message: res.msg,

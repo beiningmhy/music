@@ -27,13 +27,13 @@ public interface CommentMapper extends Mapper<Comment> {
     List<Comment> findByConsumerId();
 
 
-    @Select("select music_song.name as songName,music_song.id from music_song where id in (SELECT DISTINCT song_id FROM music_comment WHERE user_id=#{id} AND song_id IS NOT NULL ORDER BY song_id ASC)")
+//    @Select("select music_song.name as songName,music_song.id from music_song where id in (SELECT DISTINCT song_id FROM music_comment WHERE user_id=#{id} AND song_id IS NOT NULL ORDER BY song_id ASC)")
     List<Comment> findBySongId2(@Param("id") Integer id);
 
-    @Select("select music_singer.name as singerName,music_singer.id from music_singer where id in (SELECT DISTINCT singer_id FROM music_comment WHERE user_id=#{id} AND singer_id IS NOT NULL ORDER BY singer_id ASC)")
+//    @Select("select music_singer.name as singerName,music_singer.id from music_singer where id in (SELECT DISTINCT singer_id FROM music_comment WHERE user_id=#{id} AND singer_id IS NOT NULL ORDER BY singer_id ASC)")
     List<Comment> findBySingerId2(@Param("id")Integer id);
 
-    @Select("select music_song_list.title as songListTitle,music_song_list.id from music_song_list where id in (SELECT DISTINCT song_list_id FROM  music_comment WHERE user_id=#{id} AND song_list_id IS NOT NULL ORDER BY song_list_id ASC)")
+//    @Select("select music_song_list.title as songListTitle,music_song_list.id from music_song_list where id in (SELECT DISTINCT song_list_id FROM  music_comment WHERE user_id=#{id} AND song_list_id IS NOT NULL ORDER BY song_list_id ASC)")
     List<Comment> findBySongListId2(@Param("id")Integer id);
 
 }

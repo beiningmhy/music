@@ -83,24 +83,25 @@ public class CommentController {
         commentService.update(comment);
         return Result.success();
     }
-    @GetMapping("/song")
-    public Result findBySongId() {
-        List<Comment> list = commentService.findBySongId();
-        return Result.success(list);
-    }
-    @GetMapping("/songList")
-    public Result findBySongListId() {
-
-        List<Comment> list = commentService.findBySongListId();
-        return Result.success(list);
-    }
-    @GetMapping("/singer")
-    public Result findBySingerId() {
-        List<Comment> list = commentService.findBySingerId();
-        return Result.success(list);
-    }
+//    @GetMapping("/song")
+//    public Result findBySongId() {
+//        List<Comment> list = commentService.findBySongId();
+//        return Result.success(list);
+//    }
+//    @GetMapping("/songList")
+//    public Result findBySongListId() {
+//
+//        List<Comment> list = commentService.findBySongListId();
+//        return Result.success(list);
+//    }
+//    @GetMapping("/singer")
+//    public Result findBySingerId() {
+//        List<Comment> list = commentService.findBySingerId();
+//        return Result.success(list);
+//    }
     @GetMapping("/song/{id}")
     public Result findBySongId2(@PathVariable Integer id) {
+//        System.out.println("id:"+id);
         List<Comment> list = commentService.findBySongId2(id);
         return Result.success(list);
     }

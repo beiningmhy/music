@@ -65,13 +65,13 @@ public class CollectServiceImpl implements CollectService {
     }
 
     @Override
-    public List<Collect> findBySongId() {
-        return collectMapper.findBySongId();
+    public List<Collect> findBySongId(Integer id) {
+        return collectMapper.findBySongId(id);
     }
 
     @Override
-    public List<Collect> findBySongListId() {
-        return collectMapper.findBySongListId();
+    public List<Collect> findBySongListId(Integer id) {
+        return collectMapper.findBySongListId(id);
     }
 
     @Override

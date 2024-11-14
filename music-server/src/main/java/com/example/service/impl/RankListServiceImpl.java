@@ -34,9 +34,13 @@ public class RankListServiceImpl implements RankListService {
 
     @Override
     public void add(RankList rankList) {
-
-
+//        System.out.println(rankList.toString());
+        RankList rankList1 = rankListMapper.findBySongListIdAndConsumerId(rankList.getSongListId(), rankList.getConsumerId());
+        if (rankList1 != null) {
+            throw new CustomException("已经对此歌单评分");
+        }
         rankListMapper.insertSelective(rankList);
+
     }
 
     @Override

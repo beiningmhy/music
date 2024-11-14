@@ -46,8 +46,20 @@
                             <div style="height: 120px;overflow: hidden;flex: 1;" @click="introductionDialog = true">
                                 <span style="font-size: 16px;height: 120px;">{{ singer.introductions }}</span>
                             </div>
-                            <div style="height: 50px;">
-                                <el-button type="primary" style="margin: 0 auto;" @click="playAll()">播放全部</el-button>
+                            <div style="height: 50px;width: 800px;">
+                                <!-- <el-button type="primary" style="margin: 0 auto;" @click="playAll()">播放全部</el-button> -->
+                                <div class="play-btn" @click="playAll()"
+                                    style="display:flex;height: 30px;width: 150px;padding-top: 5px;padding-left: 10px;">
+                                    <div>
+                                        <svg t="1731298449347" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="1457" width="20" height="20">
+                                            <path
+                                                d="M783.74 401.86L372.23 155.28c-85.88-51.46-195.08 10.41-195.08 110.53v493.16c0 100.12 109.2 161.99 195.08 110.53l411.51-246.58c83.5-50.04 83.5-171.03 0-221.06z"
+                                                p-id="1458"></path>
+                                        </svg>
+                                    </div>
+                                    <span style="margin-left: 10px;">播放全部</span>
+                                </div>
                             </div>
                         </div>
                     </div>

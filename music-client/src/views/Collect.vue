@@ -1,16 +1,9 @@
 <template>
     <div>
         <div style="display: flex; flex-wrap: nowrap;">
-            <el-select v-model="params.userId" placeholder="请选择用户" style="width: 200px; margin-right: 10px"
-                @input="findBySearch()" clearable filterable default-first-option>
-                <el-option v-for="item in userObjs" :key="item.id" :label="item.username" :value="item.id"></el-option>
-            </el-select>
-            
-            <el-select v-model="params.status" placeholder="请选择评论状态" style="width: 100px; margin-right: 10px"
-                @input="findBySearch()" clearable>
-                <el-option label="启用" value="0"></el-option>
-                <el-option label="禁用" value="1"></el-option>
-            </el-select>
+
+
+
 
             <el-radio-group v-model="params.radio" style=" margin-right: 10px"
                 @input="params.radioId = '', findBySearch()">
@@ -25,12 +18,12 @@
             <el-button type="warning" @click="reset()">清空</el-button>
             <!-- <el-button type="primary" @click="add()">新增</el-button> -->
         </div>
-        <div style="max-height: 76vh;overflow: auto;"> 
-            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="70vh" stripe
-            highlight-current-row>
-                <el-table-column prop="id" label="序号"  width="70" sortable></el-table-column>
-                <el-table-column prop="username" label="收藏人"  width="200"></el-table-column>
-                <el-table-column prop="object" label="收藏对象" ></el-table-column>
+        <div style="max-height: 66vh;overflow: auto;">
+            <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
+                @row-dblclick="rowClick($event)">
+                <el-table-column prop="id" label="序号" width="70" sortable></el-table-column>
+                <el-table-column prop="username" label="收藏人" width="200"></el-table-column>
+                <el-table-column prop="object" label="收藏对象"></el-table-column>
 
 
                 <!-- <el-table-column prop="status" label="账号状态">
@@ -41,15 +34,15 @@
                         <el-tag v-else type="danger">状态未知</el-tag>
                     </template>
 </el-table-column> -->
-                <el-table-column prop="sts" label="收藏状态" width="100" fixed="right">
+                <!-- <el-table-column prop="sts" label="收藏状态" width="100" fixed="right">
                     <template slot-scope="scope">
                         <el-switch v-model="scope.row.sts" active-color="#13ce66" inactive-color="#ff4949"
                             @change="updateStatus(scope.row)">
                         </el-switch>
                     </template>
-                </el-table-column>
-                
-                <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
+                </el-table-column> -->
+
+                <!-- <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column> -->
                 <el-table-column label="操作" width="100" fixed="right">
                     <template slot-scope="scope">
                         <div>
@@ -70,31 +63,7 @@
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
-        <div>
-            <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%">
-                <el-form :model="form">
-                    <el-form-item label="姓名" label-width="20%" aria-required="true">
-                        <el-input v-model="form.name" autocomplete="off" style="width: 90%"></el-input>
-                    </el-form-item>
-                    <el-form-item label="角色" label-width="20%">
-                        <el-select v-model="form.role" placeholder="请选择" style="width: 90%" clearable>
-                            <el-option label="超级管理员" value="0"></el-option>
-                            <el-option label="歌曲管理员" value="1"></el-option>
-                        </el-select>
-                    </el-form-item>
-                    <el-form-item label="账号状态" label-width="20%">
-                        <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
-                            <el-option label="正常" value="0"></el-option>
-                            <el-option label="封禁" value="1"></el-option>
-                        </el-select>
-                    </el-form-item>
-                </el-form>
-                <div slot="footer" class="dialog-footer">
-                    <el-button @click="dialogFormVisible = false">取 消</el-button>
-                    <el-button type="primary" @click="submit()">确 定</el-button>
-                </div>
-            </el-dialog>
-        </div>
+
     </div>
 </template>
 
@@ -114,6 +83,8 @@ export default {
             })
         },
         findBySearch() {
+            this.params.userId = this.user.id;
+            this.params.status = '0';
             request.get("/collect/search", {
                 params: this.params
 
@@ -130,16 +101,7 @@ export default {
                     // console.log(this.tableData);
 
                     this.total = res.data.total;
-                    request.get("/collect/consumer").then(res => {
-                        if (res.code === '0') {
-                            this.userObjs = res.data;
-                        }else{
-                            this.$message({
-                                message: res.msg,
-                                type: 'error'
-                            });
-                        }
-                    })
+
                 } else {
                     this.$message({
                         message: res.msg,
@@ -166,16 +128,11 @@ export default {
             this.params.pageNum = pageNum;
             this.findBySearch();
         },
-        add() {
-            this.form = {};
-            this.dialogFormVisible = true;
-        },
-        edit(obj) {
-            this.form = JSON.parse(JSON.stringify(obj));
-            this.dialogFormVisible = true;
-        },
+
         del(id) {
-            request.delete("/collect/" + id).then(res => {
+            // console.log(id);
+            
+            request.post("/collect/status/" + id).then(res => {
                 if (res.code === '0') {
                     this.$message({
                         message: '操作成功',
@@ -191,41 +148,10 @@ export default {
             })
 
         },
-        submit() {
-            request.post("/collect", this.form).then(res => {
-                if (res.code === '0') {
-                    this.$message({
-                        message: '操作成功',
-                        type: 'success'
-                    });
-                    this.dialogFormVisible = false;
-                    this.findBySearch();
-                } else {
-                    this.$message({
-                        message: res.msg,
-                        type: 'error'
-                    });
-                }
-            })
-        },
-        updateStatus(row) {
-            // console.log(this.tableData);
 
-            if (row.name === this.user.name) {
-                this.$message({
-                    message: '不能操作自己',
-                    type: 'error'
-                });
-                row.sts = !row.sts;
-            } else {
-                row.status = row.status === '0' ? '1' : '0';
-                this.form = row;
-                this.submit();
-            }
-        },
+
         initSong() {
-            let p=this.params.userId?this.params.userId:-1;
-            request.get("/collect/song/"+p).then(res => {
+            request.get("/collect/song/"+this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     this.songObjs = res.data.map(item => ({
@@ -244,8 +170,7 @@ export default {
         },
 
         initSongList() {
-            let p=this.params.userId?this.params.userId:-1;
-            request.get("/collect/songList/"+p).then(res => {
+            request.get("/collect/songList/"+this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.songListObjs = res.data;
@@ -262,7 +187,26 @@ export default {
                 }
             })
         },
-        
+        rowClick(item) {
+            // console.log(item);
+            if (item.songId != null) {
+                this.$router.push({
+                    path: '/songDetails',
+                    query: {
+                        songId: item.songId
+                    }
+                })
+            } else if (item.songListId != null) {
+                this.$router.push({
+                    path: '/songListDetails',
+                    query: {
+                        songListId: item.songListId
+                    }
+                })
+            }
+
+        },
+
 
     }
     ,
@@ -309,7 +253,7 @@ export default {
             this.params.radioId = '';
             if (newValue === '歌曲') {
                 this.initSong();
-            }  else if (newValue === '歌单') {
+            } else if (newValue === '歌单') {
                 this.initSongList();
             }
         }

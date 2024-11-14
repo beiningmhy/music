@@ -9,6 +9,12 @@
                     <el-image style="width: 150px; height: 150px; border-radius: 20% ;"
                         :src="'http://localhost:8080/api/files/' + user.avatar">
                     </el-image>
+                    <el-upload class="upload-demo" action="http://localhost:8080/api/files/upload"
+                        :on-success="uploadAvatar">
+                        <el-button size="small" type="primary"
+                            style="margin-left:30px;margin-top: 20px;">点击上传</el-button>
+                        <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
+                    </el-upload>
                     <div style="margin:0px auto ;margin-top: 20px;">
                         <span style="font-weight: bold;">UID:</span><el-tag>{{ user.uid }}</el-tag>
                     </div>
@@ -253,6 +259,27 @@ export default {
                     });
                 }
             })
+
+        },
+        uploadAvatar(res) {
+            // console.log(res);
+            this.user.avatar=res.data;
+            localStorage.setItem("user", JSON.stringify(this.user));
+            request.post('/consumer',this.user).then(res=>{
+                if(res.code==='0'){
+                    this.$message({
+                        message: '上传成功',
+                        type: 'success'
+                    });
+                    window.location.reload();
+                }else{
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+            
 
         }
     }

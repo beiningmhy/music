@@ -17,9 +17,9 @@ public interface CollectService {
 
     void delete(Integer id);
 
-    List<Collect> findBySongId();
+    List<Collect> findBySongId(Integer id);
 
-    List<Collect> findBySongListId();
+    List<Collect> findBySongListId(Integer id);
     List<Collect> findByConsumerId();
 
     Collect findById(Integer id);

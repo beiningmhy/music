@@ -273,7 +273,8 @@ export default {
             }
         },
         initSong() {
-            request.get("/comment/song").then(res => {
+            let p=this.params.userId?this.params.userId:-1;
+            request.get("/comment/song/"+p).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     this.songObjs = res.data.map(item => ({
@@ -291,7 +292,8 @@ export default {
             })
         },
         initSinger() {
-            request.get("/comment/singer").then(res => {
+            let p=this.params.userId?this.params.userId:-1;
+            request.get("/comment/singer/"+p).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.singerObjs = res.data;
@@ -309,7 +311,8 @@ export default {
             })
         },
         initSongList() {
-            request.get("/comment/songList").then(res => {
+            let p=this.params.userId?this.params.userId:-1;
+            request.get("/comment/songList/"+p).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.songListObjs = res.data;

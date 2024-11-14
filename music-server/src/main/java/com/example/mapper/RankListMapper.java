@@ -21,4 +21,7 @@ public interface RankListMapper extends Mapper<RankList> {
     @Select("select music_consumer.username as username,music_consumer.id from music_consumer where id in (SELECT DISTINCT consumer_id FROM music_rank_list WHERE consumer_id IS NOT NULL ORDER BY consumer_id ASC)")
     List<RankList> findByConsumerId();
 
+    @Select("select * from music_rank_list where song_list_id=#{songListId} and consumer_id=#{consumerId} limit 1")
+    RankList findBySongListIdAndConsumerId(@Param("songListId") Integer songListId,@Param("consumerId") Integer consumerId);
+
 }
