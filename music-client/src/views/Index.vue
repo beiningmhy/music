@@ -351,6 +351,6 @@ hr {
     border: none;
     border-radius: 5px;
     user-select: none;
-    z-index: 10000;
+    z-index: 98;
 }
 </style>

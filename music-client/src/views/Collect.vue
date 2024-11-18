@@ -17,6 +17,18 @@
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
             <el-button type="warning" @click="reset()">清空</el-button>
             <!-- <el-button type="primary" @click="add()">新增</el-button> -->
+            <div class="play-btn" @click="playAll()" v-if="params.radio == '歌曲'"
+                style="display:flex;height: 30px;width: 120px;padding-top: 5px;padding-left: 10px;overflow: hidden;margin-left: 20px;">
+                <div>
+                    <svg t="1731298449347" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" p-id="1457" width="20" height="20">
+                        <path
+                            d="M783.74 401.86L372.23 155.28c-85.88-51.46-195.08 10.41-195.08 110.53v493.16c0 100.12 109.2 161.99 195.08 110.53l411.51-246.58c83.5-50.04 83.5-171.03 0-221.06z"
+                            p-id="1458"></path>
+                    </svg>
+                </div>
+                <span style="margin-left: 10px;">播放全部</span>
+            </div>
         </div>
         <div style="max-height: 66vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
@@ -131,7 +143,7 @@ export default {
 
         del(id) {
             // console.log(id);
-            
+
             request.post("/collect/status/" + id).then(res => {
                 if (res.code === '0') {
                     this.$message({
@@ -151,7 +163,7 @@ export default {
 
 
         initSong() {
-            request.get("/collect/song/"+this.user.id).then(res => {
+            request.get("/collect/song/" + this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     this.songObjs = res.data.map(item => ({
@@ -170,7 +182,7 @@ export default {
         },
 
         initSongList() {
-            request.get("/collect/songList/"+this.user.id).then(res => {
+            request.get("/collect/songList/" + this.user.id).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
                     // this.songListObjs = res.data;
@@ -206,6 +218,150 @@ export default {
             }
 
         },
+        async playAll() {
+            this.$store.commit('updateIsplay', false);
+            if (this.tableData.length != 0) {
+                // 首先从 localStorage 获取现有的 musicList
+                let musicList = localStorage.getItem("musicList");
+
+                // 将获取到的字符串转换为数组
+                if (musicList) {
+                    musicList = JSON.parse(musicList);
+                } else {
+                    // 如果 musicList 不存在，则初始化为空数组
+                    musicList = [];
+                }
+                let dataList = [];
+                for (let i = 0; i < this.tableData.length; i++) {
+                    let songs = await this.initSongDetail(this.tableData[i].songId);
+                    let data = '';
+                    // songs.then((result) => {
+                    //     data = JSON.parse(result);
+                    //     console.log(data);
+                    // }).catch((error) => {
+                    //     console.error('Promise被拒绝:', error);
+                    // });
+                    // console.log(JSON.parse(songs));
+                    
+                    dataList.push(JSON.parse(songs));
+                }
+                // console.log(dataList);
+
+                localStorage.setItem('playingMusic', JSON.stringify(dataList[dataList.length - 1]));
+                // 遍历 tableData 中的每一首歌
+                dataList.forEach(song => {
+                    // 检查是否存在相同的 song 并删除
+                    const index = musicList.findIndex(existingSong => existingSong.id === song.id);
+                    if (index !== -1) {
+                        // 删除已存在的 song
+                        musicList.splice(index, 1);
+                    }
+
+
+                    // 将新的 song 放在数组的最前面
+                    musicList.unshift(song);
+                });
+
+                // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
+                localStorage.setItem("musicList", JSON.stringify(musicList));
+            }
+        },
+
+        async initSongDetail(songId) {
+            // console.log(songId);
+            this.params2.singerId = '';
+            this.params2.songId = songId;
+            try {
+                const res = await request.get("/song/search", {
+                    params: this.params2
+                });
+
+                if (res.code === '0') {
+                    // console.log(res.data);
+
+
+                    // 获取数据列表
+                    const data = res.data.list;
+                    let temp = [];
+                    // 异步处理每个项目的音频时长
+                    temp = await Promise.all(
+                        data.map(async item => {
+                            let audioUrl = '';
+                            if (item.url != null) {
+                                if (item.url.includes('|')) {
+                                    audioUrl = 'http://localhost:8080/api/files/' + item.url;
+                                } else {
+                                    audioUrl = item.url;
+                                }
+                            } else {
+                                audioUrl = '';
+
+                            }
+
+                            try {
+                                const audioDuration = await this.getAudioDuration(audioUrl);
+                                return {
+                                    ...item,
+                                    sts: item.status === '0',
+                                    introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
+                                    audioDuration: this.formatDuration(audioDuration),
+                                    audioDurationSeconds: audioDuration,
+                                    audioUrl: audioUrl,
+                                };
+                            } catch (error) {
+                                // console.error(`Failed to load audio file for item ${item.id}:`, error);
+                                return {
+                                    ...item,
+                                    sts: item.status === '0',
+                                    introductions: item.introduction != null && item.introduction.length > 10 ? item.introduction.substring(0, 10) + '...' : item.introduction,
+                                    audioDuration: null // 或者设置为其他默认值
+                                };
+                            }
+                        })
+                    );
+
+                    // this.total = res.data.total;
+                    // this.songLoading = false;
+                    // console.log(temp[0]);
+                    return JSON.stringify(temp[0]);
+
+
+                    // console.log(this.song);
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            } catch (error) {
+                console.error('Error fetching data:', error);
+                this.$message({
+                    message: '请求失败',
+                    type: 'error'
+                });
+            }
+        },
+
+        getAudioDuration(url) {
+            return new Promise((resolve, reject) => {
+                const audio = new Audio(url);
+                audio.addEventListener('loadedmetadata', () => {
+                    resolve(Math.floor(audio.duration));
+                });
+                audio.addEventListener('error', (event) => {
+                    // console.error('Audio error event:', event);
+                    reject(new Error('Failed to load audio file'));
+                });
+            });
+        },
+        formatDuration(seconds) {
+            if (seconds === null || seconds === undefined) {
+                return '未知';
+            }
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+        },
 
 
     }
@@ -234,6 +390,10 @@ export default {
             songListObjs: [],
             objs: [],
             userObjs: [],
+            params2: {
+                pageNum: 1,
+                pageSize: 1,
+            }
 
         }
     },
@@ -293,5 +453,10 @@ svg:hover {
     /* Firefox */
     -ms-user-select: none;
     /* IE10+/Edge */
+}
+
+.play-btn:hover {
+    background-color: rgb(206, 206, 206);
+    border-radius: 10px;
 }
 </style>

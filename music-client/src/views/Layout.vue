@@ -195,12 +195,22 @@
         <div class="footer" :style="`position: absolute;bottom:${footerBottom}px;transition: bottom 1s ease-in;`">
             <div style="display: flex;height: 80px;width: 90%;margin: 10px auto;">
                 <div style="width: 20%;height: 100%;display: flex;">
-                    <div style="background-color: cadetblue;width: 80px;border-radius: 10px;height: 100%;">
+                    <div style="background-color: cadetblue;width: 80px;border-radius: 10px;height: 100%;position: relative; display: inline-block;"
+                        @mouseover="isOpenSongBox = true" @mouseleave="isOpenSongBox = false">
                         <!-- 歌曲图片 -->
                         <el-image style="width: 80px; height: 80px; border-radius: 10%;"
-                            :src="'http://localhost:8080/api/files/' + playingMusic.pic"
-                            :preview-src-list="['http://localhost:8080/api/files/' + playingMusic.pic]">
+                            :src="'http://localhost:8080/api/files/' + playingMusic.pic">
                         </el-image>
+                        <div v-if="isOpenSongBox" @click="openSongBox()"
+                            style="position:absolute;top:0;height: 80px;width: 80px; display: flex;background-color: rgba(200, 200, 200,0.5);border-radius: 10px;">
+                            <svg data-v-00a66cdf="" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg"
+                                stroke="currentColor" class="arco-icon arco-icon-expand" stroke-width="2"
+                                stroke-linecap="butt" stroke-linejoin="miter"
+                                style="font-size: 50px; color: rgb(255, 255, 255);z-index: 100000;">
+                                <path d="M7 26v14c0 .552.444 1 .996 1H22m19-19V8c0-.552-.444-1-.996-1H26"></path>
+                            </svg>
+                        </div>
+
                     </div>
                     <div style="flex: 1; ">
                         <div style="margin-left: 20px;height: 80%;margin-top:5%;display: flex;flex-direction: column;">
@@ -515,11 +525,79 @@
             </div>
 
         </div>
+
+        <div class="songBox" :style="`position: absolute;bottom:${songBoxBottom};transition: bottom 0.5s ease-in;`">
+            <div style="display: flex;width: 90%;height: 90%;margin: 2% auto">
+                <div style="height: 100%;width: 400px;display: flex;flex-direction: column;">
+                    <div style="width: 300px;height: 300px;margin-top: 50px;margin-left: 50px;">
+                        <el-image style="width: 300px; height: 300px; border-radius: 10%;"
+                            :src="'http://localhost:8080/api/files/' + playingMusic.pic">
+                        </el-image>
+                    </div>
+                    <div>
+                        <div style="margin-left: 50px;height: 80%;margin-top:5%;display: flex;flex-direction: column;">
+                            <div style="font-size: 28px;font-weight: bolder;height: 50px;overflow: hidden;line-height: 50px;"
+                                @click="clickMusicName(playingMusic)" class="music-name">
+                                {{ playingMusic.name }}
+                            </div>
+                            <div style="margin-top: 15px;height: 30px;overflow: hidden;font-size: 20px;"
+                                @click="clickSingerName(playingMusic)" class="singer-name">
+                                {{ playingMusic.singerName }}
+                            </div>
+                            <div
+                                style="margin-top: 25px;height: 30px;overflow: hidden;font-size: 20px;line-height: 30px;color:  #d392f8;">
+                                {{ currentLyric }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div style="flex: 1;height: 100%">
+                    <div v-if="lyricList.length == 0">
+                        <div style="width: 100%;height: 80px;margin: 0 auto;text-align: center;margin-top: 250px;">
+                            <h1>暂无歌词</h1>
+                        </div>
+                    </div>
+                    <div v-else>
+                        <div style="width: 90%;max-height: 500px;margin: 0 auto;
+                            border-radius: 20px;width: 100%;margin-top: 5%;">
+                            <div style="width: 100%;max-height: 500px;margin: 0 auto;overflow-y: auto;"
+                                class="lyric-list" ref="lyricsContainer">
+                                <div v-for="(item, index) in lyricList" :key="item.id" class="lyricDiv"
+                                    @click="clickLyric(item)">
+                                    <div
+                                        style="display: flex;width: 60%;margin: 0 auto;font-size: 25px;overflow: hidden;">
+                                        <!-- <div
+                                            style="width: 80px;height: 60px;line-height: 60px;text-align: center;overflow: hidden;">
+                                            {{ item.time }}
+                                        </div> -->
+
+                                        <div v-if="index == currentLineIndex"
+                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;font-size: 40px;color:#d392f8 ;">
+                                            {{ item.lyric }}
+                                        </div>
+                                        <div v-else
+                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;">
+                                            {{ item.lyric }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
 
 
 </template>
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
 <script>
 import request from '@/utils/request';
 export default {
@@ -540,6 +618,12 @@ export default {
             musicLoop: false,
             isMuted: false,
             search: '',
+            isOpenSongBox: false,
+            songBoxBottom: "-100%",
+            // songBoxBottom: "100px",
+            lyricList: [],
+            currentLineIndex: 0, // 当前歌词行索引
+            currentLyric: '',
 
         }
     },
@@ -561,6 +645,7 @@ export default {
         this.interval1 = setInterval(this.initPlay, 500);
         this.$store.commit('updateIsplay', false);
         this.playingMusic = localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
+        this.initNotice();
 
     },
     created() {
@@ -591,6 +676,7 @@ export default {
                 if (newValue.id !== 0) {
                     this.updateSongClicks(newValue);
                 }
+                this.initLyric();
             },
             deep: true
         },
@@ -769,6 +855,10 @@ export default {
         updateCurrentTime() {
             // 使用Vue的$refs来访问DOM元素，获取currentTime
             this.currentTime = this.$refs.audioElement.currentTime;
+            setTimeout(() => {
+                this.updateLyrics(this.currentTime);
+            }, 100);
+
             // if (this.formatDuration(this.currentTime.toFixed(0)) === this.playingMusic.audioDuration) {
             //     if (this.musicLoop != true) {
             //         console.log('播放下一首');
@@ -842,7 +932,7 @@ export default {
                         audio.pause();
                     }, 200)
                 }
-                this.musicList=localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
+                this.musicList = localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
                 let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
                 if (index === 0) {
                     let item = this.musicList[this.musicList.length - 1];
@@ -888,7 +978,7 @@ export default {
                         audio.pause();
                     }, 200)
                 }
-                this.musicList=localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
+                this.musicList = localStorage.getItem("musicList") ? JSON.parse(localStorage.getItem("musicList")) : [];
                 let index = this.musicList.findIndex(item => item.id === this.playingMusic.id);
                 if (index === this.musicList.length - 1) {
                     let item = this.musicList[0];
@@ -982,9 +1072,9 @@ export default {
                 localStorage.setItem('musicList', JSON.stringify(updatedMusicList));
             }
         },
-        addSong2Collect(item){
+        addSong2Collect(item) {
             // console.log(item);
-            
+
             let c = {
                 songId: item.id,
                 userId: this.user.id
@@ -1046,17 +1136,128 @@ export default {
             window.location.reload();
         },
 
+        // 初始公告
+        initNotice() {
+            request.get("/notice/top/3").then(res => {
+                if (res.code === '0') {
+                    let notice = res.data;
+                    // console.log(notice);
+                    for (let i = 0; i < notice.length; i++) {
+                        // console.log(notice[i]);
+                        let obj = notice[i];
+                        setTimeout(() => {
+                            this.$notify({
+                                title: obj.name,
+                                message: obj.content,
+                                offset: 50
+                            });
+                        }, 1);
+
+                    }
+                }
+            })
+        },
+        openSongBox() {
+            // console.log('open');
+            this.songBoxBottom = this.songBoxBottom === '100px' ? "-100%" : "100px";
+            if (this.songBoxBottom === '100px') {
+                this.initLyric();
+            }
+
+
+        },
+        initLyric() {
+            // console.log(this.songId);
+            if (this.playingMusic.id !== 0) {
+                request.get("/song/lyric/" + this.playingMusic.id).then(res => {
+                    if (res.code === '0') {
+                        this.lyricList = res.data;
+                        // console.log(res.data);
+
+                    } else {
+                        this.$message({
+                            message: res.msg,
+                            type: 'error'
+                        });
+                    }
+
+                })
+            }
+
+
+        },
+        clickLyric(item) {
+            // console.log(item);
+
+            // console.log(this.convertToSeconds(item.time));
+
+            requestAnimationFrame(() => {
+                this.$refs.audioElement.currentTime = this.convertToSeconds(item.time);
+            });
+        },
+        convertToSeconds(timeString) {
+            const parts = timeString.split(':');
+            let seconds = 0;
+
+            if (parts.length === 2) {
+                const [minutes, secondsWithMillis] = parts;
+                const secondsPart = secondsWithMillis.split('.');
+                const minutesInSeconds = parseInt(minutes, 10) * 60;
+                const secondsOnly = parseInt(secondsPart[0], 10);
+                const millis = parseInt(secondsPart[1], 10) / 1000;
+
+                seconds = minutesInSeconds + secondsOnly + millis;
+            }
+
+            return seconds;
+        },
+        updateLyrics(currentTime) {
+            // 更新当前歌词行
+            let currentLineIndex = 0;
+            while (
+                currentLineIndex < this.lyricList.length - 1 &&
+                this.convertToSeconds(this.lyricList[currentLineIndex + 1].time) <= currentTime
+            ) {
+                currentLineIndex++;
+                // console.log("+++");
+
+            }
+            // console.log(currentLineIndex);
+            // console.log(this.lyricList[currentLineIndex].lyric);
+            this.currentLyric = this.lyricList[currentLineIndex].lyric;
+
+            this.currentLineIndex = currentLineIndex;
+            // 滚动歌词容器以确保当前行可见
+            const lineElement = this.$refs.lyricsContainer.children[currentLineIndex];
+            if (lineElement) {
+                // console.log("move");
+
+                const containerTop = this.$refs.lyricsContainer.scrollTop;
+                const lineTop = lineElement.offsetTop;
+                const containerHeight = this.$refs.lyricsContainer.clientHeight;
+                this.$refs.lyricsContainer.scrollTop = lineTop - containerHeight / 2;
+                if (lineTop < containerTop || lineTop > containerTop + containerHeight) {
+                    this.$refs.lyricsContainer.scrollTop = lineTop - containerHeight / 2;
+                }
+            }
+
+
+
+        },
     }
 }
 </script>
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
+<!-- -------------------------------------------------------------------------------------------------------------------------- -->
 <style scoped>
 .el-header {
     /* background-color: rgba(240, 240, 240, 0.5); */
     color: #333;
     text-align: center;
     line-height: 50px;
-
-
 }
 
 .el-aside {
@@ -1091,6 +1292,7 @@ export default {
     backdrop-filter: blur(10px);
     border-radius: 10px 10px 0px 0px;
     box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+    z-index: 97;
 }
 
 .footer {
@@ -1117,6 +1319,21 @@ export default {
     /*right: 0px; */
     top: 0px;
     z-index: 99;
+    backdrop-filter: blur(10px);
+}
+
+.songBox {
+    height: calc(100% - 100px);
+    width: 100%;
+    background-color: rgba(238, 240, 244, 0.8);
+    /* background-color: red; */
+    box-shadow: 5px 0px 10px rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+    /* position: absolute; */
+    /* bottom:-calc(100% - 100px); */
+    /* bottom:100px; */
+    z-index: 98;
+    /* filter: blur(1px); */
     backdrop-filter: blur(10px);
 }
 
@@ -1201,5 +1418,19 @@ export default {
 
 .el-popover {
     backdrop-filter: blur(10px);
+}
+
+.lyricDiv :hover {
+    background-color: rgba(231, 230, 230, 0.734);
+    border-radius: 10px;
+}
+
+.lyric-list {
+    scrollbar-width: none;
+    /* 隐藏滚动条 */
+    -ms-overflow-style: none;
+    /* 隐藏 IE 和 Edge 的滚动条 */
+    overflow: -moz-scrollbars-none;
+    /* 隐藏 Firefox 的滚动条 */
 }
 </style>

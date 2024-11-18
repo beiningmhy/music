@@ -91,8 +91,8 @@
                                     </el-image>
                                 </div>
                                 <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;"
-                                    @click="songClick(scope.row)">
-                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;color: black;">
+                                    @click="songClick(scope.row)" >
+                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;" class="music-name">
                                         {{ scope.row.name }}</span>
                                 </div>
                                 <!-- <div>
@@ -508,7 +508,7 @@ export default {
                             }
                         })
                     );
-                    console.log(this.tableData);
+                    // console.log(this.tableData);
 
                     this.total2 = res.data.total;
                     this.songLoading = false;
@@ -900,5 +900,9 @@ textarea:focus::placeholder {
 .play-btn:hover {
     background-color: rgb(206, 206, 206);
     border-radius: 10px;
+}
+.music-name:hover,
+.singer-name:hover {
+    color: #d392f8;
 }
 </style>

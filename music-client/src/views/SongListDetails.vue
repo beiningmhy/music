@@ -134,7 +134,7 @@
                                 </div>
                                 <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;"
                                     @click="songClick(scope.row)">
-                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;color: black;">
+                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;" class="music-name">
                                         {{ scope.row.name }}</span>
                                 </div>
                             </div>
@@ -788,7 +788,8 @@ export default {
                 // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
                 localStorage.setItem("musicList", JSON.stringify(musicList));
             }
-        }, // 跳转到歌曲详情页
+        }, 
+        // 跳转到歌曲详情页
         clickMusicName(item) {
             // console.log(item);
             let path = '/songDetails?songId=' + item.id;
@@ -914,7 +915,7 @@ export default {
             // console.log(m);
             
             request.post("/rankList", m).then(res => {
-                console.log(res);
+                // console.log(res);
 
                 if (res.code == '0') {
                     this.$message({
@@ -1012,5 +1013,9 @@ textarea:focus::placeholder {
 .play-btn:hover {
     background-color: rgb(206, 206, 206);
     border-radius: 10px;
+}
+.music-name:hover,
+.singer-name:hover {
+    color: #d392f8;
 }
 </style>

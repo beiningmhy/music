@@ -132,14 +132,30 @@ export default {
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
                             <el-menu-item index="/rankList" @click="handleClick($route)">评分信息</el-menu-item>
-                            <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
-                            <el-menu-item index="/log" @click="handleClick($route)">日志信息</el-menu-item>
 
                             <!-- <el-menu-item index="/audit">请假审核</el-menu-item>
                             <el-menu-item index="/hotel">酒店预约</el-menu-item>
                             <el-menu-item index="/reserve">预定信息</el-menu-item>
                             <el-menu-item index="/log">日志管理</el-menu-item>
                             <el-menu-item index="/notice" v-if="user.role === '0'">系统公告</el-menu-item> -->
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="5">
+                        <template slot="title">
+                            <svg t="1731910968612" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="2348" width="18" height="18">
+                                <path
+                                    d="M924 708h-40.54a142.81 142.81 0 0 0-15.41-37.14l28.69-28.68a36 36 0 0 0 0-50.92 36 36 0 0 0-50.92 0L817.14 620A142.81 142.81 0 0 0 780 604.54V564a36 36 0 0 0-36-36 36 36 0 0 0-36 36v40.54A142.81 142.81 0 0 0 670.86 620l-28.68-28.69a36 36 0 0 0-50.92 0 36 36 0 0 0 0 50.92L620 670.86A142.81 142.81 0 0 0 604.54 708H564a36 36 0 0 0-36 36 36 36 0 0 0 36 36h40.54A142.81 142.81 0 0 0 620 817.14l-28.69 28.68a36 36 0 0 0 0 50.92 36 36 0 0 0 50.91 0l28.68-28.69a142.81 142.81 0 0 0 37.1 15.41V924a36 36 0 0 0 36 36 36 36 0 0 0 36-36v-40.54a142.81 142.81 0 0 0 37.14-15.41l28.68 28.69a36 36 0 0 0 50.92 0 36 36 0 0 0 0-50.92l-28.69-28.68A142.81 142.81 0 0 0 883.46 780H924a36 36 0 0 0 36-36 36 36 0 0 0-36-36zM744 816a72 72 0 1 1 72-72 72 72 0 0 1-72 72z"
+                                    fill="#ffffff" p-id="2349"></path>
+                                <path
+                                    d="M860 64H164c-55 0-100 45-100 100v516c0 55 45 100 100 100h220v108H244a36 36 0 0 0-36 36 36 36 0 0 0 36 36h176a36 36 0 0 0 36-36V744a36 36 0 0 0-36-36H186a50.15 50.15 0 0 1-50-50v-59h284a36 36 0 0 0 36-36 36 36 0 0 0-36-36H136V186a50.15 50.15 0 0 1 50-50h652a50.15 50.15 0 0 1 50 50v234a36 36 0 0 0 36 36 36 36 0 0 0 36-36V164c0-55-45-100-100-100z"
+                                    fill="#ffffff" p-id="2350"></path>
+                            </svg><span style="margin-left: 10px;">系统管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="/notice" @click="handleClick($route)">公告信息</el-menu-item>
+                            <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
+                            <el-menu-item index="/log" @click="handleClick($route)">日志信息</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
@@ -160,7 +176,7 @@ export default {
                     </el-breadcrumb> -->
 
                     <el-tag v-for="tag in tagList" :key="tag.name" closable
-                        :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)" 
+                        :type="tag.path == $route.path ? 'success' : 'success'" @close="removeTag(tag)"
                         @click="tagClick(tag)" size="medium" hit style="margin-left: 10px"
                         :effect="tag.path == $route.path ? 'dark' : 'light'">
                         {{ tag.name }}
@@ -306,7 +322,7 @@ export default {
                 name = '个人中心';
             }
             const exists = this.tagList.some(item => item.name === name);
-            if(exists&&route!==this.$route.path){
+            if (exists && route !== this.$route.path) {
                 this.$router.push(route);
             }
             if (route !== this.$route.path) {

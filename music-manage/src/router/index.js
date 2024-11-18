@@ -11,6 +11,7 @@ import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Log from '@/views/Log.vue'
 import Login from '@/views/Login.vue'
+import Notice from '@/views/Notice.vue'
 import RankList from '@/views/RankList.vue'
 import Register from '@/views/Register.vue'
 import Singer from '@/views/Singer.vue'
@@ -104,6 +105,11 @@ const routes = [
 				path: '/banner',
 				name: '轮播图管理',
 				component: Banner,
+			},
+			{
+				path: '/notice',
+				name: '公告管理',
+				component: Notice,
 			},
 			{
 				path:'/changePassword',
