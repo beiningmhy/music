@@ -53,7 +53,7 @@
                         <el-input type="textarea" v-model="form.content" autocomplete="off"
                             style="width: 90%"></el-input>
                     </el-form-item>
-                    <el-form-item label="账号状态" label-width="20%">
+                    <el-form-item label="公告状态" label-width="20%">
                         <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
                             <el-option label="正常" value="0"></el-option>
                             <el-option label="封禁" value="1"></el-option>

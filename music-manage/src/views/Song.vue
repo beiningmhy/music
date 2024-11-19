@@ -9,7 +9,7 @@
             </el-select>
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
                 @input="findBySearch()" clearable></el-input>
-            <el-select v-model="params.status" placeholder="请选择状态" style="width: 200px; margin-right: 10px"
+            <el-select v-model="params.status" placeholder="请选择状态" style="width: 100px; margin-right: 10px"
                 @input="findBySearch()" clearable>
                 <el-option label="正常" value="0"></el-option>
                 <el-option label="封禁" value="1"></el-option>

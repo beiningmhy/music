@@ -558,21 +558,21 @@
                         </div>
                     </div>
                     <div v-else>
-                        <div style="width: 90%;max-height: 500px;margin: 0 auto;
-                            border-radius: 20px;width: 100%;margin-top: 5%;">
-                            <div style="width: 100%;max-height: 500px;margin: 0 auto;overflow-y: auto;"
+                        <div style="width: 90%;margin: 0 auto;
+                            border-radius: 20px;width: 100%;margin-top: 5%;height: 100vh">
+                            <div style="width: 100%;max-height:calc(75vh - 50px) ;margin: 0 auto;overflow-y: auto;"
                                 class="lyric-list" ref="lyricsContainer">
                                 <div v-for="(item, index) in lyricList" :key="item.id" class="lyricDiv"
                                     @click="clickLyric(item)">
                                     <div
-                                        style="display: flex;width: 60%;margin: 0 auto;font-size: 25px;overflow: hidden;">
+                                        style="display: flex;width: 80%;margin: 0 auto;font-size: 20px;overflow: hidden;">
                                         <!-- <div
                                             style="width: 80px;height: 60px;line-height: 60px;text-align: center;overflow: hidden;">
                                             {{ item.time }}
                                         </div> -->
 
                                         <div v-if="index == currentLineIndex"
-                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;font-size: 40px;color:#d392f8 ;">
+                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;font-size: 35px;color:#d392f8 ;">
                                             {{ item.lyric }}
                                         </div>
                                         <div v-else
@@ -585,6 +585,31 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <div style="height: 60px;width: 60px;position: absolute;top: 50px;right: 50px;padding-left: 10px;padding-top: 15px"
+                class="play-icon" @click="closeSongBox">
+                <svg t="1731995468817" class="icon" viewBox="0 0 1026 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="7021" width="40" height="40">
+                    <path
+                        d="M857.088 224.256q28.672-28.672 69.12-28.672t69.12 28.672q29.696 28.672 29.696 68.608t-29.696 68.608l-382.976 380.928q-12.288 14.336-30.72 19.968t-38.912 4.608-40.448-8.704-34.304-22.016l-376.832-374.784q-29.696-28.672-29.696-68.608t29.696-68.608q14.336-14.336 32.256-21.504t36.864-7.168 37.376 7.168 32.768 21.504l313.344 309.248z"
+                        p-id="7022" fill="#2c2c2c" data-spm-anchor-id="a313x.collections_detail.0.i0.13b03a81FKvDYL"
+                        class="selected"></path>
+                </svg>
+            </div>
+            <div style="height: 60px;width: 60px;position: absolute;top: 120px;right: 50px;padding-left: 10px;padding-top: 10px"
+                class="play-icon" @click="toggleFullScreen">
+                <svg v-if="!isFullScreen" t="1731997689256" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="10075" width="40" height="40">
+                    <path
+                        d="M186.24 470.69c-30.38 0-55-24.62-55-55V304.61c0-92.96 75.63-168.6 168.6-168.6h111.08c30.38 0 55 24.62 55 55s-24.62 55-55 55H299.83c-32.31 0-58.6 26.29-58.6 58.6v111.08c0.01 30.38-24.62 55-54.99 55zM837.27 470.69c-30.38 0-55-24.62-55-55V304.61c0-32.31-26.29-58.6-58.6-58.6H612.6c-30.38 0-55-24.62-55-55s24.62-55 55-55h111.08c92.96 0 168.6 75.63 168.6 168.6v111.08c-0.01 30.38-24.63 55-55.01 55zM723.68 888.76H612.6c-30.38 0-55-24.62-55-55s24.62-55 55-55h111.08c32.31 0 58.6-26.29 58.6-58.6V609.08c0-30.38 24.62-55 55-55s55 24.62 55 55v111.08c-0.01 92.97-75.64 168.6-168.6 168.6zM410.91 888.76H299.83c-92.96 0-168.6-75.63-168.6-168.6V609.08c0-30.38 24.62-55 55-55s55 24.62 55 55v111.08c0 32.31 26.29 58.6 58.6 58.6h111.08c30.38 0 55 24.62 55 55s-24.62 55-55 55z"
+                        p-id="10076"></path>
+                </svg>
+                <svg v-else t="1731998003435" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                    xmlns="http://www.w3.org/2000/svg" p-id="10241" width="40" height="40">
+                    <path
+                        d="M297.31 470.69H186.24c-30.38 0-55-24.62-55-55s24.62-55 55-55h111.08c32.31 0 58.6-26.29 58.6-58.6V191.02c0-30.38 24.62-55 55-55s55 24.62 55 55V302.1c-0.01 92.96-75.64 168.59-168.61 168.59zM837.27 470.69H726.2c-92.96 0-168.6-75.63-168.6-168.6V191.02c0-30.38 24.62-55 55-55s55 24.62 55 55V302.1c0 32.31 26.29 58.6 58.6 58.6h111.08c30.38 0 55 24.62 55 55s-24.63 54.99-55.01 54.99zM612.6 888.76c-30.38 0-55-24.62-55-55V722.68c0-92.96 75.63-168.6 168.6-168.6h111.08c30.38 0 55 24.62 55 55s-24.62 55-55 55H726.2c-32.31 0-58.6 26.29-58.6 58.6v111.08c0 30.37-24.62 55-55 55zM410.91 888.76c-30.38 0-55-24.62-55-55V722.68c0-32.31-26.29-58.6-58.6-58.6H186.24c-30.38 0-55-24.62-55-55s24.62-55 55-55h111.08c92.96 0 168.6 75.63 168.6 168.6v111.08c-0.01 30.37-24.63 55-55.01 55z"
+                        p-id="10242"></path>
+                </svg>
             </div>
         </div>
 
@@ -624,6 +649,7 @@ export default {
             lyricList: [],
             currentLineIndex: 0, // 当前歌词行索引
             currentLyric: '',
+            isFullScreen: false,
 
         }
     },
@@ -646,6 +672,11 @@ export default {
         this.$store.commit('updateIsplay', false);
         this.playingMusic = localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
         this.initNotice();
+
+        await this.initLyric();
+
+
+
 
     },
     created() {
@@ -755,6 +786,11 @@ export default {
             localStorage.removeItem('musicList');
             localStorage.setItem('musicList', JSON.stringify([]));
             localStorage.setItem('playingMusic', JSON.stringify({ id: 0 }));
+            setTimeout(() => {
+                this.lyricList = [];
+                this.currentLyric = '';
+            }, 100);
+
         },
         // 跳转到歌曲详情页
         clickMusicName(item) {
@@ -821,7 +857,7 @@ export default {
             let tmp = localStorage.getItem("playingMusic") != undefined ? JSON.parse(localStorage.getItem("playingMusic")) : JSON.parse(localStorage.getItem("musicList")) == [] || JSON.parse(localStorage.getItem("musicList")).length == 0 ? { id: 0 } : JSON.parse(localStorage.getItem("musicList"))[0];
             if (tmp.id === this.playingMusic.id) {
             } else {
-                console.log(tmp);
+                // console.log(tmp);
                 this.playingMusic = tmp;
             }
         },
@@ -857,7 +893,7 @@ export default {
             this.currentTime = this.$refs.audioElement.currentTime;
             setTimeout(() => {
                 this.updateLyrics(this.currentTime);
-            }, 100);
+            }, 500);
 
             // if (this.formatDuration(this.currentTime.toFixed(0)) === this.playingMusic.audioDuration) {
             //     if (this.musicLoop != true) {
@@ -1148,6 +1184,7 @@ export default {
                         setTimeout(() => {
                             this.$notify({
                                 title: obj.name,
+                                dangerouslyUseHTMLString: true,
                                 message: obj.content,
                                 offset: 50
                             });
@@ -1166,19 +1203,27 @@ export default {
 
 
         },
+        closeSongBox() {
+            this.songBoxBottom = this.songBoxBottom === '100px' ? "-100%" : "100px";
+        },
         initLyric() {
-            // console.log(this.songId);
+
             if (this.playingMusic.id !== 0) {
+                // console.log(this.playingMusic.id);
                 request.get("/song/lyric/" + this.playingMusic.id).then(res => {
                     if (res.code === '0') {
                         this.lyricList = res.data;
-                        // console.log(res.data);
+                        console.log(res.data);
 
                     } else {
                         this.$message({
                             message: res.msg,
-                            type: 'error'
+                            type: 'error',
+                            duration: 500,
                         });
+                        this.lyricList = [{
+
+                        }]
                     }
 
                 })
@@ -1196,6 +1241,10 @@ export default {
             });
         },
         convertToSeconds(timeString) {
+            if (!/\d/.test(timeString)) {
+                return 0;
+
+            }
             const parts = timeString.split(':');
             let seconds = 0;
 
@@ -1212,38 +1261,73 @@ export default {
             return seconds;
         },
         updateLyrics(currentTime) {
-            // 更新当前歌词行
-            let currentLineIndex = 0;
-            while (
-                currentLineIndex < this.lyricList.length - 1 &&
-                this.convertToSeconds(this.lyricList[currentLineIndex + 1].time) <= currentTime
-            ) {
-                currentLineIndex++;
-                // console.log("+++");
+            if (this.lyricList.length !== 0) {
+                // 更新当前歌词行
+                let currentLineIndex = 0;
+                while (
+                    currentLineIndex < this.lyricList.length - 1 &&
+                    this.convertToSeconds(this.lyricList[currentLineIndex + 1].time) <= currentTime
+                ) {
+                    currentLineIndex++;
+                    // console.log("+++");
 
-            }
-            // console.log(currentLineIndex);
-            // console.log(this.lyricList[currentLineIndex].lyric);
-            this.currentLyric = this.lyricList[currentLineIndex].lyric;
+                }
+                // console.log(currentLineIndex);
+                // console.log(this.lyricList[currentLineIndex].lyric);
+                // console.log(this.lyricList);
 
-            this.currentLineIndex = currentLineIndex;
-            // 滚动歌词容器以确保当前行可见
-            const lineElement = this.$refs.lyricsContainer.children[currentLineIndex];
-            if (lineElement) {
-                // console.log("move");
+                this.currentLyric = this.lyricList[currentLineIndex].lyric;
 
-                const containerTop = this.$refs.lyricsContainer.scrollTop;
-                const lineTop = lineElement.offsetTop;
-                const containerHeight = this.$refs.lyricsContainer.clientHeight;
-                this.$refs.lyricsContainer.scrollTop = lineTop - containerHeight / 2;
-                if (lineTop < containerTop || lineTop > containerTop + containerHeight) {
+                this.currentLineIndex = currentLineIndex;
+                // 滚动歌词容器以确保当前行可见
+                const lineElement = this.$refs.lyricsContainer.children[currentLineIndex];
+                if (lineElement) {
+                    // console.log("move");
+
+                    const containerTop = this.$refs.lyricsContainer.scrollTop;
+                    const lineTop = lineElement.offsetTop;
+                    const containerHeight = this.$refs.lyricsContainer.clientHeight;
                     this.$refs.lyricsContainer.scrollTop = lineTop - containerHeight / 2;
+                    if (lineTop < containerTop || lineTop > containerTop + containerHeight) {
+                        this.$refs.lyricsContainer.scrollTop = lineTop - containerHeight / 2;
+                    }
                 }
             }
-
-
-
         },
+        toggleFullScreen() {
+            if (!document.fullscreenElement) {
+                // 判断当前文档是否已经是全屏
+                this.requestFullScreen(document.documentElement);
+                this.isFullScreen = true;
+            } else {
+                this.isFullScreen = false;
+                this.exitFullScreen();
+            }
+        },
+        requestFullScreen(element) {
+            // 请求全屏
+            if (element.requestFullscreen) {
+                element.requestFullscreen();
+            } else if (element.mozRequestFullScreen) { /* Firefox */
+                element.mozRequestFullScreen();
+            } else if (element.webkitRequestFullscreen) { /* Chrome, Safari & Opera */
+                element.webkitRequestFullscreen();
+            } else if (element.msRequestFullscreen) { /* IE/Edge */
+                element.msRequestFullscreen();
+            }
+        },
+        exitFullScreen() {
+            // 退出全屏
+            if (document.exitFullscreen) {
+                document.exitFullscreen();
+            } else if (document.mozCancelFullScreen) { /* Firefox */
+                document.mozCancelFullScreen();
+            } else if (document.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                document.webkitExitFullscreen();
+            } else if (document.msExitFullscreen) { /* IE/Edge */
+                document.msExitFullscreen();
+            }
+        }
     }
 }
 </script>
