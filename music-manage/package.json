@@ -13,7 +13,8 @@
     "echarts": "^5.5.1",
     "element-ui": "^2.15.14",
     "vue": "^2.6.14",
-    "vue-router": "^3.5.1"
+    "vue-router": "^3.5.1",
+    "wangeditor": "^4.7.15"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

@@ -7,6 +7,7 @@ public class Params {
     private String name;
     private String role;
     private String status;
+    private String sellStatus;
     private Integer pageNum;
     private Integer pageSize;
     private String username;
@@ -26,6 +27,11 @@ public class Params {
     private String radio;
 //    前端单选框选择的id
     private String radioId;
+
+//    商品的ID
+    private Integer productId;
+//    订单ID
+    private Integer orderId;
 
 //    修改密码
     private String oldPw;

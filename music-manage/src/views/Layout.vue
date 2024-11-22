@@ -132,15 +132,29 @@ export default {
                             <el-menu-item index="/comment" @click="handleClick($route)">评论管理</el-menu-item>
                             <el-menu-item index="/collect" @click="handleClick($route)">收藏管理</el-menu-item>
                             <el-menu-item index="/rankList" @click="handleClick($route)">评分管理</el-menu-item>
-
-                            <!-- <el-menu-item index="/audit">请假审核</el-menu-item>
-                            <el-menu-item index="/hotel">酒店预约</el-menu-item>
-                            <el-menu-item index="/reserve">预定信息</el-menu-item>
-                            <el-menu-item index="/log">日志管理</el-menu-item>
-                            <el-menu-item index="/notice" v-if="user.role === '0'">系统公告</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
                     <el-submenu index="5">
+                        <template slot="title">
+                            <svg t="1732173892429" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                xmlns="http://www.w3.org/2000/svg" p-id="4277"
+                                data-spm-anchor-id="a313x.search_index.0.i5.53db3a81cyrfU2" width="18" height="18">
+                                <path
+                                    d="M315.211 283.467v-56.681C315.211 101.496 403.336 0 512 0c108.664 0 196.789 101.557 196.789 226.786v56.621h-90.353v-56.621c0-78.005-50.718-136.433-106.436-136.433S405.564 148.78 405.564 226.786v56.621h-90.353z m90.353 0h-90.353v-56.681C315.211 101.496 403.336 0 512 0c108.664 0 196.789 101.557 196.789 226.786v56.621h-90.353v-56.621c0-78.005-50.718-136.433-106.436-136.433S405.564 148.78 405.564 226.786v56.621z"
+                                    p-id="4278" data-spm-anchor-id="a313x.search_index.0.i3.53db3a81cyrfU2" class=""
+                                    fill="#ffffff"></path>
+                                <path
+                                    d="M230.4 282.142l-66.259 585.97c-0.662 6.324 3.855 12.046 10.24 12.709l701.44 0.12a11.505 11.505 0 0 0 11.505-11.565l-77.101-587.415a11.505 11.505 0 0 0-11.445-9.999H241.845a11.505 11.505 0 0 0-11.445 10.24z m-89.75-10.12a101.858 101.858 0 0 1 101.195-90.413H798.78c51.14 0 94.329 37.888 101.015 88.546l77.04 585.97a101.858 101.858 0 0 1-101.014 115.17H175.646A101.858 101.858 0 0 1 74.451 857.93l66.198-585.908z m220.28 140.47c-48.37 0-87.341-39.334-87.341-87.703 0-48.309 38.972-87.643 87.34-87.643 48.31 0 87.342 39.334 87.342 87.643 0 48.369-39.032 87.702-87.341 87.702z m0-90.354c-1.807 0-3.012 1.265-3.012 2.65 0 1.386 1.205 2.711 3.012 2.711 1.747 0 3.012-1.325 3.012-2.71s-1.265-2.65-3.012-2.65z m302.863 90.353c-48.309 0-87.341-39.333-87.341-87.702 0-48.309 39.032-87.643 87.34-87.643 48.31 0 87.342 39.334 87.342 87.643 0 48.369-39.032 87.702-87.341 87.702z m0-90.353c-1.747 0-3.012 1.265-3.012 2.65 0 1.386 1.265 2.711 3.012 2.711 1.807 0 3.012-1.325 3.012-2.71s-1.205-2.65-3.012-2.65z"
+                                    p-id="4279" data-spm-anchor-id="a313x.search_index.0.i2.53db3a81cyrfU2" class=""
+                                    fill="#ffffff"></path>
+                            </svg><span style="margin-left: 10px;">商品管理</span>
+                        </template>
+                        <el-menu-item-group>
+                            <el-menu-item index="/product" @click="handleClick($route)">商品管理</el-menu-item>
+                            <el-menu-item index="/order" @click="handleClick($route)">订单管理</el-menu-item>
+                        </el-menu-item-group>
+                    </el-submenu>
+                    <el-submenu index="6">
                         <template slot="title">
                             <svg t="1731910968612" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="2348" width="18" height="18">

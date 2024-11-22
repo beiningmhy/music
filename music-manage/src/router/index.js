@@ -12,6 +12,8 @@ import Layout from '@/views/Layout.vue'
 import Log from '@/views/Log.vue'
 import Login from '@/views/Login.vue'
 import Notice from '@/views/Notice.vue'
+import Order from '@/views/Order.vue'
+import Product from '@/views/Product.vue'
 import RankList from '@/views/RankList.vue'
 import Register from '@/views/Register.vue'
 import Singer from '@/views/Singer.vue'
@@ -110,6 +112,16 @@ const routes = [
 				path: '/notice',
 				name: '公告管理',
 				component: Notice,
+			},
+			{
+				path: '/product',
+				name: '商品管理',
+				component: Product,
+			},
+			{
+				path: '/order',
+				name: '订单管理',
+				component: Order,
 			},
 			{
 				path:'/changePassword',

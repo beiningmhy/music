@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.mapper.OrderMapper">
+    <resultMap id="OrderRM" type="com.example.entity.Order">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="product_id" jdbcType="VARCHAR" property="productId"/>
+        <result column="num" jdbcType="VARCHAR" property="num"/>
+        <result column="price" jdbcType="DOUBLE" property="price"/>
+        <result column="create_time" jdbcType="VARCHAR" property="createTime"/>
+        <result column="status" jdbcType="VARCHAR" property="status"/>
+
+
+    </resultMap>
+
+    <select id="findBySearch" resultMap="OrderRM">
+        SELECT mo.*, mc.username as username, mp.name as productName,mp.url as url
+        FROM music_order mo
+        JOIN music_consumer mc ON mo.user_id = mc.id
+        JOIN music_product mp ON mo.product_id = mp.id
+        <where>
+            <if test="params != null and params.userId != null and params.userId != ''">
+                and mo.user_id like concat('%', #{ params.userId }, '%')
+            </if>
+            <if test="params != null and params.productId != null and params.productId != ''">
+                and mo.product_id like concat('%', #{ params.productId }, '%')
+            </if>
+            <if test="params != null and params.status != null and params.status != ''">
+                and mo.status = #{ params.status }
+            </if>
+
+            <if test="params != null and params.orderId != null and params.orderId != ''">
+                and mo.id like #{ params.orderId }
+            </if>
+
+        </where>
+    </select>
+
+    <select id="findByUserId" resultMap="OrderRM">
+        select music_consumer.username as username, music_consumer.id as user_id
+        from music_consumer
+        where id in (SELECT DISTINCT user_id
+        FROM music_order
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and user_id = #{id}
+            </if>
+        </where>
+        ORDER BY user_id ASC)
+    </select>
+    <select id="findByProductId" resultMap="OrderRM">
+        select music_product.name as productName, music_product.id as product_id
+        from music_product
+        where id in (SELECT DISTINCT product_id
+        FROM music_order
+        <where>
+            <if test="id != null and id != ''and id!=-1">
+                and product_id = #{id}
+            </if>
+        </where>
+        ORDER BY product_id ASC)
+    </select>
+
+
+</mapper>

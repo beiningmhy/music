@@ -4,6 +4,8 @@ import Comment from '@/views/Comment.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
+import Product from '@/views/Product.vue'
+import ProductDetails from '@/views/ProductDetails.vue'
 import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
 import Singer from '@/views/Singer.vue'
@@ -67,10 +69,21 @@ const routes = [
         path: '/comment',
         name: '用户评论页面',
         component: Comment,
-      },{
+      },
+      {
         path: '/collect',
         name: '用户收藏页面',
         component: Collect,
+      },
+      {
+        path: '/product',
+        name: '商城页面',
+        component: Product,
+      },
+      {
+        path: '/productDetails',
+        name: '商品详情页面',
+        component: ProductDetails,
       },
     ]
   },
