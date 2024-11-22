@@ -12,7 +12,8 @@
             <hr>
             <div>
                 <div class="product-main" style="width: 90%;margin: 0 auto;height: 55vh;overflow: auto;">
-                    <div class="product-content" style="width: 100%;height: 600px;display: flex;flex-wrap: wrap;">
+                    <div class="product-content"
+                        style="width: 100%;height: 55vh;max-height:660px;display: flex;flex-wrap: wrap;">
                         <div v-for="item in productList" :key="item.id" style="width:25%;height: 300px;padding: 20px;"
                             @click="goToDetail(item.id)">
                             <div
@@ -48,6 +49,18 @@
 
 
                                         </div>
+                                    </div>
+                                </div>
+                                <div v-if="item.sellStatus === '1'" style="position: absolute;top: 0;left: 0;right: 0;height: 30px;
+                                    border-radius: 10px ;backdrop-filter: blur(30px);">
+                                    <div style="text-align: center;color: red;font-size: 20px;">
+                                        不 可 售
+                                    </div>
+                                </div>
+                                <div v-else-if="item.amount<=0" style="position: absolute;top: 0;left: 0;right: 0;height: 30px;
+                                    border-radius: 10px ;backdrop-filter: blur(30px);">
+                                    <div style="text-align: center;color: red;font-size: 20px;">
+                                        已 售 罄
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +106,7 @@ export default {
                     // console.log(res);
                     this.productList = res.data.list;
                     this.total = res.data.total;
-                }else{
+                } else {
                     this.$message.error(res.msg);
                 }
             })

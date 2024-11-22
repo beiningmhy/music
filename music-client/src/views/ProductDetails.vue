@@ -5,10 +5,23 @@
         <div style="height: 74vh;width: 90%;margin: 0 auto;display: flex;">
             <div style="width: 300px;height: 100%;padding: 20px;display: flex;flex-direction: column;
                 border-right: 1px solid #ccc;">
-                <div style="width: 260px;height: 260px;background-color: bisque;border-radius: 20px ;">
+                <div
+                    style="width: 260px;height: 260px;background-color: bisque;border-radius: 20px ;position: relative;">
                     <el-image style="width: 100%; height: 100%; border-radius: 20px ;"
                         :src="'http://localhost:8080/api/files/' + product.url">
                     </el-image>
+                    <div v-if="product.sellStatus === '1'" style="position: absolute;top: 0;left: 0;right: 0;height: 30px;
+                                    border-radius: 10px ;backdrop-filter: blur(30px);">
+                        <div style="text-align: center;color: red;font-size: 20px;">
+                            不 可 售
+                        </div>
+                    </div>
+                    <div v-else-if="product.amount <= 0" style="position: absolute;top: 0;left: 0;right: 0;height: 30px;
+                                    border-radius: 10px ;backdrop-filter: blur(30px);">
+                        <div style="text-align: center;color: red;font-size: 20px;">
+                            已 售 罄
+                        </div>
+                    </div>
                 </div>
                 <div>
                     <div style="margin-top: 10px;font-size: 20px;font-weight: 600;">{{ product.name }}</div>
@@ -23,7 +36,9 @@
                     <div style="margin-top: 10px;">总价:{{ num * product.price }}</div>
                 </div>
                 <div style="margin-left: 150px;">
-                    <el-button type="primary" @click="buy()">立即购买</el-button>
+                    <!-- {{ product.sellStatus=='0' }} -->
+                    <el-button :disabled="product.sellStatus == '0' ? false : true" type="primary"
+                        @click="buy()">立即购买</el-button>
                 </div>
             </div>
             <div style="position: relative;flex: 1;">
@@ -79,7 +94,7 @@ export default {
             })
         },
         initOrder() {
-            if(!this.user){
+            if (!this.user) {
                 return;
             }
             let p = {
@@ -89,13 +104,13 @@ export default {
                 pageSize: 1,
                 status: '0',
             };
-            
-            
+
+
             request.get('/order/search', {
                 params: p,
             }).then(res => {
                 if (res.code === '0') {
-                    console.log(res);
+                    // console.log(res);
                     if (res.data.total !== 0) {
                         this.isBuy = true;
                     }
@@ -105,7 +120,7 @@ export default {
             })
         },
         buy() {
-            if(!this.user){
+            if (!this.user) {
                 this.$message.error('请先登录');
                 return;
             }

@@ -113,11 +113,11 @@
                             <el-input v-model="form.price" autocomplete="off" style="width: 90%"></el-input>
                         </el-form-item>
                         <el-form-item label="商品数量" label-width="20%" aria-required="true">
-                            <el-input-number v-model="form.amount" :min="1" :max="1000000"
+                            <el-input-number v-model="form.amount" :min="0" :max="1000000"
                                 style="width: 90%"></el-input-number>
                         </el-form-item>
                         <el-form-item label="商品最大购买数量" label-width="20%" aria-required="true">
-                            <el-input-number v-model="form.max" :min="1" :max="1000000"
+                            <el-input-number v-model="form.max" :min="0" :max="1000000"
                                 style="width: 90%"></el-input-number>
                         </el-form-item>
                         <el-form-item label="出售时间" label-width="20%" aria-required="true">

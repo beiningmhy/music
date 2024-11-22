@@ -124,6 +124,71 @@
                             </div>
                         </div>
                     </el-tab-pane>
+                    <el-tab-pane label="创作者中心" name="third">
+                        <div style="max-height: 350px;width: 90%;overflow-y: auto;height: 350px;">
+                            <div class="container">
+                                <h1>音乐网站用户守则须知</h1>
+                                <div class="section">
+                                    <h2>引言</h2>
+                                    <p>在数字化时代，音乐网站成为了音乐爱好者和创作者的重要聚集地。它们不仅为听众提供了一个便捷的音乐获取渠道，也为音乐创作者提供了展示才华的平台。然而，为了维护一个健康、有序的网络环境，确保所有用户的权益得到保护，音乐网站制定了一系列的用户守则。本守则旨在为那些希望从普通用户转变为歌手歌曲上传者的音乐爱好者提供详尽的指导和须知。
+                                    </p>
+                                </div>
+                                <div class="section">
+                                    <h2>转变成歌手歌曲上传者之前的须知</h2>
+                                    <ol>
+                                        <li><strong>了解平台政策：</strong>在决定成为歌曲上传者之前，用户首先需要对音乐网站的服务条款、版权政策、社区指南和上传指南有一个全面的了解。
+                                        </li>
+                                        <li><strong>注册和验证：</strong>用户需要在音乐网站上注册一个账号，并根据网站的要求提供必要的个人信息。</li>
+                                        <!-- 其他须知项 -->
+                                    </ol>
+                                </div>
+                                <div class="section">
+                                    <h2>成为歌曲上传者之后的守则</h2>
+                                    <ol>
+                                        <li><strong>持续遵守平台政策：</strong>成为上传者后，用户应持续关注并遵守音乐网站的政策更新。</li>
+                                        <li><strong>版权声明：</strong>用户在上传音乐作品时，应明确声明作品的版权归属。</li>
+                                        <!-- 其他守则项 -->
+                                    </ol>
+                                </div>
+                                <div class="section">
+                                    <h2>版权和法律问题</h2>
+                                    <ol>
+                                        <li><strong>版权教育：</strong>音乐网站应提供版权教育资源，帮助用户了解版权的基本概念。</li>
+                                        <li><strong>版权检测技术：</strong>音乐网站应使用先进的版权检测技术，如音频指纹技术。</li>
+                                        <!-- 其他法律问题项 -->
+                                    </ol>
+                                </div>
+                                <div class="section">
+                                    <h2>社区建设和用户关系</h2>
+                                    <ol>
+                                        <li><strong>社区活动：</strong>音乐网站应定期举办社区活动，如在线音乐会、音乐比赛等。</li>
+                                        <li><strong>用户支持：</strong>音乐网站应提供用户支持服务，帮助用户解决在上传和推广过程中遇到的问题。</li>
+                                        <!-- 其他社区和用户关系项 -->
+                                    </ol>
+                                </div>
+                                <div class="section">
+                                    <h2>技术和创新</h2>
+                                    <ol>
+                                        <li><strong>技术支持：</strong>音乐网站应提供技术支持，帮助用户解决在音乐制作和上传过程中遇到的技术问题。</li>
+                                        <li><strong>创新工具：</strong>音乐网站可以开发创新工具，如在线音乐制作软件、音频编辑工具等。</li>
+                                        <!-- 其他技术和创新项 -->
+                                    </ol>
+                                </div>
+                                <div class="section">
+                                    <h2>结语</h2>
+                                    <p>音乐网站不仅是一个音乐分享的平台，更是一个音乐创作和交流的社区。通过遵守上述守则，用户可以确保自己的权益得到保护，同时也为整个社区的繁荣做出贡献。让我们共同努力，创造一个健康、积极、充满创意的音乐环境。
+                                    </p>
+                                </div>
+                            </div>
+                            <div style="text-align: center;">
+                                <el-checkbox v-model="read">我以阅读并同意以上内容</el-checkbox>
+                            </div>
+                            <div style="text-align: center;">
+                                <el-button type="success" @click="next" :disabled="!read">下一步</el-button>
+                            </div>
+                            
+                        </div>
+                    </el-tab-pane>
                 </el-tabs>
             </div>
         </div>
@@ -149,6 +214,7 @@ export default {
                 userId: ''
 
             },
+            read:false,
         }
     },
     created() {
@@ -263,27 +329,77 @@ export default {
         },
         uploadAvatar(res) {
             // console.log(res);
-            this.user.avatar=res.data;
+            this.user.avatar = res.data;
             localStorage.setItem("user", JSON.stringify(this.user));
-            request.post('/consumer',this.user).then(res=>{
-                if(res.code==='0'){
+            request.post('/consumer', this.user).then(res => {
+                if (res.code === '0') {
                     this.$message({
                         message: '上传成功',
                         type: 'success'
                     });
                     window.location.reload();
-                }else{
+                } else {
                     this.$message({
                         message: res.msg,
                         type: 'error'
                     });
                 }
             })
-            
 
-        }
+
+        },
+        next(){
+            this.$message({
+                message: '功能尚未开放，敬请期待',
+                type: 'warning'
+            })
+        },
     }
 
 
 }
 </script>
+<style scoped>
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1,
+h2,
+h3 {
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+}
+
+.section {
+    margin-bottom: 20px;
+}
+
+.section:last-child {
+    margin-bottom: 0;
+}
+
+p {
+    margin-bottom: 15px;
+}
+
+ul {
+    padding-left: 20px;
+}
+
+ul li {
+    margin-bottom: 10px;
+}
+
+ul li:last-child {
+    margin-bottom: 0;
+}
+</style>

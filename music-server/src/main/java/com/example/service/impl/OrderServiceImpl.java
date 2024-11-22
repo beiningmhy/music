@@ -44,6 +44,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public void add(Order order) {
         String time = DateUtil.now();
+
         if (order.getPrice() == null) {
             throw new CustomException("商品价格不能为空");
         } else if (order.getPrice() <= 0) {
@@ -59,6 +60,9 @@ public class OrderServiceImpl implements OrderService {
 //        System.out.println( DateUtil.parse(time, "yyyy-MM-dd HH:mm:ss"));
         if(DateUtil.parse(product.getSellTime(), "yyyy-MM-dd HH:mm:ss").after(DateUtil.parse(time, "yyyy-MM-dd HH:mm:ss"))){
             throw new CustomException("商品还未到购买时间");
+        }
+        if(product.getSellStatus().equals("1")){
+            throw new CustomException("商品不可售");
         }
         if ( order.getNum() > product.getAmount()) {
             throw new CustomException("商品库存不足");
