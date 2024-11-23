@@ -136,6 +136,23 @@
                                         </div>
                                     </div>
                                     <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;"
+                                        class="menu-item" @click="clickTag('/order')">
+                                        <div style="height: 40px;margin-top: 5px;">
+                                            <svg t="1732343445949" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                                xmlns="http://www.w3.org/2000/svg" p-id="3384" width="30" height="30">
+                                                <path
+                                                    d="M834 192h-66v-2c0-51.9-42.1-94-94-94-1.1 0-2-0.9-2-2 0-51.9-42.1-94-94-94H446c-51.9 0-94 42.1-94 94 0 1.1-0.9 2-2 2-51.9 0-94 42.1-94 94v2h-66c-51.9 0-94 42.1-94 94v644c0 51.9 42.1 94 94 94h644c51.9 0 94-42.1 94-94V286c0-51.9-42.1-94-94-94z m-518 0v-2c0-18.8 15.2-34 34-34h32c16.6 0 30-13.4 30-30V94c0-18.8 15.2-34 34-34h132c18.8 0 34 15.2 34 34v32c0 16.6 13.4 30 30 30h32c18.8 0 34 15.2 34 34v4c0 18.8-15.2 34-34 34H350c-18.8 0-34-15.2-34-34v-2z m552 738c0 18.8-15.2 34-34 34H190c-18.8 0-34-15.2-34-34V286c0-18.8 15.2-34 34-34h79.1c4.3 0 8.3 1.8 11.1 5 9.7 10.8 21.9 19.3 35.7 24.7 10.5 4.1 22 6.4 34 6.4h324c12 0 23.5-2.3 34-6.4 13.8-5.4 26-13.9 35.7-24.7 2.9-3.2 6.9-5 11.1-5H834c18.8 0 34 15.2 34 34v644z"
+                                                    fill="" p-id="3385"></path>
+                                                <path
+                                                    d="M738 606H286c-16.5 0-30 13.5-30 30s13.5 30 30 30h452c16.5 0 30-13.5 30-30s-13.5-30-30-30zM738 794H286c-16.5 0-30 13.5-30 30s13.5 30 30 30h452c16.5 0 30-13.5 30-30s-13.5-30-30-30zM738 418H286c-16.5 0-30 13.5-30 30s13.5 30 30 30h452c16.5 0 30-13.5 30-30s-13.5-30-30-30z"
+                                                    fill="" p-id="3386"></path>
+                                            </svg>
+                                        </div>
+                                        <div style="margin-left: 10px;">
+                                            <span>订单</span>
+                                        </div>
+                                    </div>
+                                    <!-- <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;"
                                         class="menu-item" @click="clickTag('/comment')">
                                         <div style="height: 40px;margin-top: 5px;">
                                             <svg t="1731413463028" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -151,24 +168,7 @@
                                         <div style="margin-left: 10px;">
                                             <span>评论</span>
                                         </div>
-                                    </div>
-                                    <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;"
-                                        class="menu-item" @click="clickTag('/comment')">
-                                        <div style="height: 40px;margin-top: 5px;">
-                                            <svg t="1731413463028" class="icon" viewBox="0 0 1024 1024" version="1.1"
-                                                xmlns="http://www.w3.org/2000/svg" p-id="3267" width="30" height="30">
-                                                <path
-                                                    d="M896 128H128a32 32 0 0 0-32 32v576a32 32 0 0 0 32 32h288v-64H160V192h704v512h-256c-8.832 0-16.832 3.584-22.656 9.376l-159.968 160 45.248 45.248L621.248 768H896a32 32 0 0 0 32-32V160a32 32 0 0 0-32-32"
-                                                    fill="#181818" p-id="3268"></path>
-                                                <path
-                                                    d="M560 448a48 48 0 1 0-95.968-0.032A48 48 0 0 0 560 448M240 448a48 48 0 1 0 95.968 0.032A48 48 0 0 0 240 448M784 448a48 48 0 1 0-95.968-0.032A48 48 0 0 0 784 448"
-                                                    fill="#181818" p-id="3269"></path>
-                                            </svg>
-                                        </div>
-                                        <div style="margin-left: 10px;">
-                                            <span>评论</span>
-                                        </div>
-                                    </div>
+                                    </div> -->
                                     <div style="height: 40px;line-height: 40px;display: flex;margin-top: 5px;"
                                         class="menu-item" @click="logout">
                                         <div style="height: 40px;margin-top: 5px;">

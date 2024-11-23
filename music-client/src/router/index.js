@@ -4,6 +4,7 @@ import Comment from '@/views/Comment.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
+import Order from '@/views/Order.vue'
 import Product from '@/views/Product.vue'
 import ProductDetails from '@/views/ProductDetails.vue'
 import Register from '@/views/Register.vue'
@@ -84,6 +85,11 @@ const routes = [
         path: '/productDetails',
         name: '商品详情页面',
         component: ProductDetails,
+      },
+      {
+        path: '/order',
+        name: '订单页面',
+        component: Order,
       },
     ]
   },

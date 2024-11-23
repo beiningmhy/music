@@ -69,6 +69,14 @@ public class OrderController {
         return Result.success(orderService.findByProductId(id));
     }
 
+    @PostMapping("/status/{id}")
+    public Result updateStatus(@PathVariable Integer id){
+        Order order=orderService.findByById(id);
+        order.setStatus("1");
+        orderService.update(order);
+        return Result.success();
+    }
+
 
 
 

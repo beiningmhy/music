@@ -55,7 +55,7 @@
         FROM music_order
         <where>
             <if test="id != null and id != ''and id!=-1">
-                and product_id = #{id}
+                and user_id = #{id}
             </if>
         </where>
         ORDER BY product_id ASC)
