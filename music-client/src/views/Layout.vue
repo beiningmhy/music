@@ -440,11 +440,22 @@
                 <h1 style="margin: 0 30%;">播放列表</h1>
             </div>
             <div style="height: 75vh;width: 80%;margin: 0 auto;margin-top: 30px;">
-                <div style="height: 30px;width: 100%;">
-                    <div class="clear" @click="clearList">
-                        清空列表
+                <div style="display: flex;">
+                    <div style="height: 50px;width: 40%;">
+                        <div class="total" >
+                            共：{{ musicList.length }}首
+                        </div>
+                    </div>
+                    <div style="width: 30%;">
+
+                    </div>
+                    <div style="height: 50px;width: 40%;">
+                        <div class="clear" @click="clearList">
+                            清空列表
+                        </div>
                     </div>
                 </div>
+
                 <div
                     style="max-height: 90%;overflow-y: auto;scrollbar-width: none;-ms-overflow-style: none;overflow: -moz-scrollbars-none;">
                     <div v-for="item in musicList" :key="item.id"
@@ -1475,7 +1486,13 @@ export default {
     /* filter: blur(1px); */
     backdrop-filter: blur(10px);
 }
-
+.total{
+    float: left;
+    height: 30px;
+    padding: 0 10px;
+    line-height: 30px;
+    margin-left: 10px;
+}
 .clear {
     /* width: 80px; */
     float: right;
@@ -1485,7 +1502,8 @@ export default {
     margin-right: 10px;
 }
 
-.clear:hover {
+.clear:hover,
+.total:hover {
     background-color: rgb(206, 206, 206);
     border-radius: 10px;
 }

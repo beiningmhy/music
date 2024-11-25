@@ -21,7 +21,6 @@ public class Collect {
     private Integer songId;
     @Column(name = "song_list_id")
     private Integer songListId;
-
     @Column(name = "create_time")
     private String createTime;
 

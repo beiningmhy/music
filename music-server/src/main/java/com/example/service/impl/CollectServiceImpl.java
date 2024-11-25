@@ -11,7 +11,8 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class CollectServiceImpl implements CollectService {
@@ -83,6 +84,111 @@ public class CollectServiceImpl implements CollectService {
     @Override
     public Collect findById(Integer id) {
         return collectMapper.selectByPrimaryKey(id);
+    }
+
+
+    //    @Override
+//    public List<Integer> getRecommendations(Long userId) {
+//        List<Collect> userCollects = collectMapper.findByUserId(userId);
+//        Map<Long, Integer> similarityScores = new HashMap<>();
+//
+//        for (Collect collect : userCollects) {
+//            for (Collect otherCollect : collectMapper.selectAll()) {
+//                if (!collect.getUserId().equals(otherCollect.getUserId()) &&
+//                        collect.getSongId() != null && collect.getSongId().equals(otherCollect.getSongId())) {
+//                    Long otherUserId = Long.valueOf(otherCollect.getUserId());
+//                    similarityScores.merge(otherUserId, 1, Integer::sum);
+//                }
+//            }
+//        }
+//
+//        // Sort users by similarity score
+//        List<Map.Entry<Long, Integer>> sortedUsers = similarityScores.entrySet().stream()
+//                .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())
+//                .collect(Collectors.toList());
+//
+//        // Get top N similar users
+//        List<Long> topNSimilarUsers = sortedUsers.stream()
+//                .limit(10) // Adjust the number based on your needs
+//                .map(Map.Entry::getKey)
+//                .collect(Collectors.toList());
+//
+//        // Get recommended songs from similar users
+//        List<Integer> recommendedSongs = topNSimilarUsers.stream()
+//                .flatMap(user -> collectMapper.findByUserId(user).stream()
+//                        .filter(collect -> collect.getSongId() != null)
+//                        .map(Collect::getSongId))
+//                .distinct()
+//                .collect(Collectors.toList());
+//
+//        return recommendedSongs;
+//    }
+    @Override
+    public List<Integer> getRecommendations(Long userId) {
+        if (userId == null) {
+            throw new IllegalArgumentException("User ID cannot be null");
+        }
+
+        List<Collect> userCollects = collectMapper.findByUserId(userId);
+        if (userCollects == null || userCollects.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        Map<Long, Integer> similarityScores = new HashMap<>();
+
+        for (Collect collect : userCollects) {
+//            System.out.println("collect: " + collect);
+            if (collect.getSongId() == null) {
+                continue;
+            }
+
+            for (Collect otherCollect : collectMapper.selectAll()) {
+//                System.out.println("otherCollect: " + otherCollect);
+                if (otherCollect == null || otherCollect.getSongId() == null) {
+                    continue;
+                }
+
+                if (!collect.getUserId().equals(otherCollect.getUserId()) &&
+                        collect.getSongId().equals(otherCollect.getSongId())) {
+                    Long otherUserId = Long.valueOf(otherCollect.getUserId());
+//                    System.out.println("otherUserId12121: " + otherUserId);
+                    similarityScores.merge(otherUserId, 1, Integer::sum);
+                }
+            }
+        }
+
+//        // Sort users by similarity score
+//        List<Map.Entry<Long, Integer>> sortedUsers = similarityScores.entrySet().stream()
+//                .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())
+//                .collect(Collectors.toList());
+//
+//        // Extract the user IDs from the sorted list
+//        List<Integer> recommendedUserIds = new ArrayList<>();
+//        for (Map.Entry<Long, Integer> entry : sortedUsers) {
+//            recommendedUserIds.add(entry.getKey().intValue());
+//        }
+
+
+        // Sort users by similarity score
+        List<Map.Entry<Long, Integer>> sortedUsers = similarityScores.entrySet().stream()
+                .sorted(Map.Entry.<Long, Integer>comparingByValue().reversed())
+                .collect(Collectors.toList());
+
+        // Get top N similar users
+        List<Long> topNSimilarUsers = sortedUsers.stream()
+                .limit(10) // Adjust the number based on your needs
+                .map(Map.Entry::getKey)
+                .collect(Collectors.toList());
+
+        // Get recommended songs from similar users
+        List<Integer> recommendedSongs = topNSimilarUsers.stream()
+                .flatMap(user -> collectMapper.findByUserId(user).stream()
+                        .filter(collect -> collect.getSongId() != null)
+                        .map(Collect::getSongId))
+                .distinct()
+                .collect(Collectors.toList());
+
+        return recommendedSongs;
     }
 
 

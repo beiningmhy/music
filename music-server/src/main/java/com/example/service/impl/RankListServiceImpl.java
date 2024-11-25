@@ -37,8 +37,11 @@ public class RankListServiceImpl implements RankListService {
 //        System.out.println(rankList.toString());
         RankList rankList1 = rankListMapper.findBySongListIdAndConsumerId(rankList.getSongListId(), rankList.getConsumerId());
         if (rankList1 != null) {
-            throw new CustomException("已经对此歌单评分");
+//            throw new CustomException("已经对此歌单评分");
+            rankList1.setScore(rankList.getScore());
+            rankListMapper.updateByPrimaryKeySelective(rankList1);
         }
+
         rankListMapper.insertSelective(rankList);
 
     }

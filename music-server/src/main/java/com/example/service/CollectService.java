@@ -25,6 +25,8 @@ public interface CollectService {
     Collect findById(Integer id);
 
 
+    List<Integer> getRecommendations(Long userId);
+
 
 
 

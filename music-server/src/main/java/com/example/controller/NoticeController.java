@@ -8,6 +8,7 @@ import com.example.entity.Notice;
 import com.example.entity.Params;
 import com.example.service.NoticeService;
 import com.github.pagehelper.PageInfo;
+import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import java.util.List;
 @CrossOrigin
 @RestController
 @RequestMapping("/notice")
+@Api(tags = "公告管理")
 public class NoticeController {
 
     @Resource

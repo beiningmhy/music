@@ -3,6 +3,7 @@ package com.example.mapper;
 import com.example.entity.Collect;
 import com.example.entity.Params;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.ResultMap;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 import tk.mybatis.mapper.common.Mapper;
@@ -27,5 +28,7 @@ public interface CollectMapper extends Mapper<Collect> {
     Collect finBySongId(@Param("id") Integer id,@Param("userId")Integer userId);
     @Select("select * from music_collect where song_list_id=#{id} and user_id=#{userId} limit 1")
     Collect finBySongListId(@Param("id") Integer id,@Param("userId")Integer userId);
-
+    @Select("select * from music_collect where user_id=#{userId}")
+    @ResultMap("CollectRM")
+    List<Collect> findByUserId(@Param("userId")Long userId);
 }

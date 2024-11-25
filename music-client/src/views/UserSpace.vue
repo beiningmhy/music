@@ -349,10 +349,11 @@ export default {
 
         },
         next(){
-            this.$message({
-                message: '功能尚未开放，敬请期待',
-                type: 'warning'
-            })
+            // this.$message({
+            //     message: '功能尚未开放，敬请期待',
+            //     type: 'warning'
+            // })
+            this.$router.push('/agreement');
         },
     }
 

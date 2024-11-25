@@ -4,7 +4,7 @@
         <div ref="draggableButton" class="draggable-button" @mousedown="startDrag">
             <el-backtop target=".main" :visibility-height="10" :bottom="120"></el-backtop>
         </div>
-        
+
 
         <!-- 轮播图 -->
         <div>
@@ -17,22 +17,43 @@
             </el-carousel>
         </div>
         <hr>
-
-        <div>
-            <h1 style="font-size:25px;">TOP10歌曲 ></h1>
-            <div style="display: flex;flex-wrap: wrap;">
-                <div v-for="item in song" :key="item.id" :label="item.pic" :value="item.id" @click="goSong(item)"
-                    style="flex-direction: row; margin-left: 20px;margin-bottom: 20px;overflow: hidden;width: 100px;height: 150px;">
-                    <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
-                        :src="'http://localhost:8080/api/files/' + item.pic">
-                    </el-image>
-                    <div style="text-align: center;">
-                        <span style="font-size: small;">{{ item.name }}</span>
+        <div style="display: flex;">
+            <div style="width: 50%;border-right: 2px solid #ccc;">
+                <h1 style="font-size:25px;">TOP10歌曲 ></h1>
+                <div style="display: flex;flex-wrap: wrap;">
+                    <div v-for="item in song" :key="item.id" :label="item.pic" :value="item.id" @click="goSong(item)"
+                        style="flex-direction: row; margin-left: 10px;margin-bottom: 10px;overflow: hidden;width: 100px;height: 150px;">
+                        <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
+                            :src="'http://localhost:8080/api/files/' + item.pic">
+                        </el-image>
+                        <div style="text-align: center;">
+                            <span style="font-size: small;">{{ item.name }}</span>
+                        </div>
                     </div>
-                </div>
 
+                </div>
+            </div>
+            <div style="width: 50%;">
+                <el-tooltip class="item" effect="dark" content="推荐列表根据当前用户收藏进行实时计算，如果收藏较少，推荐可能不准" placement="right">
+                    <h1 style="font-size:25px;width: 150px;text-decoration: underline dashed ;">推荐歌曲 ></h1>
+                </el-tooltip>
+                
+                <div style="display: flex;flex-wrap: wrap;">
+                    <div v-for="item in songRecommendations" :key="item.id" :label="item.pic" :value="item.id" @click="goSong(item)"
+                        style="flex-direction: row; margin-left: 10px;margin-bottom: 10px;overflow: hidden;width: 100px;height: 150px;">
+                        <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
+                            :src="'http://localhost:8080/api/files/' + item.pic">
+                        </el-image>
+                        <div style="text-align: center;">
+                            <span style="font-size: small;">{{ item.name }}</span>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
+
+
         <!-- 歌手 -->
         <hr>
         <div>
@@ -107,6 +128,8 @@ export default {
             windowWidth: 0,
             windowHeight: 0,
             song: [],
+            user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
+            songRecommendations:[],
 
 
         }
@@ -146,8 +169,22 @@ export default {
                 }
             })
         },
+        async initSongRecommendations() {
+            await request.get("/song/recommendations/" + this.user.id).then(res => {
+                if (res.code === '0') {
+                    console.log(res);
+                    this.songRecommendations = JSON.parse(JSON.stringify(res.data));
+
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+        },
         async loadSinger() {
-            
+
             await request.get("/singer/search", {
                 params: this.params1
 
@@ -299,13 +336,14 @@ export default {
             // button.style.transform = `translate(${this.currentX}px, ${this.currentY}px)`;
 
         },
-        
+
     },
     created() {
         this.loadSinger();
         this.loadSongList();
         this.loadSwiper();
         this.initTopSong();
+        this.initSongRecommendations();
         // this.handleResize();
     }
 }

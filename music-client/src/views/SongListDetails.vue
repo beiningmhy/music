@@ -87,7 +87,7 @@
                                     </div>
                                     <span style="margin-left: 10px;">添加至收藏</span>
                                 </div>
-                                <div class="play-btn" @click="markDialog = true"
+                                <div class="play-btn" @click="initMark()"
                                     style="display:flex;height: 30px;width: 100px;padding-top: 5px;padding-left: 20px;margin-left: 10px;">
                                     <div>
                                         <svg t="1731554882465" class="icon" viewBox="0 0 1024 1024" version="1.1"
@@ -134,7 +134,8 @@
                                 </div>
                                 <div style="text-align: center;display: inline-block;height: 30px;line-height: 30px;"
                                     @click="songClick(scope.row)">
-                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;" class="music-name">
+                                    <span style="margin-left: 10px;font-weight: 600;font-size: 15px;"
+                                        class="music-name">
                                         {{ scope.row.name }}</span>
                                 </div>
                             </div>
@@ -788,7 +789,7 @@ export default {
                 // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
                 localStorage.setItem("musicList", JSON.stringify(musicList));
             }
-        }, 
+        },
         // 跳转到歌曲详情页
         clickMusicName(item) {
             // console.log(item);
@@ -906,14 +907,39 @@ export default {
                 }
             })
         },
+        initMark() {
+            let r = {
+                songListId: this.songListId,
+                consumerId: this.user.id,
+                pageNum: 1,
+                pageSize: 1,
+            }
+            request.get("/rankList/search", {
+                params: r
+            }).then(res => {
+                if (res.code === '0') {
+                    // console.log(res);
+
+                    this.mark = res.data.list[0].score;
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
+            // this.mark=5;
+            this.markDialog = true;
+        },
         submitMark() {
             let m = {
                 songListId: this.songListId,
                 consumerId: this.user.id,
-                score: this.mark
+                score: this.mark,
+                
             }
             // console.log(m);
-            
+
             request.post("/rankList", m).then(res => {
                 // console.log(res);
 
@@ -930,7 +956,7 @@ export default {
                     });
                 }
             })
-            this.markDialog=false;
+            this.markDialog = false;
         },
     },
 
@@ -1014,6 +1040,7 @@ textarea:focus::placeholder {
     background-color: rgb(206, 206, 206);
     border-radius: 10px;
 }
+
 .music-name:hover,
 .singer-name:hover {
     color: #d392f8;

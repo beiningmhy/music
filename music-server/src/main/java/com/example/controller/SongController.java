@@ -11,6 +11,7 @@ import com.example.entity.Params;
 import com.example.entity.Singer;
 import com.example.entity.Song;
 import com.example.exception.CustomException;
+import com.example.service.CollectService;
 import com.example.service.SingerService;
 import com.example.service.SongService;
 import com.github.pagehelper.PageInfo;
@@ -40,6 +41,8 @@ public class SongController {
     private SongService songService;
     @Resource
     private SingerService singerService;
+    @Resource
+    private CollectService collectService;
 
 
     @PostMapping
@@ -263,5 +266,49 @@ public class SongController {
         songService.update(byId);
         return Result.success();
 
+    }
+
+    @GetMapping("/recommendations/{userId}")
+    public Result getRecommendations(@PathVariable Long userId) {
+        List<Integer> list = collectService.getRecommendations(userId);
+        List<Song> songs = new ArrayList<>();
+        for(Integer integer:list){
+//            System.out.println(integer);
+            Params params = new Params();
+            params.setPageNum(1);
+            params.setPageSize(1);
+            params.setStatus("0");
+            params.setSongId(integer);
+            PageInfo<Song> tmp = songService.findBySearch(params);
+//            System.out.println(tmp.getList().get(0));
+            songs.add(tmp.getList().get(0));
+//            System.out.println(tmp.getList().get(0));
+        }
+        if(songs.size()<10){
+
+            Params params = new Params();
+            params.setPageNum(1);
+            params.setPageSize(1);
+            params.setStatus("0");
+            PageInfo<Song> tmp = songService.findBySearch(params);
+            params.setPageSize((int) tmp.getTotal());
+            PageInfo<Song> search = songService.findBySearch(params);
+            List<Song> list1 = search.getList();
+            // 使用stream流获取点击量最高的10个Singer
+            List<Song> topSongs = list1.stream()
+                    .sorted(Comparator.comparingInt(Song::getClicks).reversed()) // 根据点击量降序排序
+                    .limit(Long.parseLong(String.valueOf(10))) // 限制结果为10个
+                    .collect(Collectors.toList()); // 收集结果到List
+            for (Song song:topSongs){
+               if(!songs.contains(song)){
+                   songs.add(song);
+               }
+               if(songs.size()==10){
+                   break;
+               }
+            }
+        }
+
+        return Result.success(songs);
     }
 }

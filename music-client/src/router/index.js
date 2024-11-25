@@ -1,4 +1,5 @@
 import request from '@/utils/request'
+import Agreement from '@/views/Agreement.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Index from '@/views/Index.vue'
@@ -90,6 +91,11 @@ const routes = [
         path: '/order',
         name: '订单页面',
         component: Order,
+      },
+      {
+        path: '/agreement',
+        name: '协议页面',
+        component: Agreement,
       },
     ]
   },
