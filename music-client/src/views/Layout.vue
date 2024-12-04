@@ -24,6 +24,8 @@
                                 </el-image>
 
                             </div>
+                            <img v-else-if="user != '' && user.avatar == null" style="width: 100%; height: 100%; border-radius: 10%;"
+                                src="@/assets/images/logo1.png" alt=""  @click="clickTag('/space')">
 
                             <!-- <el-image v-else style="width: 100px; height: 100px; border-radius: 10%;margin-top: 10px;"
                             src="../assets/images/logo1.png"
@@ -33,7 +35,7 @@
                                 src="@/assets/images/logo1.png" alt="" @click="login()">
                         </div>
                         <div>
-                            <div v-if="user != ''" style="margin-top: 10px;">{{ user.username }}</div>
+                            <div v-if="user != ''" style="margin-top: 10px;"  @click="clickTag('/space')">{{ user.username }}</div>
                             <div v-else style="margin-top: 10px;" @click="login()">点击登录</div>
                         </div>
                     </div>
@@ -238,6 +240,7 @@
                 <el-main @click="songListRight = -350">
                     <!-- <el-backtop target=".main" :visibility-height="10"></el-backtop> -->
                     <router-view class="main"></router-view>
+                    <!-- <Footer></footer> -->
                 </el-main>
             </el-container>
         </el-container>
@@ -250,7 +253,7 @@
         <div class="footer" :style="`position: absolute;bottom:${footerBottom}px;transition: bottom 1s ease-in;`">
             <div style="display: flex;height: 80px;width: 90%;margin: 10px auto;">
                 <div style="width: 20%;height: 100%;display: flex;">
-                    <div style="background-color: cadetblue;width: 80px;border-radius: 10px;height: 100%;position: relative; display: inline-block;"
+                    <div style="width: 80px;border-radius: 10px;height: 100%;position: relative; display: inline-block;"
                         @mouseover="isOpenSongBox = true" @mouseleave="isOpenSongBox = false">
                         <!-- 歌曲图片 -->
                         <el-image style="width: 80px; height: 80px; border-radius: 10%;"
@@ -442,7 +445,7 @@
             <div style="height: 75vh;width: 80%;margin: 0 auto;margin-top: 30px;">
                 <div style="display: flex;">
                     <div style="height: 50px;width: 40%;">
-                        <div class="total" >
+                        <div class="total">
                             共：{{ musicList.length }}首
                         </div>
                     </div>
@@ -602,16 +605,16 @@
                     </div>
                     <div>
                         <div style="margin-left: 50px;height: 80%;margin-top:5%;display: flex;flex-direction: column;">
-                            <div style="font-size: 28px;font-weight: bolder;height: 50px;overflow: hidden;line-height: 50px;"
+                            <div style="font-size: 28px;font-weight: bolder;height: 50px;overflow: hidden;line-height: 50px;text-shadow: 1px 1px 2px #000000;color: #fff;"
                                 @click="clickMusicName(playingMusic)" class="music-name">
                                 {{ playingMusic.name }}
                             </div>
-                            <div style="margin-top: 15px;height: 30px;overflow: hidden;font-size: 20px;"
+                            <div style="margin-top: 15px;height: 30px;overflow: hidden;font-size: 20px;text-shadow: 1px 1px 2px #000000;color: #fff;"
                                 @click="clickSingerName(playingMusic)" class="singer-name">
                                 {{ playingMusic.singerName }}
                             </div>
                             <div
-                                style="margin-top: 25px;height: 30px;overflow: hidden;font-size: 20px;line-height: 30px;color:  #d392f8;">
+                                style="margin-top: 25px;height: 30px;overflow: hidden;font-size: 20px;line-height: 30px;color:  #d392f8;text-shadow: 1px 1px 2px #000000;">
                                 {{ currentLyric }}
                             </div>
                         </div>
@@ -638,11 +641,11 @@
                                         </div> -->
 
                                         <div v-if="index == currentLineIndex"
-                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;font-size: 35px;color:#d392f8 ;">
+                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;font-size: 35px;color:#d392f8 ; text-shadow: 1px 1px 2px #000000;">
                                             {{ item.lyric }}
                                         </div>
                                         <div v-else
-                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden;">
+                                            style="flex: 1;height: 60px;line-height: 60px;margin-left: 20px;overflow: hidden; text-shadow: 1px 1px 2px #000000;color: #fff;">
                                             {{ item.lyric }}
                                         </div>
                                     </div>
@@ -677,6 +680,18 @@
                         p-id="10242"></path>
                 </svg>
             </div>
+            <div
+                style="position: absolute;top: 0;left: 0;right: 0;bottom: 0;border-radius: 20px;z-index: -10;overflow: hidden;">
+                <div v-if="playingMusic.pic != null">
+                    <img :src="'http://localhost:8080/api/files/' + playingMusic.pic" alt=""
+                        style="width: 100%;height: 100%;z-index: 10">
+                    <div
+                        style="z-index: 100;position: absolute;top: 0;left: 0;right: 0;bottom: 0;backdrop-filter: blur(50px);height: 100%;width: 100%;">
+                    </div>
+
+                </div>
+
+            </div>
         </div>
 
     </div>
@@ -690,6 +705,7 @@
 <!-- -------------------------------------------------------------------------------------------------------------------------- -->
 <!-- -------------------------------------------------------------------------------------------------------------------------- -->
 <script>
+import Footer from '@/components/Footer.vue';
 import request from '@/utils/request';
 export default {
     name: 'Layout',
@@ -1394,6 +1410,9 @@ export default {
                 document.msExitFullscreen();
             }
         }
+    },
+    components: {
+        Footer,
     }
 }
 </script>
@@ -1486,13 +1505,15 @@ export default {
     /* filter: blur(1px); */
     backdrop-filter: blur(10px);
 }
-.total{
+
+.total {
     float: left;
     height: 30px;
     padding: 0 10px;
     line-height: 30px;
     margin-left: 10px;
 }
+
 .clear {
     /* width: 80px; */
     float: right;

@@ -210,6 +210,11 @@
                         </el-select>
                         <span style="margin-left: 10px;width: 30%;text-align: center;">
                             检索到： {{ songsForm.songsData.length }}首歌曲</span>
+
+                    </el-form-item>
+                    <el-form-item label="" label-width="20%">
+                        <el-button @click="addAll()">添加全部检索内容</el-button>
+
                     </el-form-item>
 
                 </el-form>
@@ -323,6 +328,8 @@ export default {
             })
         },
         songsSubmit() {
+            // console.log(this.songsForm);
+
             request.post("/listSong", this.songsForm).then(res => {
                 if (res.code === '0') {
                     this.$message({
@@ -342,6 +349,30 @@ export default {
 
                 }
             })
+        },
+        addAll() {
+            for (let i = 0; i < this.songsForm.songsData.length; i++) {
+                let s = {
+                    songId: this.songsForm.songsData[i].id,
+                    songListId: this.songsForm.songListId
+                };
+                request.post("/listSong", s).then(res => {
+                    if (res.code === '0') {
+                        this.$message({
+                            message: '操作成功',
+                            type: 'success'
+                        });
+                        // this.songsForm = {};
+                        // this.dialogSongs = false;
+                        this.findBySearch();
+                    } else {
+
+                        this.$message.error(res.msg+"来自歌曲："+this.songsForm.songsData[i].name);
+
+                    }
+                })
+            }
+
         },
         edit(obj) {
             this.fileList = obj.pic ? [{ name: obj.pic, url: "http://localhost:8080/api/files/" + obj.pic }] : [];

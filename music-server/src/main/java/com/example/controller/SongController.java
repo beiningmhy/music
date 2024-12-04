@@ -270,20 +270,26 @@ public class SongController {
 
     @GetMapping("/recommendations/{userId}")
     public Result getRecommendations(@PathVariable Long userId) {
-        List<Integer> list = collectService.getRecommendations(userId);
+
+//        System.out.println("userId: " + userId);
         List<Song> songs = new ArrayList<>();
-        for(Integer integer:list){
+        if(userId!=null){
+            List<Integer> list = collectService.getRecommendations(userId);
+            for (Integer integer : list) {
 //            System.out.println(integer);
-            Params params = new Params();
-            params.setPageNum(1);
-            params.setPageSize(1);
-            params.setStatus("0");
-            params.setSongId(integer);
-            PageInfo<Song> tmp = songService.findBySearch(params);
+                Params params = new Params();
+                params.setPageNum(1);
+                params.setPageSize(1);
+                params.setStatus("0");
+                params.setSongId(integer);
+                PageInfo<Song> tmp = songService.findBySearch(params);
 //            System.out.println(tmp.getList().get(0));
-            songs.add(tmp.getList().get(0));
+                songs.add(tmp.getList().get(0));
 //            System.out.println(tmp.getList().get(0));
+            }
         }
+
+
         if(songs.size()<10){
 
             Params params = new Params();

@@ -919,8 +919,12 @@ export default {
             }).then(res => {
                 if (res.code === '0') {
                     // console.log(res);
-
-                    this.mark = res.data.list[0].score;
+                    if(res.data.total == 0){
+                        this.mark = 0;
+                    }else{
+                        this.mark = res.data.list[0].score;
+                    }
+                    
                 } else {
                     this.$message({
                         message: res.msg,

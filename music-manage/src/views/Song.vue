@@ -101,13 +101,28 @@
                             </el-dropdown>
                         </div>
                         <div style="margin-top: 5px">
-                            <el-button type="info" @click="details(scope.row)">详情</el-button>
+
                             <template>
 
                                 <el-popconfirm title="确定删除吗？" @confirm="del(scope.row.id)">
-                                    <el-button type="danger" slot="reference" style="margin-left: 5px">删除</el-button>
+                                    <el-button type="danger" slot="reference">删除</el-button>
                                 </el-popconfirm>
                             </template>
+                            <!-- <el-button type="info" @click="details(scope.row)" style="margin-left: 5px">详情</el-button> -->
+                            <el-dropdown style="margin-left: 5px">
+                                <el-button type="info">
+                                    详情<i class="el-icon-arrow-down el-icon--right"></i>
+                                </el-button>
+                                <el-dropdown-menu slot="dropdown">
+                                    <el-dropdown-item >
+                                        <div @click="detailsBing(scope.row)">Bing</div>
+                                    </el-dropdown-item>
+                                    <el-dropdown-item >
+                                        <div @click="detailsMusic(scope.row)">Music</div>
+                                    </el-dropdown-item>
+
+                                </el-dropdown-menu>
+                            </el-dropdown>
                         </div>
 
 
@@ -119,7 +134,7 @@
         </div>
         <div class="block">
             <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange"
-                :current-page="params.pageNum" :page-sizes="[10, 20, 50, 100,total]" :page-size="params.pageSize"
+                :current-page="params.pageNum" :page-sizes="[10, 20, 50, 100, total]" :page-size="params.pageSize"
                 layout="total, sizes, prev, pager, next, jumper" :total="total">
             </el-pagination>
         </div>
@@ -440,8 +455,13 @@ export default {
                 });
             }
         },
-        details(row) {
+        detailsBing(row) {
             window.open('https://cn.bing.com/search?q=' + row.name, '_blank');
+        },
+        detailsMusic(row) {
+            // console.log(row);
+            
+            window.open('http://xmsj.org/?name=' + row.name+'&type=netease', '_blank');
         },
         delBatch() {
             console.log(this.multipleSelection);

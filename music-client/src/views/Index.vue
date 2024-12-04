@@ -37,9 +37,10 @@
                 <el-tooltip class="item" effect="dark" content="推荐列表根据当前用户收藏进行实时计算，如果收藏较少，推荐可能不准" placement="right">
                     <h1 style="font-size:25px;width: 150px;text-decoration: underline dashed ;">推荐歌曲 ></h1>
                 </el-tooltip>
-                
+
                 <div style="display: flex;flex-wrap: wrap;">
-                    <div v-for="item in songRecommendations" :key="item.id" :label="item.pic" :value="item.id" @click="goSong(item)"
+                    <div v-for="item in songRecommendations" :key="item.id" :label="item.pic" :value="item.id"
+                        @click="goSong(item)"
                         style="flex-direction: row; margin-left: 10px;margin-bottom: 10px;overflow: hidden;width: 100px;height: 150px;">
                         <el-image style="width: 100px; height: 100px; border-radius: 50% ;"
                             :src="'http://localhost:8080/api/files/' + item.pic">
@@ -96,6 +97,9 @@
             </el-pagination>
 
         </div>
+        <div>
+            <Footer></Footer>
+        </div>
         <div style="height: 15vh;">
 
         </div>
@@ -103,7 +107,7 @@
 </template>
 <script>
 import request from '@/utils/request';
-
+import Footer from '@/components/Footer.vue';
 export default {
     data() {
         return {
@@ -129,7 +133,7 @@ export default {
             windowHeight: 0,
             song: [],
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
-            songRecommendations:[],
+            songRecommendations: [],
 
 
         }
@@ -170,9 +174,15 @@ export default {
             })
         },
         async initSongRecommendations() {
-            await request.get("/song/recommendations/" + this.user.id).then(res => {
+            let userId = '';
+            if (this.user == '') {
+                userId = 0;
+            } else {
+                userId = this.user.id;
+            }
+            await request.get("/song/recommendations/" + userId).then(res => {
                 if (res.code === '0') {
-                    console.log(res);
+                    // console.log(res);
                     this.songRecommendations = JSON.parse(JSON.stringify(res.data));
 
                 } else {
@@ -345,6 +355,9 @@ export default {
         this.initTopSong();
         this.initSongRecommendations();
         // this.handleResize();
+    },
+    components: {
+        Footer,
     }
 }
 </script>
