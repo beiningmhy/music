@@ -7,6 +7,7 @@ import ChangePassword from '@/views/ChangePassword.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Consumer from '@/views/Consumer.vue'
+import Feedback from '@/views/Feedback.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Log from '@/views/Log.vue'
@@ -102,6 +103,11 @@ const routes = [
 				path: '/log',
 				name: '日志管理',
 				component: Log,
+			},
+			{
+				path: '/feedback',
+				name: '反馈管理',
+				component: Feedback,
 			},
 			{
 				path: '/banner',

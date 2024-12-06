@@ -19,7 +19,7 @@
             <div style="width: 100%;margin: 0 auto;">
                 <div style="width: 100%;height: 20px;line-height: 20px;text-align: center;">
                     <span style="font-size: 14px;color: #666666;">Copyright © 2019-2024 </span>
-                    <span style="font-size: 14px;color: #666666;">www.bnmhy.com</span>
+                    <span style="font-size: 14px;color: #666666;">www.hmyh.com</span>
                 </div>
             </div>
 

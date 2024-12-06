@@ -24,8 +24,9 @@
                                 </el-image>
 
                             </div>
-                            <img v-else-if="user != '' && user.avatar == null" style="width: 100%; height: 100%; border-radius: 10%;"
-                                src="@/assets/images/logo1.png" alt=""  @click="clickTag('/space')">
+                            <img v-else-if="user != '' && user.avatar == null"
+                                style="width: 100%; height: 100%; border-radius: 10%;" src="@/assets/images/logo1.png"
+                                alt="" @click="clickTag('/space')">
 
                             <!-- <el-image v-else style="width: 100px; height: 100px; border-radius: 10%;margin-top: 10px;"
                             src="../assets/images/logo1.png"
@@ -35,7 +36,8 @@
                                 src="@/assets/images/logo1.png" alt="" @click="login()">
                         </div>
                         <div>
-                            <div v-if="user != ''" style="margin-top: 10px;"  @click="clickTag('/space')">{{ user.username }}</div>
+                            <div v-if="user != ''" style="margin-top: 10px;" @click="clickTag('/space')">{{
+                                user.username }}</div>
                             <div v-else style="margin-top: 10px;" @click="login()">点击登录</div>
                         </div>
                     </div>
@@ -185,8 +187,11 @@
                                             <span>退出登录</span>
                                         </div>
                                     </div>
-                                </div>
 
+                                </div>
+                                <div>
+                                    <feedback></feedback>
+                                </div>
                             </div>
                         </div>
 
@@ -707,6 +712,7 @@
 <script>
 import Footer from '@/components/Footer.vue';
 import request from '@/utils/request';
+import Feedback from '@/components/Feedback.vue';
 export default {
     name: 'Layout',
     data() {
@@ -1125,14 +1131,24 @@ export default {
             this.musicLoop = !this.musicLoop;
         },
         toggleMute() {
-            // 获取audio元素
-            let audio = '';
-            if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
-                audio = document.getElementById('audio');
+            if (this.playingMusic.id !== 0 && this.playingMusic.url !== '') {
+                // 获取audio元素
+                let audio = '';
+                if (this.playingMusic.audioUrl != null && this.playingMusic.audioUrl.includes('http')) {
+                    audio = document.getElementById('audio');
+                }
+                // 切换muted属性
+                this.isMuted = !this.isMuted;
+                audio.muted = this.isMuted;
+
+            }else{
+                this.$message({
+                    message: '请先播放音乐',
+                    type: 'warning'
+                });
             }
-            // 切换muted属性
-            this.isMuted = !this.isMuted;
-            audio.muted = this.isMuted;
+
+
         },
         updateSongClicks(item) {
             request.post("/song/clicks", item).then(res => {
@@ -1295,7 +1311,7 @@ export default {
                 request.get("/song/lyric/" + this.playingMusic.id).then(res => {
                     if (res.code === '0') {
                         this.lyricList = res.data;
-                        console.log(res.data);
+                        // console.log(res.data);
 
                     } else {
                         this.$message({
@@ -1413,6 +1429,7 @@ export default {
     },
     components: {
         Footer,
+        Feedback,
     }
 }
 </script>

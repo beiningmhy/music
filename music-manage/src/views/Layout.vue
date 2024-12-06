@@ -168,6 +168,7 @@ export default {
                         </template>
                         <el-menu-item-group>
                             <el-menu-item index="/notice" @click="handleClick($route)">公告信息</el-menu-item>
+                            <el-menu-item index="/feedback" @click="handleClick($route)">反馈信息</el-menu-item>
                             <el-menu-item index="/address" @click="handleClick($route)">地址信息</el-menu-item>
                             <el-menu-item index="/log" @click="handleClick($route)">日志信息</el-menu-item>
                         </el-menu-item-group>

@@ -5,6 +5,7 @@
             <el-input placeholder="请输入内容" v-model="search" class="input-with-select" clearable>
                 <el-button slot="append" icon="el-icon-search" @click="initSearch()"></el-button>
             </el-input>
+            
         </div>
         <hr>
         <!-- 搜索结果 -->
@@ -53,6 +54,7 @@
                 </el-pagination>
             </div>
         </div>
+        <Feedback></Feedback>
         <div style="height: 15vh;">
 
         </div>
@@ -61,6 +63,7 @@
 
 </template>
 <script>
+import Feedback from '@/components/Feedback.vue';
 import request from '@/utils/request';
 
 export default {
@@ -222,6 +225,9 @@ export default {
             // 将更新后的数组转换回 JSON 字符串并保存到 localStorage
             localStorage.setItem('musicList', JSON.stringify(musicList));
         },
+    },
+    components: {
+        Feedback,
     }
 }
 </script>

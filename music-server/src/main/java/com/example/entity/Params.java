@@ -32,6 +32,8 @@ public class Params {
     private Integer productId;
 //    订单ID
     private Integer orderId;
+//    反馈的类型
+    private String type;
 
 //    修改密码
     private String oldPw;
