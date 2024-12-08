@@ -4,7 +4,7 @@
             <el-aside width="200px">
                 <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center"
                     @click="$route.path == '/' ? '' : $router.push('/'), songListRight = -350">
-                    <!-- <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px"> -->
+                    <img src="@/assets/images/logo1.png" alt="" style="width: 40px; height: 40px">
                     <!-- <svg t="1730986111036" class="icon" viewBox="0 0 2299 1024" version="1.1"
                         xmlns="http://www.w3.org/2000/svg" p-id="1868" width="50" height="50">
                         <path
@@ -12,7 +12,7 @@
                             p-id="1869" data-spm-anchor-id="a313x.collections_detail.0.i0.78093a81HkR4tf"
                             class="selected"></path>
                     </svg> -->
-                    <span class="logo-title" style="color: black;">真谛好music</span>
+                    <span class="logo-title" style="color: black;">music</span>
                 </div>
                 <div @click="songListRight = -350">
                     <!-- 用户头像部分 -->
@@ -807,6 +807,11 @@ export default {
             }
         },
         '$store.state.isplay'(newValue, oldValue) {
+            if (this.playingMusic.audioUrl == null) {
+                return
+            }
+            // console.log(this.playingMusic.audioUrl==null);
+
             let audio = '';
             if (this.playingMusic.audioUrl.includes('http')) {
                 audio = document.getElementById('audio');
@@ -1141,7 +1146,7 @@ export default {
                 this.isMuted = !this.isMuted;
                 audio.muted = this.isMuted;
 
-            }else{
+            } else {
                 this.$message({
                     message: '请先播放音乐',
                     type: 'warning'

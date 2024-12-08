@@ -4,7 +4,7 @@
             点击向我们反馈
         </div>
         <div>
-            <el-dialog title="请填写信息" :visible.sync="feedbackDialog" width="500px">
+            <el-dialog title="请填写信息" :visible.sync="feedbackDialog" width="500px" style="text-align: left;">
                 <el-form :model="params">
 
                     <el-form-item label="类型" label-width="20%">
@@ -65,10 +65,17 @@ export default {
             this.feedbackDialog = true;
         },
         submit() {
+            if (this.params.content === "" || this.params.type === "") {
+                this.$message({
+                    message: '请填写完整信息',
+                    type: 'error'
+                });
+                return;
+            }
             request.post("/feedback", this.params).then(res => {
                 if (res.code === '0') {
                     this.$message({
-                        message: '操作成功',
+                        message: '反馈成功',
                         type: 'success'
                     });
                     this.feedbackDialog = false;
@@ -90,6 +97,7 @@ export default {
     /* width: 20%; */
     margin: 0 auto;
     margin-top: 30px;
+    /* text-align: left; */
 }
 
 .feedback:hover {

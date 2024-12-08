@@ -1,3 +1,4 @@
+import NotFound404 from '@/components/NotFound404.vue'
 import request from '@/utils/request'
 import Agreement from '@/views/Agreement.vue'
 import Collect from '@/views/Collect.vue'
@@ -16,6 +17,7 @@ import SongDetails from '@/views/SongDetails.vue'
 import SongList from '@/views/SongList.vue'
 import SongListDetails from '@/views/SongListDetails.vue'
 import UserSpace from '@/views/UserSpace.vue'
+
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 
@@ -109,7 +111,15 @@ const routes = [
     name: '注册页面',
     component: Register,
   },
-
+  {
+    path: '/404',
+    name: '404页面',
+    component: NotFound404,
+  },
+  {
+    path: '*',
+    redirect: '/404'
+  }
 
 ]
 
