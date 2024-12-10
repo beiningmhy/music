@@ -44,8 +44,8 @@
                     <el-table-column label="操作" width="200" fixed="right">
                         <template slot-scope="scope">
 
-                            <el-button :disabled="!scope.row.url" type="warning" @click="down(scope.row.url)"
-                                style="margin-left: 5px">下载</el-button>
+                            <el-button :disabled="!scope.row.url" type="warning" @click="detail(scope.row)"
+                                style="margin-left: 5px">详情</el-button>
                             <template>
 
                                 <el-popconfirm title="确定删除吗？" @confirm="del(scope.row.id)">
@@ -211,6 +211,17 @@ export default {
                 });
             }
         },
+        detail(row){
+            console.log(row);
+            
+            this.$router.push({
+                path: '/productDetails',
+                query: {
+                    productId: row.productId
+                }
+            });
+        },
+
 
     }
     ,

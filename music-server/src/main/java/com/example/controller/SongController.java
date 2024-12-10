@@ -309,7 +309,7 @@ public class SongController {
                if(!songs.contains(song)){
                    songs.add(song);
                }
-               if(songs.size()==10){
+               if(songs.size()>=10){
                    break;
                }
             }

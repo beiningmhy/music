@@ -184,7 +184,9 @@ public class CollectServiceImpl implements CollectService {
         List<Integer> recommendedSongs = topNSimilarUsers.stream()
                 .flatMap(user -> collectMapper.findByUserId(user).stream()
                         .filter(collect -> collect.getSongId() != null)
-                        .map(Collect::getSongId))
+                        .map(Collect::getSongId)
+                )
+                .limit(10)
                 .distinct()
                 .collect(Collectors.toList());
 

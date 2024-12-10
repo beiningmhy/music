@@ -65,16 +65,42 @@ export default {
         this.captchaUrl = "http://localhost:8080/api/captcha?key=" + this.key;
     },
     methods: {
-        login() {
-            request.post("/consumer/login?key=" + this.key, this.user).then(res => {
+        async login() {
+            request.post("/consumer/login?key=" + this.key, this.user).then(async res => {
                 if (res.code === '0') {
                     this.$message({
                         message: `登录成功${this.user.username}，100积分已自动加入您的账户`,
                         type: 'success'
                     });
-                    
+                    let user = res.data;
+                    if (res.data.singerType == '1') {
+                        let p = {
+                            name: res.data.username,
+                            pageNum: 1,
+                            pageSize: 1
+                        }
+                        let singerId;
+                        await request.get('/singer/search', {
+                            params: p
+                        }).then(res => {
+                            if (res.code === '0') {
+                                // console.log(res.data);
+                                singerId = res.data.list[0].id;
+                                user.singerId = singerId;
+                                // console.log(user);
+
+                            } else {
+                                this.$message.error(res.msg);
+
+                            }
+                        })
+
+                    }
+                    // console.log(user);
+
+
                     // console.log(res.data);
-                    localStorage.setItem("user", JSON.stringify(res.data));
+                    localStorage.setItem("user", JSON.stringify(user));
                     this.$router.push('/');
                 } else {
                     this.$message({

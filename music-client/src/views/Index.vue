@@ -66,7 +66,10 @@
                         :src="'http://localhost:8080/api/files/' + item.pic">
                     </el-image>
                     <div style="text-align: center;">
-                        <span style="font-size: small;">{{ item.name }}</span>
+                        <el-tooltip class="item" effect="dark" :content="item.name" placement="top">
+                            <span style="font-size: small;">{{ item.name }}</span>
+                        </el-tooltip>
+
                     </div>
                 </div>
 
@@ -87,7 +90,10 @@
                         :src="'http://localhost:8080/api/files/' + item.pic">
                     </el-image>
                     <div style="text-align: center;">
-                        <span style="font-size: small;">{{ item.titles }}</span>
+                        <el-tooltip class="item" effect="dark" :content="item.title" placement="top">
+                            <span style="font-size: small;">{{ item.titles }}</span>
+                        </el-tooltip>
+
                     </div>
                 </div>
 
@@ -97,6 +103,7 @@
             </el-pagination>
 
         </div>
+        <hr>
         <div>
             <Footer></Footer>
         </div>
@@ -138,10 +145,16 @@ export default {
 
         }
     },
-    mounted() {
+    async mounted() {
         this.setInitialPosition();
         window.addEventListener('resize', this.handleResize);
         // this.handleResize();
+
+        await this.loadSwiper();
+        await this.initTopSong();
+        await this.initSongRecommendations();
+        await this.loadSinger();
+        await this.loadSongList();
     },
 
     methods: {
@@ -349,11 +362,7 @@ export default {
 
     },
     created() {
-        this.loadSinger();
-        this.loadSongList();
-        this.loadSwiper();
-        this.initTopSong();
-        this.initSongRecommendations();
+
         // this.handleResize();
     },
     components: {

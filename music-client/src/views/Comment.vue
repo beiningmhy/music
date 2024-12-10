@@ -44,10 +44,10 @@
         <div style="max-height: 66vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
                 @row-dblclick="rowClick($event)">
-                <el-table-column prop="id" label="序号" fixed="left" width="70" sortable></el-table-column>
+                <!-- <el-table-column prop="id" label="序号" fixed="left" width="70" sortable></el-table-column> -->
                 <el-table-column prop="username" label="评论人" fixed="left" width="80"></el-table-column>
                 <el-table-column prop="content" label="评论内容" width="500"></el-table-column>
-                <el-table-column prop="object" label="评论对象" width="300"></el-table-column>
+                <el-table-column prop="object" label="评论对象" width="200"></el-table-column>
 
 
                 <!-- <el-table-column prop="status" label="账号状态">
@@ -95,7 +95,7 @@
 
                     </template>
                 </el-table-column>
-                <!-- <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column> -->
+                <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
                 <el-table-column label="操作" width="100" fixed="right">
                     <template slot-scope="scope">
                         <div>

@@ -13,8 +13,11 @@ import Register from '@/views/Register.vue'
 import Search from '@/views/Search.vue'
 import Singer from '@/views/Singer.vue'
 import SingerDetails from '@/views/SingerDetails.vue'
+import SongCenter from '@/views/SongCenter.vue'
 import SongDetails from '@/views/SongDetails.vue'
 import SongList from '@/views/SongList.vue'
+import SongList2Song from '@/views/SongList2Song.vue'
+import SongListCenter from '@/views/SongListCenter.vue'
 import SongListDetails from '@/views/SongListDetails.vue'
 import UserSpace from '@/views/UserSpace.vue'
 
@@ -98,6 +101,21 @@ const routes = [
         path: '/agreement',
         name: '协议页面',
         component: Agreement,
+      },
+      {
+        path: '/songCenter',
+        name: '歌曲发表页面',
+        component: SongCenter,
+      },
+      {
+        path: '/songListCenter',
+        name: '歌单发表页面',
+        component: SongListCenter,
+      },
+      {
+        path: '/songList2Song',
+        name: '歌单歌曲管理页面',
+        component: SongList2Song,
       },
     ]
   },

@@ -164,7 +164,7 @@
                                             <span style="margin-left: 10px;">从播放列表中移除</span>
                                         </div>
                                         <div style="border-bottom:1px darkgray solid;"></div>
-                                        <div class="play-btn"
+                                        <div class="play-btn" @click="addSong2Collect(scope.row)"
                                             style="display:flex;height: 30px;width: 90%;padding-top: 5px;padding-left: 10px;margin: 2px auto;">
                                             <div>
                                                 <svg t="1731299241051" class="icon" viewBox="0 0 1024 1024"
@@ -718,6 +718,27 @@ export default {
                 localStorage.setItem("musicList", JSON.stringify(musicList));
             }
 
+        },
+        addSong2Collect(item) {
+            console.log(item);
+
+            let c = {
+                songId: item.id,
+                userId: this.user.id
+            }
+            request.post("/collect", c).then(res => {
+                if (res.code == '0') {
+                    this.$message({
+                        message: '收藏成功',
+                        type: 'success'
+                    });
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
         },
 
 

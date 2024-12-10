@@ -33,7 +33,7 @@
         <div style="max-height: 66vh;overflow: auto;">
             <el-table :data="tableData" style="width: 100%; margin: 15px 0px" height="60vh" stripe highlight-current-row
                 @row-dblclick="rowClick($event)">
-                <el-table-column prop="id" label="序号" width="70" sortable></el-table-column>
+                <!-- <el-table-column prop="id" label="序号" width="70" sortable></el-table-column> -->
                 <el-table-column prop="username" label="收藏人" width="200"></el-table-column>
                 <el-table-column prop="object" label="收藏对象"></el-table-column>
 
@@ -54,7 +54,7 @@
                     </template>
                 </el-table-column> -->
 
-                <!-- <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column> -->
+                <el-table-column prop="createTime" label="创建时间" width="150"></el-table-column>
                 <el-table-column label="操作" width="100" fixed="right">
                     <template slot-scope="scope">
                         <div>
