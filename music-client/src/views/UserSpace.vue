@@ -193,7 +193,7 @@
                         <div v-else-if="user.singerType == '1'" style="text-align: left;width: 90%;">
                             <el-statistic group-separator="," :precision="0" :value="songsCount"
                                 title="发表歌曲数"></el-statistic>
-                            <div style="display: flex;">
+                            <div style="display: flex;margin-top: 80px;">
                                 <div style="display: flex;flex-direction: column;width: 25%;text-align: center;"
                                     @click="goToSingerCenter">
                                     <div style="width: 80;margin: 0 auto;">
@@ -252,6 +252,35 @@
                                     </div>
 
                                     歌单中心
+                                </div>
+                                <div style="display: flex;flex-direction: column;width: 25%;text-align: center;"
+                                    @click="goToStatementCenter">
+                                    <div style="width: 80;margin: 0 auto;">
+                                        <svg t="1733826577545" class="icon" viewBox="0 0 1024 1024" version="1.1"
+                                            xmlns="http://www.w3.org/2000/svg" p-id="4295" width="80" height="80">
+                                            <path d="M519.68 718.1312h20.48v76.8h-20.48z" fill="#FDD55B" p-id="4296">
+                                            </path>
+                                            <path d="M206.5408 223.3344h631.1936v61.44H206.5408z" fill="#67DCD1"
+                                                p-id="4297"></path>
+                                            <path
+                                                d="M834.56 295.0144h-78.0288v-20.48h78.0288v-40.96h-614.4v40.96h490.2912v20.48H220.16a19.7632 19.7632 0 0 1-20.48-18.944v-43.9296a19.8656 19.8656 0 0 1 20.48-19.0464h614.4a19.8656 19.8656 0 0 1 20.48 19.0464V276.48a19.7632 19.7632 0 0 1-20.48 18.5344z"
+                                                fill="#3F44EC" p-id="4298"></path>
+                                            <path
+                                                d="M231.0144 288.0512h20.48v430.08h-20.48zM804.4544 288.0512h20.48v430.08h-20.48z"
+                                                fill="#3F44EC" p-id="4299"></path>
+                                            <path
+                                                d="M199.68 705.7408h655.36v20.48h-655.36zM312.32 623.8208h430.08v20.48h-430.08z"
+                                                fill="#3F44EC" p-id="4300"></path>
+                                            <path
+                                                d="M517.12 634.0608v-286.72h20.48v286.72zM435.2 634.0608v-245.76h20.48v245.76zM599.04 634.0608v-245.76h20.48v245.76M680.96 634.0608v-184.32h20.48v184.32M353.28 634.0608v-184.32h20.48v184.32M312.7296 368.2304v-20.48h19.6608v20.48M691.2 368.2304v-20.48h51.2v20.48"
+                                                fill="#3F44EC" p-id="4301"></path>
+                                            <path
+                                                d="M529.3056 874.2912a40.96 40.96 0 1 1 40.96-40.96 40.96 40.96 0 0 1-40.96 40.96z m0-61.44a20.48 20.48 0 1 0 20.48 20.48 20.48 20.48 0 0 0-20.48-20.48z"
+                                                fill="#FDD55B" p-id="4302"></path>
+                                        </svg>
+                                    </div>
+
+                                    统计中心
                                 </div>
                             </div>
 
@@ -346,8 +375,8 @@ export default {
                         return;
                     }
                 })
-                let user=JSON.parse(JSON.stringify(this.user));
-                user.singerId=singerId;
+                let user = JSON.parse(JSON.stringify(this.user));
+                user.singerId = singerId;
                 localStorage.setItem("user", JSON.stringify(user));
 
 
@@ -473,9 +502,12 @@ export default {
         goToSingerCenter() {
             this.$router.push('/songCenter');
         },
-        goToSongListCenter(){
+        goToSongListCenter() {
             this.$router.push('/songListCenter');
         },
+        goToStatementCenter(){
+            this.$router.push('/statementCenter');
+        },  
     }
 
 

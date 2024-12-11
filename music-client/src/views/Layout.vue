@@ -298,7 +298,8 @@
                                     id="audio1">
                                 </audio> -->
                                 <audio :src="playingMusic.audioUrl" controls="controls" id="audio" ref="audioElement"
-                                    @timeupdate="updateCurrentTime" hidden preload="auto" @ended="audioEnded">
+                                    @timeupdate="updateCurrentTime" hidden preload="auto" @ended="audioEnded"
+                                    :muted="isMuted">
                                     <source :src="playingMusic.audioUrl">
                                     您的浏览器不支持 audio 标签。
                                 </audio>
@@ -823,12 +824,19 @@ export default {
                 setTimeout(() => {
                     audio.play();
                 }, 200)
+                if (this.isMuted == true) {
+                    audio.muted = true;
+                } else {
+                    audio.muted = false;
+                }
+
             } else {
                 // console.log('暂停播放');
 
                 audio.pause();
             }
         }
+
 
     },
     methods: {

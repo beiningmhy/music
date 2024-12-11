@@ -19,6 +19,7 @@ import SongList from '@/views/SongList.vue'
 import SongList2Song from '@/views/SongList2Song.vue'
 import SongListCenter from '@/views/SongListCenter.vue'
 import SongListDetails from '@/views/SongListDetails.vue'
+import StatementCenter from '@/views/StatementCenter.vue'
 import UserSpace from '@/views/UserSpace.vue'
 
 import Vue from 'vue'
@@ -116,6 +117,11 @@ const routes = [
         path: '/songList2Song',
         name: '歌单歌曲管理页面',
         component: SongList2Song,
+      },
+      {
+        path: '/statementCenter',
+        name: '报表页面',
+        component: StatementCenter,
       },
     ]
   },

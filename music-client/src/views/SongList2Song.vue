@@ -10,10 +10,7 @@
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.name" style="width: 200px; margin-right: 10px" placeholder="请输入歌曲名"
                 @input="findBySearch()" clearable></el-input>
-            <el-select v-model="params.singerId" placeholder="歌手" style="width: 100px; margin-right: 10px"
-                @input="findBySearch()" clearable filterable default-first-option>
-                <el-option v-for="item in typeObjs" :key="item.id" :label="item.name" :value="item.id"></el-option>
-            </el-select>
+
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
                 @input="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
@@ -187,12 +184,7 @@
                     <el-form-item label="搜索歌曲" label-width="20%" aria-required="true">
                         <el-input v-model="params2.name" style="width: 80%; margin-right: 10px;" placeholder="请输入歌曲名"
                             @input="findBySearch2()" clearable></el-input>
-                        <el-select v-model="params2.singerId" placeholder="歌手"
-                            style="width: 80%; margin-right: 10px;margin-top: 20px;" @input="findBySearch2()" clearable
-                            filterable default-first-option>
-                            <el-option v-for="item in typeObjs" :key="item.id" :label="item.name"
-                                :value="item.id"></el-option>
-                        </el-select>
+                        
                         <el-input v-model="params2.other" style="width:80%; margin-right: 10px;margin-top: 20px;"
                             placeholder="模糊查询" @input="findBySearch2()" clearable></el-input>
                     </el-form-item>
@@ -243,7 +235,7 @@ export default {
 
             // console.log(this.id);
             this.params.songListId = this.songListId;
-
+            this.params.singerId = this.user.singerId;
             await request.get("/song/search", {
                 params: this.params
 
@@ -267,15 +259,7 @@ export default {
                 }
             })
         },
-        findSinger() {
-            request.get("/singer").then(res => {
-                if (res.code === '0') {
-                    this.typeObjs = res.data;
-                } else {
-                    this.$message.error(res.msg)
-                }
-            })
-        },
+
         reset() {
             this.params = {
                 username: '',
@@ -299,7 +283,7 @@ export default {
             this.dialogSongs = true;
         },
         async findBySearch2() {
-
+            this.params2.singerId = this.user.singerId;
             await request.get("/song", {
                 params: this.params2
 
@@ -361,7 +345,7 @@ export default {
                         this.findBySearch();
                     } else {
 
-                        this.$message.error(res.msg+"来自歌曲："+this.songsForm.songsData[i].name);
+                        this.$message.error(res.msg + "来自歌曲：" + this.songsForm.songsData[i].name);
 
                     }
                 })
@@ -573,7 +557,6 @@ export default {
     created() {
         this.load();
         this.findBySearch();
-        this.findSinger();
 
     },
     data() {

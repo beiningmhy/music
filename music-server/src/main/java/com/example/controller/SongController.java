@@ -317,4 +317,24 @@ public class SongController {
 
         return Result.success(songs);
     }
+
+    @GetMapping("/songClicks/{id}")
+    public Result songClicks(@PathVariable Integer id) {
+        Params params = new Params();
+        params.setPageNum(1);
+        params.setPageSize(1);
+        params.setSingerId(String.valueOf(id));
+        PageInfo<Song> bySearch = songService.findBySearch(params);
+
+        params.setPageSize((int) bySearch.getTotal());
+        List<Song> search = songService.findBySearch(params).getList();
+        List<Map<String, Object>> mapList = new ArrayList<>();
+        for (Song song : search) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("name", song.getName());
+            map.put("value", song.getClicks());
+            mapList.add(map);
+        }
+        return Result.success(mapList);
+    }
 }
