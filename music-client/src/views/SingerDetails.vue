@@ -529,6 +529,7 @@ export default {
         async initComments() {
             this.params3.radioId = this.singerId;
             this.params3.radio = '歌手';
+            this.params3.status = '0';
             await request.get("/comment/search", {
                 params: this.params3
             }).then(res => {
