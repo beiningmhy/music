@@ -3,6 +3,7 @@ import request from '@/utils/request'
 import Agreement from '@/views/Agreement.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
+import Im from '@/views/Im.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
@@ -122,6 +123,11 @@ const routes = [
         path: '/statementCenter',
         name: '报表页面',
         component: StatementCenter,
+      },
+      {
+        path: '/im',
+        name: '聊天页面',
+        component: Im,
       },
     ]
   },
