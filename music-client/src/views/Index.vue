@@ -115,6 +115,7 @@
 <script>
 import request from '@/utils/request';
 import Footer from '@/components/Footer.vue';
+import axios from 'axios';
 export default {
     data() {
         return {
@@ -357,6 +358,33 @@ export default {
             this.currentX = this.windowWidth - 300;
             this.currentY = this.windowHeight - 100;
             // button.style.transform = `translate(${this.currentX}px, ${this.currentY}px)`;
+
+        },
+        lll() {
+            
+            let name= '张杰-如果爱';
+            let songid = 0;
+            axios.post('/163id/?s='+name+'&type=1006&limit=1&offset=0')
+                .then(response => {
+                    // 处理响应数据
+                    // console.log(response.data.result.songs[0].id);
+                    songid = response.data.result.songs[0].id;
+                    axios.post('/lrc/?id=' + songid + '&lv=1')
+                        .then(response => {
+                            // 处理响应数据
+                            if (response.status == 200) {
+                                console.log(response.data.lrc.lyric);
+                            }
+                        })
+                        .catch(error => {
+                            // 处理错误情况
+                            console.error('Error fetching data:', error);
+                        });
+                })
+                .catch(error => {
+                    // 处理错误情况
+                    console.error('Error fetching data:', error);
+                });
 
         },
 
