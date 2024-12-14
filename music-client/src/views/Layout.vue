@@ -795,10 +795,11 @@ export default {
             handler(newValue, oldValue) {
                 // 当playingMusic变化时，更新localStorage
                 // localStorage.setItem("playingMusic", JSON.stringify(newValue));
-                // console.log(newValue);
+                console.log(newValue);
                 if (newValue.id !== 0) {
                     this.updateSongClicks(newValue);
                 }
+                document.title="music - "+newValue.name;
                 this.initLyric();
             },
             deep: true
@@ -1375,6 +1376,8 @@ export default {
             return seconds;
         },
         updateLyrics(currentTime) {
+            // console.log(this.playingMusic);
+            
             if (this.lyricList.length !== 0) {
                 // 更新当前歌词行
                 let currentLineIndex = 0;
@@ -1391,7 +1394,7 @@ export default {
                 // console.log(this.lyricList);
 
                 this.currentLyric = this.lyricList[currentLineIndex].lyric;
-
+                document.title =this.playingMusic.name+" - "+ this.lyricList[currentLineIndex].lyric;
                 this.currentLineIndex = currentLineIndex;
                 // 滚动歌词容器以确保当前行可见
                 const lineElement = this.$refs.lyricsContainer.children[currentLineIndex];

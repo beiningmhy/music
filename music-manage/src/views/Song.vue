@@ -185,6 +185,7 @@
                         <el-input type="textarea" rows="5" v-model="form.lyric" autocomplete="off"
                             style="width: 90%"></el-input>
                         <el-button type="warning" @click="lrc(form)" style="margin-top: 10px;">自动检索歌词</el-button>
+                        <el-button type="warning" @click="lrc2a(form)" style="margin-top: 10px;">手动检索歌词</el-button>
                     </el-form-item>
 
                     <el-form-item label="点击次数" label-width="20%" aria-required="true">
@@ -247,6 +248,29 @@
                 <span slot="footer" class="dialog-footer">
                     <el-button @click=" lrcDialog = false, lrcText = ''">关闭</el-button>
                     <el-button type="primary" @click="form.lyric = lrcText, lrcDialog = false">添加</el-button>
+                </span>
+            </el-dialog>
+            <el-dialog title="请选择歌曲" :visible.sync="selectSongDialog" width="50%" top="10vh">
+
+                <div style="max-height: 70vh;overflow: auto;">
+                    <el-table :data="songObjs" style="width: 100%; margin: 15px 0px" height="50vh" stripe
+                        highlight-current-row lazy>
+                        <el-table-column prop="id" label="序号" fixed width="100" sortable></el-table-column>
+                        <el-table-column prop="name" label="歌曲名" width="150"></el-table-column>
+                        <el-table-column prop="singer" label="歌手" width="150"></el-table-column>
+                        <el-table-column prop="introduction" label="专辑" ></el-table-column>
+                        <el-table-column label="操作" width="80" >
+                            <template slot-scope="scope">
+                                <div>
+                                    <el-button type="primary" @click="lrc2b(scope.row)">选择</el-button>
+                                </div>
+                            </template>
+                        </el-table-column>
+                    </el-table>
+                </div>
+
+                <span slot="footer" class="dialog-footer">
+                    <el-button @click=" selectSongDialog = false">关闭</el-button>
                 </span>
             </el-dialog>
         </div>
@@ -631,15 +655,15 @@ export default {
             this.submit();
         },
         lrc(form) {
-            if(form.singerId==''||form.name==''){
+            if (form.singerId == '' || form.name == '') {
                 this.$message.error("请先完善歌曲信息");
                 return;
             }
-            
+
             let resultObj = this.typeObjs.find(obj => obj.id === form.singerId);
-            
+
             form.singerName = resultObj.name;
-            console.log(form);
+            // console.log(form);
             if (form.singerName == '' || form.name == '') {
                 this.$message.error("请先完善歌曲信息");
                 return;
@@ -696,6 +720,66 @@ export default {
                     console.error('Error fetching data:', error);
                 });
         },
+        lrc2a(form) {
+            if (form.singerId == '' || form.name == '') {
+                this.$message.error("请先完善歌曲信息");
+                return;
+            }
+
+            let resultObj = this.typeObjs.find(obj => obj.id === form.singerId);
+
+            form.singerName = resultObj.name;
+            // console.log(form);
+            if (form.singerName == '' || form.name == '') {
+                this.$message.error("请先完善歌曲信息");
+                return;
+            }
+            let name = form.name;
+            let songid = 0;
+            axios.post('/163id/?s=' + name + '&type=1&limit=50&offset=0')
+                .then(response => {
+                    // 处理响应数据
+                    // console.log(response.data.result.songs);
+                    let songs = response.data.result.songs;
+                    let songObjs = [];
+                    for (let i = 0; i < songs.length; i++) {
+                        songObjs.push({
+                            id: songs[i].id,
+                            name: songs[i].name,
+                            singer: songs[i].ar[0].name,
+                            introduction: songs[i].al.name
+                        })
+                    }
+                    // console.log(songObjs);
+                    this.songObjs = songObjs;
+                    this.selectSongDialog = true;
+                })
+                .catch(error => {
+                    // 处理错误情况
+                    console.error('Error fetching data:', error);
+                });
+        },
+        lrc2b(item) {
+            // console.log(item);
+            this.selectSongDialog = false;
+            axios.post('/lrc/?id=' + item.id + '&lv=1')
+                        .then(response => {
+                            // 处理响应数据
+                            if (response.status == 200) {
+                                // console.log(response.data);
+                                this.$message({
+                                    message: '歌词获取成功',
+                                    type: 'success'
+                                });
+                                this.lrcDialog = true;
+                                this.lrcText = response.data.lrc.lyric;
+                            }
+                        })
+                        .catch(error => {
+                            // 处理错误情况
+                            console.error('Error fetching data:', error);
+                        });
+        },
 
 
 
@@ -739,6 +823,8 @@ export default {
             loading: true,
             lrcDialog: false,
             lrcText: '',
+            songObjs: [],
+            selectSongDialog: false,
         }
     },
     computed: {
