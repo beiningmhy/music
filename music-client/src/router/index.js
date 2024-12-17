@@ -7,6 +7,7 @@ import Im from '@/views/Im.vue'
 import Index from '@/views/Index.vue'
 import Layout from '@/views/Layout.vue'
 import Login from '@/views/Login.vue'
+import LoginMail from '@/views/LoginMail.vue'
 import Order from '@/views/Order.vue'
 import Product from '@/views/Product.vue'
 import ProductDetails from '@/views/ProductDetails.vue'
@@ -135,6 +136,11 @@ const routes = [
     path: '/login',
     name: '登录页面',
     component: Login,
+  },
+  {
+    path: '/loginmail',
+    name: '邮箱登录页面',
+    component: LoginMail,
   },
   {
     path: '/register',

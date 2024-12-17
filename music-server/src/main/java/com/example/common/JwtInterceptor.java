@@ -80,7 +80,7 @@ public class JwtInterceptor implements HandlerInterceptor {
             } catch (JWTVerificationException e) {
                 throw new CustomException("token验证失败，请重新登录");
             }
-        }else{
+        }else if(code.equals("user")){
             // 获取 token 中的userId
             String userId;
             Consumer consumer;

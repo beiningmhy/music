@@ -2,7 +2,9 @@ import axios from 'axios'
 
 // 创建一个axios对象出来
 const request = axios.create({
-    baseURL: 'http://127.0.0.1:8080/api',
+    // baseURL: 'http://127.0.0.1:8080/api',
+    
+    baseURL: 'http://localhost:8080/api',
     // baseURL: 'http://192.168.1.4:8080/api',
     timeout: 5000
 })

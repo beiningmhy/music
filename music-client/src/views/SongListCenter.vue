@@ -44,9 +44,9 @@
                 <el-table-column label="操作" width="160" fixed="right">
                     <template slot-scope="scope">
                         <div>
-                            <el-button type="primary" @click="edit(scope.row)">编辑</el-button>
+                            <!-- <el-button type="primary" @click="edit(scope.row)">编辑</el-button> -->
                             <el-button :disabled="!scope.row.pic" type="warning" @click="down(scope.row.pic)"
-                                style="margin-left: 5px">下载</el-button>
+                                style="">下载</el-button>
                         </div>
                         <div style="margin-top: 5px">
                             <el-button type="info" @click="details(scope.row)">详情</el-button>

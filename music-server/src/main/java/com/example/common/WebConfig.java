@@ -42,6 +42,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/admin/login")
                 .excludePathPatterns("/api/admin/register")
                 .excludePathPatterns("/api/consumer/login")
+                .excludePathPatterns("/api/consumer/login/mail")
                 .excludePathPatterns("/api/consumer/register")
                 .excludePathPatterns("/api/files/**")
                 .excludePathPatterns("/api/captcha")
@@ -57,7 +58,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/song/lyric/**")
                 .excludePathPatterns("/api/rankList/avg")
                 .excludePathPatterns("/api/comment/save")
-                .excludePathPatterns("/api/web/user")
+//                .excludePathPatterns("/api/web/user")
                 .excludePathPatterns("/api/singer/clicks")
                 .excludePathPatterns("/api/songList/clicks")
                 .excludePathPatterns("/api/song/clicks")
@@ -65,9 +66,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .excludePathPatterns("/api/song/top/**")
                 .excludePathPatterns("/api/songList/top/**")
                 .excludePathPatterns("/api/notice/top/**")
-//                .excludePathPatterns("/api/address/**")
-//                .excludePathPatterns("/api/consumer/**")
-//                .excludePathPatterns("/api/consumer/changePassword")
-                ;
+                .excludePathPatterns("/api/song/recommendations/**")
+                .excludePathPatterns("/api/MailCode");
     }
 }

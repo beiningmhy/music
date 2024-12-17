@@ -799,7 +799,12 @@ export default {
                 if (newValue.id !== 0) {
                     this.updateSongClicks(newValue);
                 }
-                document.title="music - "+newValue.name;
+                if (newValue.id !== 0) {
+
+                    document.title = "music - " + newValue.name;
+                } else {
+                    document.title="music";
+                }
                 this.initLyric();
             },
             deep: true
@@ -1377,7 +1382,7 @@ export default {
         },
         updateLyrics(currentTime) {
             // console.log(this.playingMusic);
-            
+
             if (this.lyricList.length !== 0) {
                 // 更新当前歌词行
                 let currentLineIndex = 0;
@@ -1394,7 +1399,12 @@ export default {
                 // console.log(this.lyricList);
 
                 this.currentLyric = this.lyricList[currentLineIndex].lyric;
-                document.title =this.playingMusic.name+" - "+ this.lyricList[currentLineIndex].lyric;
+                if(this.$store.state.isplay==true){
+                    document.title = this.playingMusic.name + " - " + this.lyricList[currentLineIndex].lyric;
+                }else{
+                    document.title ="music - "+ this.playingMusic.name;
+                }
+                
                 this.currentLineIndex = currentLineIndex;
                 // 滚动歌词容器以确保当前行可见
                 const lineElement = this.$refs.lyricsContainer.children[currentLineIndex];

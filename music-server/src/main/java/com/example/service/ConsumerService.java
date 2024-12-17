@@ -19,6 +19,6 @@ public interface ConsumerService {
     void updatePassword(Params params);
 
     Consumer login(Consumer consumer);
-
+    Consumer loginMail(Consumer consumer);
     Consumer findByById(Integer id);
 }

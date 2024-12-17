@@ -20,4 +20,8 @@ public interface ConsumerMapper extends Mapper<Consumer> {
     @ResultMap("ConsumerRM")
     Consumer findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 
+    @Select("select * from music_consumer where email = #{email} limit 1")
+    @ResultMap("ConsumerRM")
+    Consumer findByEmail(@Param("email") String email);
+
 }

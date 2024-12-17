@@ -2,6 +2,7 @@ package com.example.controller;
 
 import com.example.common.AutoLog;
 import com.example.common.CaptureConfig;
+import com.example.common.MailConfig;
 import com.example.common.Result;
 import com.example.entity.Consumer;
 import com.example.entity.Params;
@@ -47,6 +48,23 @@ public class ConsumerController {
         }
         Consumer loginUser = consumerService.login(consumer);
         CaptureConfig.CAPTURE_MAP.remove(key);
+        return Result.success(loginUser);
+    }
+    @PostMapping("/login/mail")
+    @AutoLog("用户通过邮箱登录系统")
+    public Result loginMail(@RequestBody Consumer consumer, @RequestParam String key, HttpServletRequest request) {
+        if (consumer.getVerCode() == null || consumer.getVerCode().equals("")) {
+            throw new CustomException("验证码不能为空");
+        }
+
+        if (!consumer.getVerCode().equals(MailConfig.MAIL_MAP.get(key))) {
+            // 如果不相等，说明验证不通过
+
+            MailConfig.MAIL_MAP.remove(key);
+            throw new CustomException("验证码不正确，请重新接收验证码");
+        }
+        Consumer loginUser = consumerService.loginMail(consumer);
+        MailConfig.MAIL_MAP.remove(key);
         return Result.success(loginUser);
     }
 

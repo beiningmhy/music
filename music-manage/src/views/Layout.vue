@@ -123,7 +123,7 @@ export default {
                             <!-- <el-menu-item index="/songList2Song" @click="handleClick($route)">歌单歌曲信息</el-menu-item> -->
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="4">
+                    <el-submenu index="4" v-if="user.role === '0'">
                         <template slot="title">
                             <i class="el-icon-message-solid"></i><span>信息管理</span>
                         </template>
@@ -134,7 +134,7 @@ export default {
                             <el-menu-item index="/rankList" @click="handleClick($route)">评分管理</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="5">
+                    <el-submenu index="5" v-if="user.role === '0'">
                         <template slot="title">
                             <svg t="1732173892429" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="4277"
@@ -154,7 +154,7 @@ export default {
                             <el-menu-item index="/order" @click="handleClick($route)">订单管理</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
-                    <el-submenu index="6">
+                    <el-submenu index="6" v-if="user.role === '0'">
                         <template slot="title">
                             <svg t="1731910968612" class="icon" viewBox="0 0 1024 1024" version="1.1"
                                 xmlns="http://www.w3.org/2000/svg" p-id="2348" width="18" height="18">

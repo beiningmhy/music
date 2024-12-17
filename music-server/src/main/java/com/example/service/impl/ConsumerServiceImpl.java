@@ -133,6 +133,34 @@ public class ConsumerServiceImpl implements ConsumerService {
     }
 
     @Override
+    public Consumer loginMail(Consumer consumer) {
+        if (consumer.getEmail() == null || "".equals(consumer.getEmail())) {
+            throw new CustomException("邮箱不能为空");
+        }
+        Consumer user = consumerMapper.findByEmail(consumer.getEmail());
+        if (user == null) {
+            // 如果查出来没有，那说明输入的用户名或者密码有误，提示用户，不允许登录
+            throw new CustomException("邮箱输入错误");
+        }
+        if(user.getStatus().equals("1")&&user.getLoginTime()==null){
+            user.setStatus("0");
+        }else if(user.getStatus().equals("1")){
+            throw new CustomException("该用户已被禁用");
+        }
+        user.setLoginTime(DateUtil.now());
+        if(user.getPoint()==null){
+            user.setPoint(0);
+        }
+        user.setPoint(user.getPoint()+100);
+        consumerMapper.updateByPrimaryKeySelective(user);
+        // 如果查出来了有，那说明确实有这个管理员，而且输入的用户名和密码都对；
+        // 生成jwt token给前端
+        String token = JwtTokenUtils.genToken(user.getId().toString(), user.getPassword());
+        user.setToken(token);
+        return user;
+    }
+
+    @Override
     public Consumer findByById(Integer id) {
         return consumerMapper.selectByPrimaryKey(id);
     }

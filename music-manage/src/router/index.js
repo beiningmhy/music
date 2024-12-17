@@ -155,9 +155,22 @@ const router = new VueRouter({
 // 路由守卫
 router.beforeEach((to, from, next) => {
 
+
 	
 	
-	const user = localStorage.getItem("user");
+	const user = JSON.parse(localStorage.getItem("user"));
+	
+	if( user.role == '1'){
+		if(to.path == '/singer'|| to.path == '/song'|| to.path == '/songList'|| to.path == '/songList2Song'|| to.path == '/'){
+			next();
+			
+			return ;
+		}else{
+			next('/');
+			alert('没有权限');
+			
+		}
+	}
 
 	if (to.path === '/login' || to.path === '/register') {
 		next();
