@@ -75,6 +75,7 @@ public class ConsumerServiceImpl implements ConsumerService {
 
     @Override
     public void update(Consumer consumer) {
+        consumer.setUpdateTime(DateUtil.now());
         consumerMapper.updateByPrimaryKeySelective(consumer);
     }
 
@@ -93,6 +94,7 @@ public class ConsumerServiceImpl implements ConsumerService {
             throw new CustomException("旧密码输入错误");
         }
         consumer.setPassword(params.getNewPw());
+        consumer.setUpdateTime(DateUtil.now());
         consumerMapper.updateByPrimaryKeySelective(consumer);
     }
 
