@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div style="overflow: hidden;">
         <el-container>
             <el-aside width="200px">
                 <div style="height: 60px; color: white; display: flex; align-items: center; justify-content: center"
@@ -258,7 +258,7 @@
         </div>
 
 
-        <div class="footer" :style="`position: absolute;bottom:${footerBottom}px;transition: bottom 1s ease-in;`">
+        <div class="footer" :style="`position: absolute;bottom:${footerBottom}px;transition: bottom 1s ease-in;overflow: hidden;`">
             <div style="display: flex;height: 80px;width: 90%;margin: 10px auto;">
                 <div style="width: 20%;height: 100%;display: flex;">
                     <div style="width: 80px;border-radius: 10px;height: 100%;position: relative; display: inline-block;"

@@ -168,17 +168,17 @@ const router = new VueRouter({
 
 router.beforeEach((to, from, next) => {
   let user = localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '';
-  request.get("/web/user").then(res => {
-    // console.log(res);
-    if (res.code === '0') {
-      // next();
-      return;
-    } else {
-      console.log("系统错误");
+  // request.get("/web/user").then(res => {
+  //   // console.log(res);
+  //   if (res.code === '0') {
+  //     // next();
+  //     return;
+  //   } else {
+  //     console.log("系统错误");
 
-      return;
-    }
-  })
+  //     return;
+  //   }
+  // })
   if (to.path === '/space' && user === '') {
     return next("/");
   }
