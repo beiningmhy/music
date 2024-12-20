@@ -130,14 +130,14 @@ const routes = [
 				component: Order,
 			},
 			{
-				path:'/changePassword',
-				name:'修改密码',
-				component:ChangePassword,
+				path: '/changePassword',
+				name: '修改密码',
+				component: ChangePassword,
 			},
 			{
-				path:'/space',
-				name:'个人中心',
-				component:AdminSpace,
+				path: '/space',
+				name: '个人中心',
+				component: AdminSpace,
 			},
 		]
 	}
@@ -156,21 +156,23 @@ const router = new VueRouter({
 router.beforeEach((to, from, next) => {
 
 
-	
-	
+
+
 	const user = JSON.parse(localStorage.getItem("user"));
-	
-	if( user.role == '1'){
-		if(to.path == '/singer'|| to.path == '/song'|| to.path == '/songList'|| to.path == '/songList2Song'|| to.path == '/'){
-			next();
-			
-			return ;
-		}else{
-			next('/');
-			alert('没有权限');
-			
+	if (user != null) {
+		if (user.role == '1') {
+			if (to.path == '/singer' || to.path == '/song' || to.path == '/songList' || to.path == '/songList2Song' || to.path == '/') {
+				next();
+
+				return;
+			} else {
+				next('/');
+				alert('没有权限');
+
+			}
 		}
 	}
+
 
 	if (to.path === '/login' || to.path === '/register') {
 		next();
