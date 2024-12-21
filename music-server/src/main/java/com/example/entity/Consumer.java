@@ -51,6 +51,8 @@ public class Consumer {
     private String token;
     @Transient
     private String verCode;
+    @Transient
+    private Integer num;
 
 
 

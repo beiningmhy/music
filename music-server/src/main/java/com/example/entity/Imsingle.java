@@ -30,6 +30,11 @@ public class Imsingle {
     @Column(name = "toavatar")
     private String toavatar;
     @Column(name="readed")
-    private Integer readed;
+    private String readed;
+
+    @Transient
+    private String fromusername;
+    @Transient
+    private String tousername;
 
 }

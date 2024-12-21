@@ -19,15 +19,9 @@ public class ImsingleController {
      * 查询所有消息
      */
     @GetMapping
-    public Result findByFromUsername(@RequestParam String fromUser, @RequestParam String toUser) {
-        return Result.success(imsingleService.findByUsername(fromUser, toUser));
+    public Result findByFromUsername(@RequestParam String fromuser, @RequestParam String touser) {
+        return Result.success(imsingleService.findByUsername(fromuser, touser));
 
     }
-    /**
-     * 查询未读消息数量
-     */
-    @GetMapping("/unReadNums")
-    public Result findUnReadNums(@RequestParam String toUsername) {
-        return Result.success(imsingleService.findUnReadNums(toUsername));
-    }
+
 }

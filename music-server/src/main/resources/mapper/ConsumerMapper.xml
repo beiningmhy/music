@@ -33,6 +33,9 @@
             <if test="params != null and params.status != null and params.status != ''">
                 and status like concat('%', #{ params.status }, '%')
             </if>
+            <if test="params != null and params.uid != null and params.uid != ''">
+                and uid like  #{ params.uid }
+            </if>
             <if test="params != null and params.other != null and params.other != ''">
                 and ( username like concat('%', #{ params.other }, '%')
                 or phone like concat('%', #{ params.other }, '%')

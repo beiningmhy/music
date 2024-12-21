@@ -1,6 +1,7 @@
 import NotFound404 from '@/components/NotFound404.vue'
 import request from '@/utils/request'
 import Agreement from '@/views/Agreement.vue'
+import Chat from '@/views/Chat.vue'
 import Collect from '@/views/Collect.vue'
 import Comment from '@/views/Comment.vue'
 import Im from '@/views/Im.vue'
@@ -127,8 +128,13 @@ const routes = [
       },
       {
         path: '/im',
-        name: '聊天页面',
+        name: '聊天1页面',
         component: Im,
+      },
+      {
+        path: '/chat',
+        name: '聊天2页面',
+        component: Chat,
       },
     ]
   },

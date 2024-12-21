@@ -11,7 +11,7 @@ public interface ImsingleService {
 
 
     List<Imsingle>  findByUsername(String fromUser,String toUser);
-    Dict findUnReadNums(String toUsername);
+    Integer findUnReadNums(String fromUser,String touser);
     List<Imsingle> findAll();
 
     PageInfo<Imsingle> findBySearch(Params params);

@@ -104,6 +104,8 @@
 
         </div>
         <hr>
+
+        <input type="button" @click="sendMessage()" value="点我发消息" />
         <div>
             <Footer></Footer>
         </div>
@@ -115,7 +117,6 @@
 <script>
 import request from '@/utils/request';
 import Footer from '@/components/Footer.vue';
-import axios from 'axios';
 export default {
     data() {
         return {
@@ -142,6 +143,8 @@ export default {
             song: [],
             user: localStorage.getItem("user") ? JSON.parse(localStorage.getItem("user")) : '',
             songRecommendations: [],
+            websocket: null,// WebSocket连接实例
+
 
 
         }
@@ -154,8 +157,12 @@ export default {
         await this.loadSwiper();
         await this.initTopSong();
         await this.initSongRecommendations();
-        await this.loadSinger();
-        await this.loadSongList();
+        setTimeout(async () => {
+            await this.loadSinger();
+            await this.loadSongList();
+        }, 500);
+
+        // this.initWebSocket();
     },
 
     methods: {
@@ -360,33 +367,48 @@ export default {
             // button.style.transform = `translate(${this.currentX}px, ${this.currentY}px)`;
 
         },
-        lll() {
-            
-            let name= '张杰-如果爱';
-            let songid = 0;
-            axios.post('/163id/?s='+name+'&type=1006&limit=1&offset=0')
-                .then(response => {
-                    // 处理响应数据
-                    // console.log(response.data.result.songs[0].id);
-                    songid = response.data.result.songs[0].id;
-                    axios.post('/lrc/?id=' + songid + '&lv=1')
-                        .then(response => {
-                            // 处理响应数据
-                            if (response.status == 200) {
-                                console.log(response.data.lrc.lyric);
-                            }
-                        })
-                        .catch(error => {
-                            // 处理错误情况
-                            console.error('Error fetching data:', error);
-                        });
-                })
-                .catch(error => {
-                    // 处理错误情况
-                    console.error('Error fetching data:', error);
-                });
+        initWebSocket() {
+            // 检查浏览器是否支持WebSocket
+            if (!'WebSocket' in window) return;
 
+            // 初始化WebSocket连接
+            this.websocket = new WebSocket("ws://127.0.0.1:8080/imserverSingle/aaa");
+
+            // 成功建立连接
+            this.websocket.onopen = () => {
+                // this.websocket.send("成功连接到服务器");
+            };
+
+            // 接收到消息
+            this.websocket.onmessage = (event) => {
+                console.log(event.data);
+            };
+
+            // 连接发生错误
+            this.websocket.onerror = () => {
+                this.$message({
+                    message: "WebSocket连接发生错误",
+                    type: 'error'
+                });
+                // alert("WebSocket连接发生错误");
+            };
+
+            // 连接关闭
+            this.websocket.onclose = () => {
+                this.$message({
+                    message: "WebSocket连接关闭",
+                    type: 'error'
+                });
+                // alert("WebSocket连接关闭");
+            };
         },
+        sendMessage() {
+            // 发送消息
+            // this.websocket.send("发送的消息内容");
+            let message = { fromuser: 'aaa', touser: 'bbb', content: 'adadad' }
+            this.websocket.send(JSON.stringify(message));  // 将组装好的json发送给服务端，由服务端进行转发
+        },
+
 
     },
     created() {

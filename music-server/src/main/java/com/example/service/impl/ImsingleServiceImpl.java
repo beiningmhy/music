@@ -3,9 +3,11 @@ package com.example.service.impl;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.lang.Dict;
 import com.example.common.JwtTokenUtils;
+import com.example.entity.Friend;
 import com.example.entity.Imsingle;
 import com.example.entity.Params;
 import com.example.exception.CustomException;
+import com.example.mapper.ConsumerMapper;
 import com.example.mapper.ImsingleMapper;
 import com.example.service.ImsingleService;
 import com.github.pagehelper.PageHelper;
@@ -13,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -21,29 +24,34 @@ import java.util.stream.Collectors;
 public class ImsingleServiceImpl implements ImsingleService {
     @Resource
     private ImsingleMapper imsingleMapper;
+    @Resource
+    private ConsumerMapper consumerMapper;
 
     @Override
     public List<Imsingle> findByUsername(String fromUser, String toUser) {
-        List<Imsingle> list = imsingleMapper.findByUsername(fromUser, toUser);
-        list.forEach(x->{
-            if (x.getTouser().equals(fromUser) && x.getFromuser().equals(toUser)){
-                x.setReaded(1);
-                imsingleMapper.updateByPrimaryKey(x);
-            }
-        });
-        return list;
+        List<Imsingle> list = imsingleMapper.findByUsername(toUser,fromUser );
+        for(Imsingle imsingle:list){
+            imsingle.setReaded("0");
+            imsingleMapper.updateByPrimaryKeySelective(imsingle);
+        }
+        List<Imsingle> chatList = imsingleMapper.findByFromuserAndTouser(fromUser, toUser);
+        List<Imsingle> imsingleList = new ArrayList<>();
+        for(Imsingle imsingle:chatList){
+            imsingle.setFromusername(consumerMapper.selectByPrimaryKey(imsingle.getFromuser()).getUsername());
+            imsingle.setFromavatar(consumerMapper.selectByPrimaryKey(imsingle.getFromuser()).getAvatar());
+            imsingle.setTousername(consumerMapper.selectByPrimaryKey(imsingle.getTouser()).getUsername());
+            imsingle.setToavatar(consumerMapper.selectByPrimaryKey(imsingle.getTouser()).getAvatar());
+            imsingleList.add(imsingle);
+        }
+
+        return imsingleList;
     }
 
     @Override
-    public Dict findUnReadNums(String toUsername) {
-        List<Imsingle> list=imsingleMapper.findByToUsername(toUsername);
-        Map<String,List<Imsingle>> collect=list.stream().collect(Collectors.groupingBy(Imsingle::getFromuser));
-        Dict dict=Dict.create();
-        collect.forEach((k,v)->{
-            dict.set(k,v.size());
-        });
-        return dict;
+    public Integer findUnReadNums(String fromuser, String touser) {
+        return imsingleMapper.findUnReadNums(fromuser, touser);
     }
+
 
     @Override
     public List<Imsingle> findAll() {

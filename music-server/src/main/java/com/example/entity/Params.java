@@ -35,6 +35,9 @@ public class Params {
 //    反馈的类型
     private String type;
 
+//    UID
+    private String uid;
+
 //    修改密码
     private String oldPw;
     private String newPw;
