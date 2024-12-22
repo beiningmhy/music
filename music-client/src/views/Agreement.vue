@@ -250,7 +250,9 @@ export default {
 
     },
     mounted() {
-
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
     },
     created() {
 

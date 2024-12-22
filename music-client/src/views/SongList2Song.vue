@@ -559,6 +559,11 @@ export default {
         this.findBySearch();
 
     },
+    mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
+    },
     data() {
         return {
             params: {

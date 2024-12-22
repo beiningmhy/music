@@ -15,7 +15,7 @@
                             style="margin-left:30px;margin-top: 20px;">点击上传</el-button>
                         <!-- <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div> -->
                     </el-upload>
-                    <div style="margin:0px auto ;margin-top: 20px;">
+                    <div style="margin:0px auto ;margin-top: 20px;" @click="copyUID()">
                         <span style="font-weight: bold;">UID:</span><el-tag>{{ user.uid }}</el-tag>
                     </div>
                     <div style="margin:0px auto ;margin-top: 20px">
@@ -191,8 +191,13 @@
 
                         </div>
                         <div v-else-if="user.singerType == '1'" style="text-align: left;width: 90%;">
-                            <el-statistic group-separator="," :precision="0" :value="songsCount"
-                                title="发表歌曲数"></el-statistic>
+                            <div style="display: flex;">
+                                <el-statistic group-separator="," :precision="0" :value="songsCount"
+                                    title="发表歌曲数"></el-statistic>
+                                <el-statistic group-separator="," :precision="0" :value="songsClicks"
+                                    title="歌曲播放数"></el-statistic>
+                            </div>
+
                             <div style="display: flex;margin-top: 80px;">
                                 <div style="display: flex;flex-direction: column;width: 25%;text-align: center;"
                                     @click="goToSingerCenter">
@@ -313,6 +318,7 @@ export default {
             },
             read: false,
             songsCount: 0,
+            songsClicks: 0,
         }
     },
     created() {
@@ -320,6 +326,9 @@ export default {
     },
 
     mounted() {
+        if (!localStorage.getItem("user")) {
+            this.$router.push("/");
+        }
         this.initCascader();
         this.form = JSON.parse(JSON.stringify(this.user));
         this.initSongsCount();
@@ -393,6 +402,7 @@ export default {
                     if (res.code === '0') {
                         // console.log(res.data);
                         this.songsCount = res.data.total;
+                        this.initSongsClicks();
                     } else {
                         this.$message.error(res.msg);
                         return;
@@ -400,6 +410,21 @@ export default {
                 })
             }
 
+        },
+        initSongsClicks() {
+            request.get('/song/songClicks/' + this.user.singerId).then(res => {
+                if (res.code === '0') {
+                    // console.log(res.data);
+                    for (let i = 0; i < res.data.length; i++) {
+                        this.songsClicks += res.data[i].value;
+                    }
+                } else {
+                    this.$message({
+                        message: res.msg,
+                        type: 'error'
+                    });
+                }
+            })
         },
         edit() {
             this.isDisabled = false;
@@ -505,9 +530,31 @@ export default {
         goToSongListCenter() {
             this.$router.push('/songListCenter');
         },
-        goToStatementCenter(){
+        goToStatementCenter() {
             this.$router.push('/statementCenter');
-        },  
+        },
+        copyUID() {
+            if (!navigator.clipboard) {
+                this.$message({
+                    message: '您的浏览器不支持此功能',
+                    type: 'error'
+                });
+                return;
+            }
+            navigator.clipboard.writeText(this.user.uid).then(() => {
+
+                this.$message({
+                    message: '复制成功',
+                    type: 'success'
+                });
+            }).catch(err => {
+
+                this.$message({
+                    message: '复制失败',
+                    type: 'error'
+                });
+            });
+        },
     }
 
 

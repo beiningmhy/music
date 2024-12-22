@@ -791,6 +791,7 @@ export default {
 
 
     },
+
     created() {
         window.addEventListener('storage', this.handleStorageChange);
     },

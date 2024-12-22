@@ -117,6 +117,9 @@ export default {
         this.initWebSocket()
     },
     mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
         this.initUsers();
 
     },
@@ -215,15 +218,15 @@ export default {
             let toUser = user.id;
             request.get('/imsingle/?fromuser=' + fromUser + "&touser=" + toUser).then(res => {
                 if (res.code === '0') {
-                    console.log(res.data);
+                    // console.log(res.data);
                     this.initUsers();
                     for (let i = 0; i < res.data.length; i++) {
                         if (res.data[i].fromuser != this.user.id) {
-                            console.log("111" + res.data[i].fromavatar);
+                            // console.log("111" + res.data[i].fromavatar);
 
                             this.createContent(res.data[i].fromuser, '', res.data[i].content, res.data[i].fromavatar);
                         } else {
-                            console.log("222" + res.data[i].fromavatar);
+                            // console.log("222" + res.data[i].fromavatar);
                             this.createContent('', res.data[i].touser, res.data[i].content, res.data[i].fromavatar);
                         }
 
@@ -240,10 +243,10 @@ export default {
         },
         createContent(remoteUser, nowUser, text, avatar) {  // 这个方法是用来将 json的聊天消息数据转换成 html的。
             let html;
-            console.log(avatar);
+            // console.log(avatar);
 
             if (avatar == null) {
-                avatar = 'https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png';
+                avatar = 'http://127.0.0.1:1234/?explorer/share/file&hash=3f61EqQZ_h4ydPMpngBEDvP6-iq1kQAuj5LWDmH5CsRM15OxJCVwDJfFPVDaGDzcy9c';
             } else {
                 avatar = 'http://localhost:8080/api/files/' + avatar;
             }
@@ -298,7 +301,21 @@ export default {
                 // console.log(event.data);
                 let obj = JSON.parse(event.data);
                 if (obj.fromuser == this.chatUser.id) {
+                    
                     this.createContent(obj.fromuser, '', obj.content,this.chatUser.avatar)
+                }else{
+                    
+                    let users=this.users;
+                    console.log(users);
+                    console.log(obj);
+                    
+                    for(let i=0;i<users.length;i++){
+                        if(users[i].id==obj.fromuser){
+                            users[i].num++;
+                        }
+                    }
+                    this.users=users;
+                    // this.initUsers();
                 }
 
             };

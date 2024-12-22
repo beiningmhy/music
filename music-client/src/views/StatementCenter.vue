@@ -18,6 +18,9 @@ export default {
         }
     },
     mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
         this.initEcharts();
     },
     methods: {

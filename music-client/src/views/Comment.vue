@@ -303,6 +303,11 @@ export default {
         // this.initSongList();
 
     },
+    mounted() {
+        if (!localStorage.getItem("user")) {
+            this.$router.push("/");
+        }
+    },
     data() {
         return {
             params: {

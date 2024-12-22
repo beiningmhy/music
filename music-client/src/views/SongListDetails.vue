@@ -823,7 +823,8 @@ export default {
                 })
                 // this.$router.push(path);
             }
-        }, copyText(item) {
+        }, 
+        copyText(item) {
             let text = item.name + "——" + item.singerName + "——" + item.introduction;
             if (!navigator.clipboard) {
                 this.$message({

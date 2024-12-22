@@ -368,11 +368,18 @@ export default {
     ,
     // 页面加载的时候做一些事情
     created() {
+        
         this.findBySearch();
         // this.initSong();
         // this.initSinger();
         // this.initSongList();
 
+    },
+    mounted() {
+        
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
     },
     data() {
         return {

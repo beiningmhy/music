@@ -145,6 +145,9 @@ export default {
         },
     },
     async mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
         await this.initProductDetail();
         await this.initOrder();
     },

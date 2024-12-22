@@ -616,6 +616,9 @@ export default {
         this.findSinger();
     },
     async mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
         await this.findBySearch();
     },
 

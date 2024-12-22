@@ -1,8 +1,8 @@
 <template>
     <div>
-        <div >
+        <div>
             <div style="display: flex; flex-wrap: nowrap;">
-                
+
                 <el-select v-model="params.productId" placeholder="请选择商品" style="width: 200px; margin-right: 10px"
                     @input="findBySearch()" clearable filterable default-first-option>
                     <el-option v-for="item in productObjs" :key="item.id" :label="item.productName"
@@ -91,7 +91,7 @@ export default {
             })
         },
         findBySearch() {
-            this.params.userId=this.user.id;
+            this.params.userId = this.user.id;
             this.params.status = '0';
             request.get("/order/search", {
                 params: this.params
@@ -121,7 +121,7 @@ export default {
         initProduct() {
             let p = this.user.id;
             // console.log(p);
-            
+
             request.get("/order/product/" + p).then(res => {
                 if (res.code === '0') {
                     // console.log(res.data);
@@ -211,9 +211,9 @@ export default {
                 });
             }
         },
-        detail(row){
+        detail(row) {
             console.log(row);
-            
+
             this.$router.push({
                 path: '/productDetails',
                 query: {
@@ -231,6 +231,9 @@ export default {
 
     },
     async mounted() {
+        if (!localStorage.getItem("user")) {
+            this.$router.push("/");
+        }
         await this.findBySearch();
         await this.initProduct();
     },

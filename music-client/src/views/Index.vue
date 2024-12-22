@@ -105,7 +105,6 @@
         </div>
         <hr>
 
-        <input type="button" @click="sendMessage()" value="点我发消息" />
         <div>
             <Footer></Footer>
         </div>
@@ -155,8 +154,11 @@ export default {
         // this.handleResize();
 
         await this.loadSwiper();
-        await this.initTopSong();
-        await this.initSongRecommendations();
+        setTimeout(async () => {
+            await this.initTopSong();
+            await this.initSongRecommendations();
+        }, 500);
+
         setTimeout(async () => {
             await this.loadSinger();
             await this.loadSongList();
@@ -367,47 +369,7 @@ export default {
             // button.style.transform = `translate(${this.currentX}px, ${this.currentY}px)`;
 
         },
-        initWebSocket() {
-            // 检查浏览器是否支持WebSocket
-            if (!'WebSocket' in window) return;
 
-            // 初始化WebSocket连接
-            this.websocket = new WebSocket("ws://127.0.0.1:8080/imserverSingle/aaa");
-
-            // 成功建立连接
-            this.websocket.onopen = () => {
-                // this.websocket.send("成功连接到服务器");
-            };
-
-            // 接收到消息
-            this.websocket.onmessage = (event) => {
-                console.log(event.data);
-            };
-
-            // 连接发生错误
-            this.websocket.onerror = () => {
-                this.$message({
-                    message: "WebSocket连接发生错误",
-                    type: 'error'
-                });
-                // alert("WebSocket连接发生错误");
-            };
-
-            // 连接关闭
-            this.websocket.onclose = () => {
-                this.$message({
-                    message: "WebSocket连接关闭",
-                    type: 'error'
-                });
-                // alert("WebSocket连接关闭");
-            };
-        },
-        sendMessage() {
-            // 发送消息
-            // this.websocket.send("发送的消息内容");
-            let message = { fromuser: 'aaa', touser: 'bbb', content: 'adadad' }
-            this.websocket.send(JSON.stringify(message));  // 将组装好的json发送给服务端，由服务端进行转发
-        },
 
 
     },

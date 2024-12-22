@@ -273,6 +273,9 @@ export default {
         this.findStyle();
     },
     async mounted() {
+        if(!localStorage.getItem("user")){
+            this.$router.push("/");
+        }
         await this.findBySearch();
     },
 
