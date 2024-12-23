@@ -13,7 +13,7 @@
                             placeholder="请输入用户名"></el-input>
                     </el-form-item>
                     <el-form-item>
-                        <el-input v-model="user.password" prefix-icon="el-icon-lock" style="width: 80%"
+                        <el-input v-model="user.password" show-password prefix-icon="el-icon-lock" style="width: 80%"
                             placeholder="请输入密码"></el-input>
                     </el-form-item>
 
