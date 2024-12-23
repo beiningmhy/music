@@ -75,10 +75,14 @@
                     </el-form-item>
 
                     <el-form-item label="性别" label-width="20%">
-                        <el-select v-model="form.sex" placeholder="请选择" style="width: 90%" clearable>
+                        <!-- <el-select v-model="form.sex" placeholder="请选择" style="width: 90%" clearable>
                             <el-option label="女" value="0"></el-option>
                             <el-option label="男" value="1"></el-option>
-                        </el-select>
+                        </el-select> -->
+                        <template>
+                            <el-radio v-model="form.sex" label="1">男</el-radio>
+                            <el-radio v-model="form.sex" label="0">女</el-radio>
+                        </template>
                     </el-form-item>
                     <el-form-item label="头像" label-width="20%" aria-required="true">
                         <el-upload action="http://localhost:8080/api/files/upload?fileDir=singerPic"

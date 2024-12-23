@@ -120,10 +120,14 @@
                             </el-select>
                         </el-form-item>
                         <el-form-item label="性别" label-width="20%">
-                            <el-select v-model="form.sex" placeholder="请选择" style="width: 90%" clearable>
+                            <!-- <el-select v-model="form.sex" placeholder="请选择" style="width: 90%" clearable>
                                 <el-option label="男" value="1"></el-option>
                                 <el-option label="女" value="0"></el-option>
-                            </el-select>
+                            </el-select> -->
+                            <template>
+                                <el-radio v-model="form.sex" label="1">男</el-radio>
+                                <el-radio v-model="form.sex" label="0">女</el-radio>
+                            </template>
                         </el-form-item>
                         <el-form-item label="手机号" label-width="20%" aria-required="true">
                             <el-input v-model="form.phone" autocomplete="off" style="width: 90%"></el-input>
@@ -159,10 +163,14 @@
                             <el-input v-model="form.point" autocomplete="off" style="width: 90%"></el-input>
                         </el-form-item>
                         <el-form-item label="账号状态" label-width="20%">
-                            <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
+                            <!-- <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
                                 <el-option label="正常" value="0"></el-option>
                                 <el-option label="封禁" value="1"></el-option>
-                            </el-select>
+                            </el-select> -->
+                            <template>
+                                <el-radio v-model="form.status" label="0">正常</el-radio>
+                                <el-radio v-model="form.status" label="1">封禁</el-radio>
+                            </template>
                         </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">
@@ -379,7 +387,7 @@ export default {
             fileList: [],
             cascaderData: [],
             value: [],
-            time:'5',
+            time: '5',
         }
     },
     computed: {

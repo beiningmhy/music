@@ -62,12 +62,12 @@
                 </el-pagination>
             </div>
             <div>
-                <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%" >
+                <el-dialog title="请填写信息" :visible.sync="dialogFormVisible" width="30%">
                     <el-form :model="form">
 
                         <el-form-item label="轮播图" label-width="20%" aria-required="true">
-                            <el-upload action="http://localhost:8080/api/files/upload?fileDir=swiper" :on-success="successUpload"
-                                list-type="picture-card" :file-list="fileList">
+                            <el-upload action="http://localhost:8080/api/files/upload?fileDir=swiper"
+                                :on-success="successUpload" list-type="picture-card" :file-list="fileList">
                                 <i slot="default" class="el-icon-plus"></i>
                                 <!-- <el-button size="small" type="primary">点击上传</el-button> -->
                             </el-upload>
@@ -78,10 +78,14 @@
                         </el-form-item>
 
                         <el-form-item label="轮播图状态" label-width="20%">
-                            <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
+                            <!-- <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
                                 <el-option label="正常" value="0"></el-option>
                                 <el-option label="封禁" value="1"></el-option>
-                            </el-select>
+                            </el-select> -->
+                            <template>
+                                <el-radio v-model="form.status" label="0">正常</el-radio>
+                                <el-radio v-model="form.status" label="1">封禁</el-radio>
+                            </template>
                         </el-form-item>
                     </el-form>
                     <div slot="footer" class="dialog-footer">

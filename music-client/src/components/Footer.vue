@@ -9,7 +9,7 @@
                     <div><a href="https://tools.liumingye.cn/music/#/" target="_blank">MyFreeMP3</a></div>
                 </div>
                 <div style="width: 50%;height: 60px;display: flex;flex-direction: column;margin-top: 10px;">
-                    <div><a href="http://xmsj.org/" target="_blank">音乐搜索器</a></div>
+                    <div><a href="http://127.0.0.1:163/" target="_blank">音乐搜索器</a></div>
                     <div><a href="https://github.com/beiningmhy/music" target="_blank">GitHub</a></div>
                     <div><a href="https://gitee.com/bnmhy/music" target="_blank">Gitee</a></div>
                     

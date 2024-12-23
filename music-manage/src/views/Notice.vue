@@ -54,10 +54,14 @@
                             style="width: 90%"></el-input>
                     </el-form-item>
                     <el-form-item label="公告状态" label-width="20%">
-                        <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
+                        <!-- <el-select v-model="form.status" placeholder="请选择" style="width: 90%" clearable>
                             <el-option label="正常" value="0"></el-option>
                             <el-option label="封禁" value="1"></el-option>
-                        </el-select>
+                        </el-select> -->
+                        <template>
+                                <el-radio v-model="form.status" label="0">正常</el-radio>
+                                <el-radio v-model="form.status" label="1">封禁</el-radio>
+                            </template>
                     </el-form-item>
 
                 </el-form>
