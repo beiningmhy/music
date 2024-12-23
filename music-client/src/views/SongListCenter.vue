@@ -3,10 +3,10 @@
         <div style="display: flex; flex-wrap: nowrap;">
             <el-input v-model="params.title" style="width: 200px; margin-right: 10px" placeholder="请输入歌单名"
                 @input="findBySearch()" clearable></el-input>
-            <el-select v-model="params.style" placeholder="曲风" style="width: 100px; margin-right: 10px"
+            <!-- <el-select v-model="params.style" placeholder="曲风" style="width: 100px; margin-right: 10px"
                 @input="findBySearch()" clearable filterable default-first-option>
                 <el-option v-for="item in styleObjs" :key="item" :label="item" :value="item"></el-option>
-            </el-select>
+            </el-select> -->
             <el-input v-model="params.other" style="width: 200px; margin-right: 10px" placeholder="模糊查询"
                 @input="findBySearch()" clearable></el-input>
             <el-button type="warning" @click="findBySearch()">搜索</el-button>
@@ -88,11 +88,8 @@
                         <el-input type="textarea" rows="3" v-model="form.introduction" autocomplete="off"
                             style="width: 90%"></el-input>
                     </el-form-item>
-                    <el-form-item label="曲风" label-width="20%" aria-required="true">
-                        <el-select v-model="form.style" placeholder="曲风" style="width: 90%" filterable allow-create>
-                            <el-option v-for="item in styleObjs" :key="item" :label="item" :value="item">
-                            </el-option>
-                        </el-select>
+                    <el-form-item label="曲风" label-width="20%" aria-required="true" hidden>
+                        <el-input v-model="form.style" autocomplete="off" style="width: 90%" clearable disabled hidden></el-input>
                     </el-form-item>
                     <el-form-item label="点击次数" label-width="20%" aria-required="true">
                         <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
@@ -126,6 +123,7 @@ export default {
             })
         },
         async findBySearch() {
+            this.params.style=this.user.username;
             await request.get("/songList/search", {
                 params: this.params
 
@@ -177,7 +175,9 @@ export default {
             this.findBySearch();
         },
         add() {
-            this.form = {};
+            this.form = {
+                style:this.user.username,
+            };
             this.dialogFormVisible = true;
         },
         edit(obj) {
@@ -270,7 +270,7 @@ export default {
     // 页面加载的时候做一些事情
     created() {
         // this.findBySearch();
-        this.findStyle();
+        // this.findStyle();
     },
     async mounted() {
         if(!localStorage.getItem("user")){

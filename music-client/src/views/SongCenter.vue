@@ -273,13 +273,17 @@ export default {
             })
         },
         findSinger() {
-            request.get("/singer").then(res => {
-                if (res.code === '0') {
-                    this.typeObjs = res.data;
-                } else {
-                    this.$message.error(res.msg)
-                }
-            })
+            // request.get("/singer").then(res => {
+            //     if (res.code === '0') {
+            //         this.typeObjs = res.data;
+            //     } else {
+            //         this.$message.error(res.msg)
+            //     }
+            // })
+            this.typeObjs=[{
+                name:this.user.username,
+                id:this.user.singerId
+            }]
         },
         reset() {
             this.params = {
@@ -298,7 +302,9 @@ export default {
             this.findBySearch();
         },
         add() {
-            this.form = {};
+            this.form = {
+                
+            };
             this.dialogFormVisible = true;
         },
         edit(obj) {
