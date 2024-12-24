@@ -174,9 +174,9 @@
                             style="width: 90%"></el-input>
                     </el-form-item>
 
-                    <el-form-item label="点击次数" label-width="20%" aria-required="true">
+                    <!-- <el-form-item label="点击次数" label-width="20%" aria-required="true">
                         <el-input v-model="form.clicks" autocomplete="off" style="width: 90%" clearable></el-input>
-                    </el-form-item>
+                    </el-form-item> -->
                 </el-form>
                 <div slot="footer" class="dialog-footer">
                     <el-button @click="dialogFormVisible = false">取 消</el-button>
