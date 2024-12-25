@@ -23,14 +23,14 @@
                 and mo.user_id like concat('%', #{ params.userId }, '%')
             </if>
             <if test="params != null and params.productId != null and params.productId != ''">
-                and mo.product_id like concat('%', #{ params.productId }, '%')
+                and mo.product_id like #{ params.productId }
             </if>
             <if test="params != null and params.status != null and params.status != ''">
                 and mo.status = #{ params.status }
             </if>
 
             <if test="params != null and params.orderId != null and params.orderId != ''">
-                and mo.id like #{ params.orderId }
+                and mo.id = #{ params.orderId }
             </if>
 
         </where>

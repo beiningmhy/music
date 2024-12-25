@@ -34,7 +34,7 @@
                 <el-table-column prop="style" label="曲风" width="150"></el-table-column>
                 <el-table-column prop="clicks" label="点击次数" width="100" sortable></el-table-column>
 
-                <el-table-column prop="createTime" label="创建时间" width="150">
+                <el-table-column prop="createTime" label="歌单内歌曲" width="150">
                     <template v-slot="scope">
                         <el-button type="text" icon="el-icon-search" @click="toSong(scope.row)">点击查看歌单内容</el-button>
                     </template>
