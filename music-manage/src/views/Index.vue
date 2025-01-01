@@ -18,7 +18,7 @@
 
         <div>
             <div style="height: 600px;width: 100%;display: flex;">
-                <div style="display: flex;height: 100%;width: 25%;flex-direction: column;">
+                <div  style="display: flex;height: 100%;width: 25%;flex-direction: column;">
                     <div style="height: 50%;width: 100%;flex: 1;" id="div1">
                         <!-- 系统用户性别统计 -->
                     </div>
