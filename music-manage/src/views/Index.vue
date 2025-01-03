@@ -1,20 +1,6 @@
 <template>
     <div style="overflow: auto;height: 85vh">
-        <div>
-            <!-- 这是首页
-            <span>欢迎用户{{ user.name }}</span> -->
-            <div>
-                <iframe width="100%" height="100%" class="embed-show"
-                    src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3Da2d2CbtYDFp8bw2nsF7opqWHbcxsmQSCi3786YKV42IyUROZ-wdjONTZG-eig99Ny_w%26name%3D%2F%25E6%2584%25BF%25E4%25B8%258E%25E6%2584%2581-%25E6%259E%2597%25E4%25BF%258A%25E6%259D%25B0.flac%26_etag%3D7f7f1%26size%3D22363583"
-                    allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true"
-                    mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>
-                <iframe width="100%" height="100%" class="embed-show"
-                    src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3D7172UJoYOBUe6hxpgNLf3MkpTArlBAukeRUid1egpcoz8eXOXV0fT_Mz4uH9GvXRQvc%26name%3D%2F%25E5%258F%25A5%25E5%258F%25B7-G.E.M.%25E9%2582%2593%25E7%25B4%25AB%25E6%25A3%258B.flac%26_etag%3D53aa2%26size%3D26775816"
-                    allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true"
-                    mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>
-            </div>
-
-        </div>
+        
 
         <div>
             <div style="height: 600px;width: 100%;display: flex;">
@@ -44,6 +30,21 @@
 
 
         </div>
+        <!-- <div> -->
+            <!-- 这是首页
+            <span>欢迎用户{{ user.name }}</span> -->
+            <!-- <div>
+                <iframe width="100%" height="100%" class="embed-show"
+                    src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3Da2d2CbtYDFp8bw2nsF7opqWHbcxsmQSCi3786YKV42IyUROZ-wdjONTZG-eig99Ny_w%26name%3D%2F%25E6%2584%25BF%25E4%25B8%258E%25E6%2584%2581-%25E6%259E%2597%25E4%25BF%258A%25E6%259D%25B0.flac%26_etag%3D7f7f1%26size%3D22363583"
+                    allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true"
+                    mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>
+                <iframe width="100%" height="100%" class="embed-show"
+                    src="http://127.0.0.1:1234/#fileView&path=http%3A%2F%2F127.0.0.1%3A1234%2F%3Fexplorer%2Fshare%2Ffile%26hash%3D7172UJoYOBUe6hxpgNLf3MkpTArlBAukeRUid1egpcoz8eXOXV0fT_Mz4uH9GvXRQvc%26name%3D%2F%25E5%258F%25A5%25E5%258F%25B7-G.E.M.%25E9%2582%2593%25E7%25B4%25AB%25E6%25A3%258B.flac%26_etag%3D53aa2%26size%3D26775816"
+                    allowtransparency="true" allowfullscreen="true" webkitallowfullscreen="true"
+                    mozallowfullscreen="true" frameborder="0" scrolling="no"></iframe>
+            </div>
+
+        </div> -->
         <!-- <div>
             <div style="display: flex;height: 40vh;">
                 <div style="flex: 1;">
