@@ -120,7 +120,9 @@
                                     <el-dropdown-item>
                                         <div @click="detailsMusic(scope.row)">Music</div>
                                     </el-dropdown-item>
-
+                                    <el-dropdown-item>
+                                        <div @click="detailsMusic2(scope.row)">Music2</div>
+                                    </el-dropdown-item>
                                 </el-dropdown-menu>
                             </el-dropdown>
                         </div>
@@ -258,8 +260,8 @@
                         <el-table-column prop="id" label="序号" fixed width="100" sortable></el-table-column>
                         <el-table-column prop="name" label="歌曲名" width="150"></el-table-column>
                         <el-table-column prop="singer" label="歌手" width="150"></el-table-column>
-                        <el-table-column prop="introduction" label="专辑" ></el-table-column>
-                        <el-table-column label="操作" width="80" >
+                        <el-table-column prop="introduction" label="专辑"></el-table-column>
+                        <el-table-column label="操作" width="80">
                             <template slot-scope="scope">
                                 <div>
                                     <el-button type="primary" @click="lrc2b(scope.row)">选择</el-button>
@@ -500,6 +502,11 @@ export default {
             // console.log(row);
 
             window.open('http://127.0.0.1:163/?name=' + row.name + '&type=netease', '_blank');
+        },
+        detailsMusic2(row) {
+            // console.log(row);
+
+            window.open('https://tool.liumingye.cn/music/#/search/M/song/' + row.singerName+row.name , '_blank');
         },
         delBatch() {
             console.log(this.multipleSelection);
@@ -763,22 +770,22 @@ export default {
             // console.log(item);
             this.selectSongDialog = false;
             axios.post('/lrc/?id=' + item.id + '&lv=1')
-                        .then(response => {
-                            // 处理响应数据
-                            if (response.status == 200) {
-                                // console.log(response.data);
-                                this.$message({
-                                    message: '歌词获取成功',
-                                    type: 'success'
-                                });
-                                this.lrcDialog = true;
-                                this.lrcText = response.data.lrc.lyric;
-                            }
-                        })
-                        .catch(error => {
-                            // 处理错误情况
-                            console.error('Error fetching data:', error);
+                .then(response => {
+                    // 处理响应数据
+                    if (response.status == 200) {
+                        // console.log(response.data);
+                        this.$message({
+                            message: '歌词获取成功',
+                            type: 'success'
                         });
+                        this.lrcDialog = true;
+                        this.lrcText = response.data.lrc.lyric;
+                    }
+                })
+                .catch(error => {
+                    // 处理错误情况
+                    console.error('Error fetching data:', error);
+                });
         },
 
 
