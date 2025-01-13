@@ -173,6 +173,7 @@
 
                         </el-upload>
                         <el-button type="warning" @click="dialogWeb = true" style="margin-top: 10px;">上传网络地址</el-button>
+                        <el-button type="warning" @click="form.url=null" style="margin-top: 10px;">填null</el-button>
                         <!-- <el-upload action="http://localhost:8080/api/files/upload" v-model="form.img">
 
                         </el-upload> -->
@@ -245,6 +246,14 @@
             </el-dialog>
 
             <el-dialog title="确认歌词" :visible.sync="lrcDialog" width="40%" top="1vh">
+                <div style="text-align: center;color: blueviolet;font-size: large;">
+                    歌曲ID：{{ selectSong.id }}<br>
+                    歌曲名：{{ selectSong.name }}<br>
+                    歌手：{{ selectSong.singer }}<br>
+                    专辑：{{ selectSong.introduction }}<br>
+
+                </div>
+                <hr>
                 <pre>{{ lrcText }}</pre>
 
                 <span slot="footer" class="dialog-footer">
@@ -506,7 +515,7 @@ export default {
         detailsMusic2(row) {
             // console.log(row);
 
-            window.open('https://tool.liumingye.cn/music/#/search/M/song/' + row.singerName+row.name , '_blank');
+            window.open('https://tool.liumingye.cn/music/#/search/M/song/' + row.singerName + row.name, '_blank');
         },
         delBatch() {
             console.log(this.multipleSelection);
@@ -679,15 +688,19 @@ export default {
 
             let name = form.name;
             let songid = 0;
+            let song = {};
+            let id = '';
             axios.post('/163id/?s=' + name + '&type=1&limit=50&offset=0')
                 .then(response => {
                     // 处理响应数据
-                    console.log(response.data.result.songs);
+                    //console.log(response.data.result.songs);
                     let songs = response.data.result.songs;
                     for (let i = 0; i < songs.length; i++) {
                         // console.log(songs[i].ar[0].name);
                         if (songs[i].ar[0].name == form.singerName && (songs[i].name.includes(form.name) || form.name.includes(songs[i].name))) {
-                            console.log(i);
+                            // console.log(i);
+                            id = i;
+                            song = songs[i];
                             songid = songs[i].id;
                             break;
                         }
@@ -695,15 +708,27 @@ export default {
                     if (songid == 0) {
                         for (let i = 0; i < songs.length; i++) {
                             if ((songs[i].ar[0].name.includes(form.singerName) || form.singerName.includes(songs[i].ar[0].name)) && (songs[i].name.includes(form.name) || form.name.includes(songs[i].name))) {
-                                console.log(i);
+                                // console.log(i);
+                                id = i;
+                                song = songs[i];
                                 songid = songs[i].id;
                                 break;
                             }
                         }
                     }
                     if (songid == 0) {
+                        id = 0;
+                        song = songs[i];
                         songid = songs[0].id;
                     }
+                    // console.log(song);
+                    // console.log(id);
+                    this.selectSong = {
+                        id: song.id,
+                        name: song.name,
+                        singer: song.ar[0].name,
+                        introduction: song.al.name
+                    };
                     axios.post('/lrc/?id=' + songid + '&lv=1')
                         .then(response => {
                             // 处理响应数据
@@ -832,6 +857,7 @@ export default {
             lrcText: '',
             songObjs: [],
             selectSongDialog: false,
+            selectSong: {},
         }
     },
     computed: {
