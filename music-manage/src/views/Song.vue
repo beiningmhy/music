@@ -173,7 +173,7 @@
 
                         </el-upload>
                         <el-button type="warning" @click="dialogWeb = true" style="margin-top: 10px;">上传网络地址</el-button>
-                        <el-button type="warning" @click="form.url=null" style="margin-top: 10px;">填null</el-button>
+                        <el-button type="warning" @click="form.url = null" style="margin-top: 10px;">填null</el-button>
                         <!-- <el-upload action="http://localhost:8080/api/files/upload" v-model="form.img">
 
                         </el-upload> -->
@@ -718,7 +718,7 @@ export default {
                     }
                     if (songid == 0) {
                         id = 0;
-                        song = songs[i];
+                        song = songs[0];
                         songid = songs[0].id;
                     }
                     // console.log(song);
@@ -792,6 +792,8 @@ export default {
                 });
         },
         lrc2b(item) {
+            
+            this.selectSong =item;
             // console.log(item);
             this.selectSongDialog = false;
             axios.post('/lrc/?id=' + item.id + '&lv=1')

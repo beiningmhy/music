@@ -40,6 +40,7 @@ public class RankListServiceImpl implements RankListService {
 //            throw new CustomException("已经对此歌单评分");
             rankList1.setScore(rankList.getScore());
             rankListMapper.updateByPrimaryKeySelective(rankList1);
+            return;
         }
 
         rankListMapper.insertSelective(rankList);

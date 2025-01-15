@@ -48,7 +48,7 @@
                 <div v-if="!isBuy"
                     style="position: absolute;bottom: -1px;right: 0;top: 0;left: 0;backdrop-filter: blur(10px);">
                     <div style="width: 300px;margin: 0 auto;margin-top:100px;">
-                        <span style="font-size: 50px;">请购买后查看</span>
+                        <span style="font-size: 50px; text-shadow: 2px 2px 2px #000;color: #fff;">请购买后查看</span>
                     </div>
                 </div>
             </div>
